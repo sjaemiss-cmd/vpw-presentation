@@ -597,6 +597,8 @@ html, body {
   padding: 0 24px;
   z-index: 100;
   flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .controls-left, .controls-center, .controls-right {
@@ -649,8 +651,9 @@ html, body {
   left: 0;
   height: 2px;
   background: var(--accent-green);
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, opacity 0.3s ease;
   z-index: 101;
+  opacity: 0;
 }
 
 /* ========== SCRIPT PANEL ========== */
@@ -823,6 +826,137 @@ html, body {
   padding: 2px 8px;
   border-radius: 4px;
 }
+
+/* Auto-hide controls: shown via .show-controls on .presentation */
+.presentation.show-controls .controls-bar,
+.presentation.show-controls .progress-bar {
+  opacity: 1;
+}
+
+/* ========== SLIDE ANIMATIONS ========== */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* When a slide becomes active, animate its children */
+.slide.active .s-label {
+  animation: slideUp 0.5s ease both;
+}
+
+.slide.active .s-title {
+  animation: slideUp 0.6s ease 0.1s both;
+}
+
+.slide.active .s-subtitle {
+  animation: slideUp 0.6s ease 0.2s both;
+}
+
+.slide.active .s-card {
+  animation: slideUp 0.5s ease both;
+}
+
+.slide.active .s-card:nth-child(1) { animation-delay: 0.15s; }
+.slide.active .s-card:nth-child(2) { animation-delay: 0.25s; }
+.slide.active .s-card:nth-child(3) { animation-delay: 0.35s; }
+.slide.active .s-card:nth-child(4) { animation-delay: 0.45s; }
+
+.slide.active .s-grid-2,
+.slide.active .s-grid-3 {
+  animation: fadeIn 0.6s ease 0.2s both;
+}
+
+.slide.active .s-quote {
+  animation: slideUp 0.6s ease 0.3s both;
+}
+
+.slide.active .s-flow {
+  animation: fadeIn 0.5s ease 0.2s both;
+}
+
+.slide.active .s-flow-step {
+  animation: slideUp 0.4s ease both;
+}
+
+.slide.active .s-flow-step:nth-child(1) { animation-delay: 0.2s; }
+.slide.active .s-flow-step:nth-child(2) { animation-delay: 0.3s; }
+.slide.active .s-flow-step:nth-child(3) { animation-delay: 0.4s; }
+.slide.active .s-flow-step:nth-child(4) { animation-delay: 0.5s; }
+.slide.active .s-flow-step:nth-child(5) { animation-delay: 0.6s; }
+
+.slide.active .s-table,
+.slide.active .s-rundown {
+  animation: slideUp 0.6s ease 0.2s both;
+}
+
+.slide.active .s-timeline {
+  animation: fadeIn 0.7s ease 0.2s both;
+}
+
+/* Title slide specific */
+.slide.title-slide.active .terminal-badge {
+  animation: slideUp 0.5s ease 0.1s both;
+}
+
+.slide.title-slide.active .big-title {
+  animation: slideUp 0.6s ease 0.2s both;
+}
+
+.slide.title-slide.active .big-title-en {
+  animation: fadeIn 0.5s ease 0.4s both;
+}
+
+/* Floating effect for key elements - continuous subtle movement */
+.slide.active .s-quote {
+  animation: slideUp 0.6s ease 0.3s both, float 4s ease-in-out 1s infinite;
+}
+
+.slide.title-slide.active .terminal-badge {
+  animation: slideUp 0.5s ease 0.1s both, float 3s ease-in-out 1s infinite;
+}
+
+/* End slide animations */
+.slide.end-slide.active .end-title {
+  animation: slideUp 0.7s ease 0.1s both;
+}
+
+.slide.end-slide.active .end-sub {
+  animation: fadeIn 0.5s ease 0.5s both;
+}
+
+.slide.end-slide.active .end-info {
+  animation: slideUp 0.6s ease 0.7s both;
+}
+
+/* Positioning map animation */
+.slide.active .pos-map {
+  animation: fadeIn 0.6s ease 0.2s both;
+}
 </style>
 </head>
 <body>
@@ -839,6 +973,10 @@ html, body {
       <p style="font-family:var(--font-mono); font-size:clamp(12px,1.6vmin,18px); color:var(--text-secondary); margin-bottom:32px;">
         &mdash; 1977년, DEC 회장 <span style="color:var(--accent-yellow);">Ken Olsen</span>
       </p>
+      <div style="margin: 16px 0; display:flex; align-items:center; justify-content:center; gap:16px;">
+        <img src="images/ken_olsen.png" alt="Ken Olsen" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--border); opacity:0.8;">
+        <span style="font-family:var(--font-mono); font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary);">Ken Olsen, DEC 회장 (1977)</span>
+      </div>
       <p style="font-size:clamp(14px,2vmin,22px); color:var(--accent-green); font-weight:700;">
         4년 뒤, IBM PC가 세상을 바꿨습니다.
       </p>
@@ -851,45 +989,216 @@ html, body {
     </div>
 
     <!-- ==================== SLIDE 2: "반복되는 패턴" ==================== -->
-    <div class="slide" data-slide="2" style="background: linear-gradient(rgba(13,17,23,0.85), rgba(13,17,23,0.85)), url('images/slide2_timeline.png') center/cover;">
+    <style>
+      /* ---- Slide 2: image-pair animations ---- */
+      .s2-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: clamp(14px, 2vmin, 28px);
+        flex: 1;
+        align-content: center;
+      }
+
+      .s2-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(6px, 1vmin, 12px);
+      }
+
+      .s2-col .col-label {
+        font-family: var(--font-mono);
+        font-size: clamp(9px, 1.1vmin, 13px);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+      .s2-col.photo .col-label  { color: var(--accent-green); }
+      .s2-col.music .col-label  { color: var(--accent-yellow); }
+      .s2-col.video .col-label  { color: var(--accent-blue); }
+
+      /* image pair wrapper */
+      .s2-pair {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(4px, 0.6vmin, 10px);
+      }
+
+      .s2-img-wrap {
+        position: relative;
+        flex: 1;
+        max-width: 48%;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+      }
+
+      .s2-img-wrap img {
+        display: block;
+        width: 100%;
+        height: clamp(90px, 14vmin, 180px);
+        object-fit: cover;
+      }
+
+      /* year overlay badge */
+      .s2-year {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: clamp(3px, 0.5vmin, 6px) 0;
+        text-align: center;
+        font-family: var(--font-mono);
+        font-size: clamp(10px, 1.2vmin, 15px);
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      }
+
+      /* arrow between before and after */
+      .s2-arrow {
+        font-size: clamp(16px, 2.4vmin, 28px);
+        color: var(--text-secondary);
+        flex-shrink: 0;
+        line-height: 1;
+        opacity: 0;
+      }
+
+      /* caption */
+      .s2-caption {
+        font-size: clamp(11px, 1.3vmin, 15px);
+        color: var(--text-secondary);
+        text-align: center;
+        line-height: 1.5;
+      }
+
+      /* ---- Initial hidden states (before slide is active) ---- */
+      .s2-img-wrap.after {
+        opacity: 0;
+        transform: translateX(-12px);
+      }
+      .s2-arrow {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      /* ---- Animations when slide becomes active ---- */
+      .slide[data-slide="2"].active .s2-img-wrap.before {
+        animation: s2FadeIn 0.6s ease-out both;
+      }
+
+      .slide[data-slide="2"].active .s2-arrow {
+        animation: s2ArrowPop 0.4s ease-out 1.0s both;
+      }
+
+      .slide[data-slide="2"].active .s2-img-wrap.after {
+        animation: s2SlideIn 0.7s ease-out 1.4s both;
+      }
+
+      /* stagger columns */
+      .slide[data-slide="2"].active .s2-col:nth-child(1) .s2-img-wrap.before { animation-delay: 0.15s; }
+      .slide[data-slide="2"].active .s2-col:nth-child(2) .s2-img-wrap.before { animation-delay: 0.35s; }
+      .slide[data-slide="2"].active .s2-col:nth-child(3) .s2-img-wrap.before { animation-delay: 0.55s; }
+
+      .slide[data-slide="2"].active .s2-col:nth-child(1) .s2-arrow { animation-delay: 1.0s; }
+      .slide[data-slide="2"].active .s2-col:nth-child(2) .s2-arrow { animation-delay: 1.2s; }
+      .slide[data-slide="2"].active .s2-col:nth-child(3) .s2-arrow { animation-delay: 1.4s; }
+
+      .slide[data-slide="2"].active .s2-col:nth-child(1) .s2-img-wrap.after { animation-delay: 1.4s; }
+      .slide[data-slide="2"].active .s2-col:nth-child(2) .s2-img-wrap.after { animation-delay: 1.6s; }
+      .slide[data-slide="2"].active .s2-col:nth-child(3) .s2-img-wrap.after { animation-delay: 1.8s; }
+
+      .slide[data-slide="2"].active .s2-caption {
+        animation: s2FadeIn 0.5s ease-out 2.2s both;
+      }
+      .s2-caption { opacity: 0; }
+
+      /* accent glow on hover */
+      .s2-col.photo .s2-img-wrap:hover { border-color: var(--accent-green); box-shadow: 0 0 12px rgba(57,211,83,0.2); }
+      .s2-col.music .s2-img-wrap:hover { border-color: var(--accent-yellow); box-shadow: 0 0 12px rgba(240,192,0,0.2); }
+      .s2-col.video .s2-img-wrap:hover { border-color: var(--accent-blue); box-shadow: 0 0 12px rgba(88,166,255,0.2); }
+      .s2-img-wrap { transition: border-color 0.25s, box-shadow 0.25s; }
+
+      /* keyframes */
+      @keyframes s2FadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes s2SlideIn {
+        from { opacity: 0; transform: translateX(-12px); }
+        to   { opacity: 1; transform: translateX(0); }
+      }
+
+      @keyframes s2ArrowPop {
+        from { opacity: 0; transform: scale(0.5); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+    </style>
+
+    <div class="slide" data-slide="2" style="background: var(--bg-primary);">
       <div class="deco-line"></div>
       <p class="s-label">Pattern</p>
-      <h2 class="s-title mb-md">반복되는 패턴 <span class="en">The Recurring Pattern</span></h2>
-      <div class="s-grid-3" style="flex:1; align-content:center;">
-        <div class="s-card green" style="padding:clamp(16px,2.5vmin,32px);">
-          <div class="card-label">PHOTOGRAPHY</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">사진</div>
-          <div class="card-body">
-            <strong>1839년</strong> 사진 한 장에 한 달 월급<br><br>
-            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
-            <strong>1900년</strong> 코닥 브라우니 <span class="highlight">1달러</span><br><br>
-            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
-            <strong>2010년</strong> 인스타그램
+      <h2 class="s-title" style="margin-bottom: clamp(8px,1.2vmin,16px);">반복되는 패턴 <span class="en">The Recurring Pattern</span></h2>
+      <p class="s-subtitle" style="margin-bottom: clamp(10px,1.5vmin,20px);">산업재가 소비재로 &mdash; 기술 민주화의 세 장면</p>
+
+      <div class="s2-columns">
+        <!-- Column 1: Photography -->
+        <div class="s2-col photo">
+          <span class="col-label">Photography &middot; 사진</span>
+          <div class="s2-pair">
+            <div class="s2-img-wrap before">
+              <img src="images/photo_before.png" alt="1839년 다게레오타입 사진 촬영">
+              <span class="s2-year">1839</span>
+            </div>
+            <span class="s2-arrow">&rarr;</span>
+            <div class="s2-img-wrap after">
+              <img src="images/photo_after.png" alt="2010년 스마트폰 사진">
+              <span class="s2-year">2010</span>
+            </div>
           </div>
+          <p class="s2-caption">사진 한 장에 한 달 월급 &rarr; <span class="highlight">누구나 사진작가</span></p>
         </div>
-        <div class="s-card yellow" style="padding:clamp(16px,2.5vmin,32px);">
-          <div class="card-label" style="color:var(--accent-yellow);">MUSIC</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">음악</div>
-          <div class="card-body">
-            <strong>1980년대</strong> 녹음실 시간당 5만원<br><br>
-            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
-            <strong>2004년</strong> 개러지밴드 <span class="highlight">무료</span><br><br>
-            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
-            누구나 음악 제작
+
+        <!-- Column 2: Music -->
+        <div class="s2-col music">
+          <span class="col-label">Music &middot; 음악</span>
+          <div class="s2-pair">
+            <div class="s2-img-wrap before">
+              <img src="images/music_before.png" alt="1980년대 녹음 스튜디오">
+              <span class="s2-year">1980s</span>
+            </div>
+            <span class="s2-arrow">&rarr;</span>
+            <div class="s2-img-wrap after">
+              <img src="images/music_after.png" alt="2004년 침실 프로듀서">
+              <span class="s2-year">2004</span>
+            </div>
           </div>
+          <p class="s2-caption">녹음실 시간당 5만원 &rarr; <span class="highlight-yellow">개러지밴드 무료</span></p>
         </div>
-        <div class="s-card blue" style="padding:clamp(16px,2.5vmin,32px);">
-          <div class="card-label" style="color:var(--accent-blue);">VIDEO</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">영상</div>
-          <div class="card-body">
-            <strong>~2004년</strong> 방송국 독점<br><br>
-            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
-            <strong>2005년</strong> 유튜브 <span class="highlight">탄생</span><br><br>
-            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
-            지금 여러분이 이 수업에
+
+        <!-- Column 3: Video -->
+        <div class="s2-col video">
+          <span class="col-label">Video &middot; 영상</span>
+          <div class="s2-pair">
+            <div class="s2-img-wrap before">
+              <img src="images/video_before.png" alt="2000년대 이전 TV 방송국">
+              <span class="s2-year">~2000</span>
+            </div>
+            <span class="s2-arrow">&rarr;</span>
+            <div class="s2-img-wrap after">
+              <img src="images/video_after.png" alt="2005년 유튜브 크리에이터">
+              <span class="s2-year">2005</span>
+            </div>
           </div>
+          <p class="s2-caption">방송국 독점 &rarr; <span class="highlight-blue">유튜브 탄생</span></p>
         </div>
       </div>
+
       <div class="s-quote mt-sm" style="font-size:clamp(13px,1.8vmin,20px);">
         산업재가 소비재가 되는 패턴. <span class="highlight">2025년, 코딩에도 같은 일이 일어나고 있습니다.</span>
       </div>
@@ -911,6 +1220,13 @@ html, body {
           <p style="font-family:var(--font-mono); font-size:clamp(11px,1.3vmin,15px); color:var(--text-secondary); margin-top:12px; text-align:right;">
             &mdash; <span style="color:var(--accent-yellow);">Andrej Karpathy</span>, 2025년 2월 2일
           </p>
+          <div style="margin: 12px 0; display:flex; align-items:center; gap:16px;">
+            <img src="images/karpathy.png" alt="Andrej Karpathy" style="width:70px; height:70px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-green); opacity:0.85;">
+            <div>
+              <div style="font-size:clamp(11px,1.4vmin,16px); font-weight:700;">Andrej Karpathy</div>
+              <div style="font-family:var(--font-mono); font-size:clamp(9px,1vmin,12px); color:var(--text-secondary);">Tesla AI Director, OpenAI Co-founder</div>
+            </div>
+          </div>
         </div>
         <div style="display:flex; flex-direction:column; gap:clamp(12px,2vmin,24px);">
           <div class="s-card green" style="padding:clamp(16px,2.5vmin,32px);">
@@ -1002,18 +1318,19 @@ html, body {
 
     <!-- ==================== SLIDE 6: "쓸데없는앱연구소" (Channel Reveal) ==================== -->
     <div class="slide title-slide" data-slide="6">
-      <div class="deco-line"></div>
-      <div class="terminal-badge">$_ useless-app-lab</div>
-      <h1 class="big-title">쓸데없는앱연구소</h1>
-      <p class="big-title-en">Useless App Lab</p>
-      <div class="s-quote" style="max-width:700px; font-size:clamp(13px,1.8vmin,22px); padding:clamp(16px,2.5vmin,32px); margin-bottom:32px;">
+      <canvas id="matrixCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+      <div class="deco-line" style="position:relative;z-index:1;"></div>
+      <div class="terminal-badge" style="position:relative;z-index:1;">$_ useless-app-lab</div>
+      <h1 class="big-title" style="position:relative;z-index:1;">쓸데없는앱연구소</h1>
+      <p class="big-title-en" style="position:relative;z-index:1;">Useless App Lab</p>
+      <div class="s-quote" style="max-width:700px; font-size:clamp(13px,1.8vmin,22px); padding:clamp(16px,2.5vmin,32px); margin-bottom:32px; position:relative;z-index:1;">
         &ldquo;코딩을 모르는 대학생이 AI에게 말로만 시켜서<br>세상에서 가장 <em style="font-style:normal; color:var(--accent-yellow);">쓸데없는</em> 앱을 만들어본다&rdquo;
       </div>
-      <div class="meta">
+      <div class="meta" style="position:relative;z-index:1;">
         <div>기술은 <span class="hl">진지하게</span>, 결과물은 철저하게 <span class="hl">쓸데없게</span></div>
         <div style="margin-top:8px;">컨셉: <span style="color:var(--accent-yellow);">&ldquo;기술의 민주화를 유머로 증명한다&rdquo;</span></div>
       </div>
-      <span class="slide-num">6 / 14</span>
+      <span class="slide-num" style="position:relative;z-index:1;">6 / 14</span>
     </div>
 
     <!-- ==================== SLIDE 7: "이게 왜 되냐면" ==================== -->
@@ -1035,23 +1352,23 @@ html, body {
             <div style="position:absolute; top:50%; left:16%; right:16%; height:1px; background:var(--border);"></div>
             <div style="position:absolute; left:50%; top:16%; bottom:16%; width:1px; background:var(--border);"></div>
             <!-- Channels plotted -->
-            <div style="position:absolute; top:28%; left:30%; text-align:center;">
+            <div style="position:absolute; top:25%; right:24%; text-align:center;">
               <span class="s-tag blue" style="font-size:clamp(7px,0.8vmin,10px);">노마드코더</span>
             </div>
-            <div style="position:absolute; top:28%; right:22%; text-align:center;">
+            <div style="position:absolute; top:32%; left:32%; text-align:center;">
               <span class="s-tag blue" style="font-size:clamp(7px,0.8vmin,10px);">코딩애플</span>
             </div>
-            <div style="position:absolute; bottom:28%; left:30%; text-align:center;">
+            <div style="position:absolute; bottom:26%; left:24%; text-align:center;">
               <span class="s-tag yellow" style="font-size:clamp(7px,0.8vmin,10px);">긱블</span>
             </div>
-            <div style="position:absolute; bottom:32%; left:22%; text-align:center;">
+            <div style="position:absolute; bottom:30%; left:42%; text-align:center;">
               <span class="s-tag pink" style="font-size:clamp(7px,0.8vmin,10px);">침착맨</span>
             </div>
-            <div style="position:absolute; bottom:38%; left:36%; text-align:center;">
+            <div style="position:absolute; bottom:20%; left:42%; text-align:center;">
               <span class="s-tag pink" style="font-size:clamp(7px,0.8vmin,10px);">피식대학</span>
             </div>
             <!-- Our channel - glowing in the empty quadrant (Software x Entertainment = bottom right) -->
-            <div style="position:absolute; bottom:24%; right:22%; text-align:center;">
+            <div style="position:absolute; bottom:26%; right:20%; text-align:center;">
               <span style="display:inline-block; font-family:var(--font-mono); font-size:clamp(8px,1vmin,12px); padding:4px 12px; border-radius:20px; background:rgba(57,211,83,0.25); color:var(--accent-green); font-weight:700; border:1px solid var(--accent-green); box-shadow:0 0 12px rgba(57,211,83,0.3);">쓸데없는앱연구소</span>
             </div>
             <!-- Empty quadrant highlight -->
@@ -1195,41 +1512,41 @@ html, body {
       <div class="deco-line"></div>
       <p class="s-label">Revenue</p>
       <h2 class="s-title mb-md">수익 구조 <span class="en">Revenue Model</span></h2>
-      <div class="s-grid-3" style="flex:1; align-content:center;">
-        <div>
-          <p class="s-tag green mb-sm" style="display:block; text-align:center;">단기 (1~6개월)</p>
-          <div class="s-card green mb-sm" style="padding:clamp(12px,1.8vmin,22px);">
+      <div class="s-grid-3" style="flex:1; align-items:stretch;">
+        <div style="display:flex; flex-direction:column; gap:clamp(6px,1vmin,12px);">
+          <p class="s-tag green mb-sm" style="display:block; text-align:center; flex:none;">단기 (1~6개월)</p>
+          <div class="s-card green" style="padding:clamp(12px,1.8vmin,22px); flex:1;">
             <div class="card-label">ADVERTISING</div>
             <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">유튜브 광고 수익</div>
             <div class="card-body">IT/테크 카테고리 CPM<br><strong style="color:var(--accent-green);">$20~$40</strong> (일반 대비 2~4배)</div>
           </div>
-          <div class="s-card green" style="padding:clamp(12px,1.8vmin,22px);">
+          <div class="s-card green" style="padding:clamp(12px,1.8vmin,22px); flex:1;">
             <div class="card-label">SHORTS</div>
             <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">쇼츠 광고 수익</div>
             <div class="card-body">직접 수익 + 유입 엔진</div>
           </div>
         </div>
-        <div>
-          <p class="s-tag yellow mb-sm" style="display:block; text-align:center;">중기 (6~12개월)</p>
-          <div class="s-card yellow mb-sm" style="padding:clamp(12px,1.8vmin,22px);">
+        <div style="display:flex; flex-direction:column; gap:clamp(6px,1vmin,12px);">
+          <p class="s-tag yellow mb-sm" style="display:block; text-align:center; flex:none;">중기 (6~12개월)</p>
+          <div class="s-card yellow" style="padding:clamp(12px,1.8vmin,22px); flex:1;">
             <div class="card-label" style="color:var(--accent-yellow);">AFFILIATE</div>
             <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">제휴 마케팅 / PPL</div>
             <div class="card-body">AI 도구 기업 스폰서<br>&ldquo;이번 하찮은 앱은 이 도구 후원으로&rdquo;<br><strong>포맷에 자연 통합</strong></div>
           </div>
-          <div class="s-card yellow" style="padding:clamp(12px,1.8vmin,22px);">
+          <div class="s-card yellow" style="padding:clamp(12px,1.8vmin,22px); flex:1;">
             <div class="card-label" style="color:var(--accent-yellow);">LIVE</div>
             <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">슈퍼챗</div>
             <div class="card-body">라이브 바이브코딩<br>실시간 시청자 문제 해결</div>
           </div>
         </div>
-        <div>
-          <p class="s-tag pink mb-sm" style="display:block; text-align:center;">장기 (12개월~)</p>
-          <div class="s-card pink mb-sm" style="padding:clamp(12px,1.8vmin,22px);">
+        <div style="display:flex; flex-direction:column; gap:clamp(6px,1vmin,12px);">
+          <p class="s-tag pink mb-sm" style="display:block; text-align:center; flex:none;">장기 (12개월~)</p>
+          <div class="s-card pink" style="padding:clamp(12px,1.8vmin,22px); flex:1;">
             <div class="card-label" style="color:var(--accent-pink);">MEMBERSHIP</div>
             <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">유료 멤버십</div>
             <div class="card-body">소스코드 공개, 비하인드<br>멤버 전용 &ldquo;하찮은 문제 우선권&rdquo;</div>
           </div>
-          <div class="s-card pink" style="padding:clamp(12px,1.8vmin,22px);">
+          <div class="s-card pink" style="padding:clamp(12px,1.8vmin,22px); flex:1;">
             <div class="card-label" style="color:var(--accent-pink);">COURSE</div>
             <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">바이브코딩 입문 강좌</div>
             <div class="card-body">기업 워크샵 컨설팅</div>
@@ -1933,6 +2250,86 @@ document.addEventListener('keydown', function(e) {
     _origGoToSlide(n);
     syncSlide(currentSlide);
   };
+
+  // ===== AUTO-HIDE CONTROLS BAR =====
+  (function() {
+    var pres = document.querySelector('.presentation');
+    var controlsBar = document.querySelector('.controls-bar');
+    var hideTimer = null;
+
+    function showControls() {
+      pres.classList.add('show-controls');
+      clearTimeout(hideTimer);
+    }
+
+    function scheduleHide() {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function() {
+        pres.classList.remove('show-controls');
+      }, 2000);
+    }
+
+    document.addEventListener('mousemove', function(e) {
+      var bottomZone = window.innerHeight - 100;
+      if (e.clientY >= bottomZone) {
+        showControls();
+      } else {
+        // Mouse left the bottom zone; schedule hide
+        if (pres.classList.contains('show-controls')) {
+          scheduleHide();
+        }
+      }
+    });
+
+    // Keep controls visible while hovering directly over the bar
+    controlsBar.addEventListener('mouseenter', function() {
+      showControls();
+    });
+    controlsBar.addEventListener('mouseleave', function() {
+      scheduleHide();
+    });
+  })();
+
+  // === Matrix rain effect for slide 6 ===
+  (function initMatrixRain() {
+    var canvas = document.getElementById('matrixCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var slide6 = canvas.parentElement;
+    var cols, drops;
+    var fontSize = 14;
+    var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789{}[]<>/=;:+-*&%$#@!';
+
+    function resize() {
+      canvas.width = slide6.offsetWidth;
+      canvas.height = slide6.offsetHeight;
+      cols = Math.floor(canvas.width / fontSize);
+      drops = new Array(cols).fill(1);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+      if (!slide6.classList.contains('active')) {
+        requestAnimationFrame(draw);
+        return;
+      }
+      ctx.fillStyle = 'rgba(13, 17, 23, 0.15)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(57, 211, 83, 0.18)';
+      ctx.font = fontSize + 'px monospace';
+      for (var i = 0; i < cols; i++) {
+        var ch = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
 
   // Init
   updateScript();

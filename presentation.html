@@ -81,89 +81,6 @@ html, body {
   justify-content: center;
 }
 
-/* Auto-fill slides: spread content vertically */
-.slide.auto-fill.active {
-  justify-content: flex-start;
-  padding-top: clamp(20px, 3vmin, 36px);
-  padding-bottom: clamp(20px, 3vmin, 36px);
-}
-
-.slide.auto-fill .s-grid-2,
-.slide.auto-fill .s-grid-3,
-.slide.auto-fill .s-grid-4 {
-  flex: 1;
-  align-content: stretch;
-}
-
-.slide.auto-fill .s-grid-2 {
-  align-items: stretch;
-}
-
-.slide.auto-fill .s-grid-2 > div {
-  display: flex;
-  flex-direction: column;
-}
-
-.slide.auto-fill .s-grid-3 {
-  align-items: stretch;
-}
-
-.slide.auto-fill .s-grid-3 > .s-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.slide.auto-fill .s-grid-3 > .s-card > .card-body {
-  flex: 1;
-}
-
-.slide.auto-fill .s-flow {
-  flex: 0 0 auto;
-}
-
-.slide.auto-fill .s-quote {
-  flex-shrink: 0;
-}
-
-/* Slides 3 & 4: left column spreads content evenly */
-.slide.auto-fill .s-grid-2 > div:first-child {
-  justify-content: space-between;
-}
-
-/* Make the last s-card or s-quote in left column grow if needed */
-.slide.auto-fill .s-grid-2 > div .s-quote {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Right column cards in 2-col: spread evenly */
-.slide.auto-fill .s-grid-2 > div:last-child {
-  justify-content: space-between;
-}
-
-/* Slide 6 & 7: make content expand */
-.slide.auto-fill .s-flow + .s-quote,
-.slide.auto-fill .s-grid-3 + .s-quote {
-  margin-top: auto;
-}
-
-/* Slide 9: bottom grid grows */
-.slide.auto-fill .s-flow + .s-grid-2 {
-  flex: 1;
-  align-items: stretch;
-}
-
-.slide.auto-fill .s-flow + .s-grid-2 > .s-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.slide.auto-fill .s-flow + .s-grid-2 > .s-card > .card-body {
-  flex: 1;
-}
-
 /* ========== SLIDE TYPOGRAPHY ========== */
 .slide .s-label {
   font-family: var(--font-mono);
@@ -913,70 +830,98 @@ html, body {
 <div class="presentation">
   <div class="slide-viewport">
 
-    <!-- ==================== SLIDE 1: TITLE ==================== -->
-    <div class="slide title-slide active" data-slide="1">
+    <!-- ==================== SLIDE 1: "말도 안 되는 소리" ==================== -->
+    <div class="slide title-slide active" data-slide="1" style="background: linear-gradient(rgba(13,17,23,0.85), rgba(13,17,23,0.85)), url('images/slide1_1975.png') center/cover;">
       <div class="deco-line"></div>
-      <div class="terminal-badge">$_ useless-app-lab</div>
-      <h1 class="big-title">쓸데없는앱연구소</h1>
-      <p class="big-title-en">Useless App Lab</p>
-      <p class="slogan">세상에서 가장 <em>하찮은</em> 문제를, 가장 <em>진지하게</em> 해결합니다</p>
-      <div class="meta">
+      <div style="font-size:clamp(28px,5.5vmin,64px); font-weight:900; line-height:1.3; margin-bottom:16px; color:var(--text-primary);">
+        &ldquo;컴퓨터를 누가 집에<br>각자 두고 쓰냐?&rdquo;
+      </div>
+      <p style="font-family:var(--font-mono); font-size:clamp(12px,1.6vmin,18px); color:var(--text-secondary); margin-bottom:32px;">
+        &mdash; 1977년, DEC 회장 <span style="color:var(--accent-yellow);">Ken Olsen</span>
+      </p>
+      <p style="font-size:clamp(14px,2vmin,22px); color:var(--accent-green); font-weight:700;">
+        4년 뒤, IBM PC가 세상을 바꿨습니다.
+      </p>
+      <div class="meta" style="margin-top:48px;">
         <div>세종대학교 미디어커뮤니케이션학과</div>
         <div>영상제작워크샵(ft. 1인미디어종합설계) &mdash; 2026년 1학기</div>
-        <div style="margin-top:8px;"><span class="hl">홍재영 (JAY)</span> &bull; 2026년 3월</div>
+        <div style="margin-top:8px;"><span class="hl">홍재영 (JAY)</span></div>
       </div>
       <span class="slide-num">1 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 2: CHANNEL PLAN ==================== -->
-    <div class="slide" data-slide="2">
+    <!-- ==================== SLIDE 2: "반복되는 패턴" ==================== -->
+    <div class="slide" data-slide="2" style="background: linear-gradient(rgba(13,17,23,0.85), rgba(13,17,23,0.85)), url('images/slide2_timeline.png') center/cover;">
       <div class="deco-line"></div>
-      <p class="s-label">Section 01</p>
-      <h2 class="s-title mb-sm">채널 기획안 <span class="en">Channel Plan</span></h2>
-      <table class="s-table">
-        <tbody>
-          <tr><td>채널명</td><td><strong>쓸데없는앱연구소</strong> (Useless App Lab)</td></tr>
-          <tr><td>채널 분야</td><td>IT/테크 &times; 예능/코미디 (정보공유 + 오리지널의 교차 영역)</td></tr>
-          <tr><td>문화원형</td><td><strong>Jester(광대) &times; Creator(창조자)</strong></td></tr>
-          <tr><td>업로드 주기</td><td>4주차부터 제작 시작, 파일럿 2편 &rarr; 본편 2편 &rarr; 결산형 1편 (총 30분+)</td></tr>
-          <tr><td>타겟</td><td>AI/코딩 호기심 일반인 &bull; 개발 트렌드 관심 2030 &bull; <span class="highlight-yellow">Generation C</span></td></tr>
-          <tr><td>제작방법</td><td>스마트폰 + OBS 화면녹화 &bull; Premiere Pro/CapCut &bull; Claude Code(바이브코딩)</td></tr>
-          <tr><td>로그라인</td><td class="highlight">"코딩을 모르는 대학생이 AI에게 말로만 시켜서 세상에서 가장 쓸데없는 앱을 만들어본다"</td></tr>
-        </tbody>
-      </table>
+      <p class="s-label">Pattern</p>
+      <h2 class="s-title mb-md">반복되는 패턴 <span class="en">The Recurring Pattern</span></h2>
+      <div class="s-grid-3" style="flex:1; align-content:center;">
+        <div class="s-card green" style="padding:clamp(16px,2.5vmin,32px);">
+          <div class="card-label">PHOTOGRAPHY</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">사진</div>
+          <div class="card-body">
+            <strong>1839년</strong> 사진 한 장에 한 달 월급<br><br>
+            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
+            <strong>1900년</strong> 코닥 브라우니 <span class="highlight">1달러</span><br><br>
+            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
+            <strong>2010년</strong> 인스타그램
+          </div>
+        </div>
+        <div class="s-card yellow" style="padding:clamp(16px,2.5vmin,32px);">
+          <div class="card-label" style="color:var(--accent-yellow);">MUSIC</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">음악</div>
+          <div class="card-body">
+            <strong>1980년대</strong> 녹음실 시간당 5만원<br><br>
+            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
+            <strong>2004년</strong> 개러지밴드 <span class="highlight">무료</span><br><br>
+            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
+            누구나 음악 제작
+          </div>
+        </div>
+        <div class="s-card blue" style="padding:clamp(16px,2.5vmin,32px);">
+          <div class="card-label" style="color:var(--accent-blue);">VIDEO</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">영상</div>
+          <div class="card-body">
+            <strong>~2004년</strong> 방송국 독점<br><br>
+            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
+            <strong>2005년</strong> 유튜브 <span class="highlight">탄생</span><br><br>
+            <span style="color:var(--accent-yellow);">&darr;</span><br><br>
+            지금 여러분이 이 수업에
+          </div>
+        </div>
+      </div>
+      <div class="s-quote mt-sm" style="font-size:clamp(13px,1.8vmin,20px);">
+        산업재가 소비재가 되는 패턴. <span class="highlight">2025년, 코딩에도 같은 일이 일어나고 있습니다.</span>
+      </div>
       <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">2 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 3: CONCEPT - BACKGROUND ==================== -->
-    <div class="slide auto-fill" data-slide="3">
+    <!-- ==================== SLIDE 3: "Vibe Coding" ==================== -->
+    <div class="slide" data-slide="3" style="background: linear-gradient(rgba(13,17,23,0.85), rgba(13,17,23,0.85)), url('images/slide3_vibecoding.png') center/cover;">
       <div class="deco-line"></div>
-      <p class="s-label">Section 02</p>
-      <h2 class="s-title mb-sm">기획의도: 시대적 배경 <span class="en">Context &amp; Intention</span></h2>
-      <div class="s-grid-2">
+      <p class="s-label">2025.02.02</p>
+      <h2 class="s-title mb-md">Vibe Coding <span class="en">The New Programming</span></h2>
+      <div class="s-grid-2" style="gap:clamp(16px,3vmin,32px); align-items:center; flex:1;">
         <div>
-          <p class="s-body mb-md">
-            2022년 ChatGPT를 기점으로 LLM이 폭발적으로 발전하면서, 개발 도구가 <strong>산업재</strong>에서 <strong>소비재</strong>로 전환되고 있습니다.
-          </p>
-          <p class="s-body mb-md">
-            Andrej Karpathy가 2025년 명명한 <strong class="highlight">'바이브코딩(Vibe Coding)'</strong>은 이 전환의 상징 &mdash; 비전문가도 자연어 지시만으로 실제 작동하는 소프트웨어를 만들 수 있는 시대.
-          </p>
-          <div class="s-quote" style="text-align:left; font-size:clamp(12px,1.6vmin,18px);">
-            &gt; "산업재였던 개발이, 소비재가 된 시대<br>&nbsp;&nbsp;&nbsp;누구나 말로 만든다"
+          <div class="s-quote" style="text-align:left; font-size:clamp(14px,2vmin,24px); padding:clamp(20px,3vmin,40px);">
+            &ldquo;There&rsquo;s a new kind of coding I call <span class="highlight">&lsquo;vibe coding&rsquo;</span>&hellip;<br>
+            It&rsquo;s not really coding &mdash; I just see stuff, say stuff, run stuff, and copy-paste stuff, and it mostly works.&rdquo;
           </div>
+          <p style="font-family:var(--font-mono); font-size:clamp(11px,1.3vmin,15px); color:var(--text-secondary); margin-top:12px; text-align:right;">
+            &mdash; <span style="color:var(--accent-yellow);">Andrej Karpathy</span>, 2025년 2월 2일
+          </p>
         </div>
-        <div>
-          <div class="s-card green mb-sm">
-            <div class="card-label">PROBLEM</div>
-            <div class="card-body">대부분의 개발 채널은 여전히 기술 중심적. '개발의 민주화'를 <strong>대중의 언어</strong>로 전달하는 콘텐츠는 부재</div>
+        <div style="display:flex; flex-direction:column; gap:clamp(12px,2vmin,24px);">
+          <div class="s-card green" style="padding:clamp(16px,2.5vmin,32px);">
+            <div class="card-label">DEFINITION</div>
+            <div class="card-title" style="font-size:clamp(13px,1.6vmin,18px);">코드를 안 짜도 됩니다</div>
+            <div class="card-body">말로 설명하면 AI가 만듭니다.<br>개발 도구가 <strong>산업재</strong>에서 <strong class="highlight">소비재</strong>로 전환.</div>
           </div>
-          <div class="s-card yellow mb-sm">
-            <div class="card-label">SOLUTION</div>
-            <div class="card-body"><strong>기술의 민주화를 유머로 증명</strong>하는 채널. 바이브코딩 &times; 예능이라는 니치 = <span class="highlight">블루오션</span></div>
-          </div>
-          <div class="s-card blue">
-            <div class="card-label">POSITION</div>
-            <div class="card-body">개발 채널 (진지) &larr; <span class="highlight">쓸데없는앱연구소</span> &rarr; 예능 채널 (코딩 無)</div>
+          <div class="s-card yellow" style="padding:clamp(16px,2.5vmin,32px);">
+            <div class="card-label" style="color:var(--accent-yellow);">KEY QUOTE</div>
+            <div class="card-title" style="font-size:clamp(13px,1.6vmin,18px);">"가장 핫한 프로그래밍 언어는 영어다"</div>
+            <div class="card-body">코딩을 모르는 사람도 <strong>말로 앱을 만들 수 있는 시대</strong></div>
           </div>
         </div>
       </div>
@@ -984,40 +929,38 @@ html, body {
       <span class="slide-num">3 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 4: ARCHETYPE & BAD METHOD ==================== -->
-    <div class="slide auto-fill" data-slide="4">
+    <!-- ==================== SLIDE 4: "그래서 뭘 만들 수 있는데?" ==================== -->
+    <div class="slide" data-slide="4">
       <div class="deco-line"></div>
-      <p class="s-label">Section 02</p>
-      <h2 class="s-title mb-sm">문화원형 &amp; 컨셉 방법론 <span class="en">Archetype &amp; BAD Method</span></h2>
-      <div class="s-grid-2">
-        <div>
-          <p class="s-subtitle" style="max-width:100%;">호소다 다카히로(2023): 컨셉 = <strong>"전체를 관통하는 새로운 관점"</strong></p>
-          <div class="s-quote mb-md" style="font-size:clamp(13px,2vmin,22px);">
-            <span class="highlight-yellow">Jester</span> (즐거움) &times; <span class="highlight-blue">Creator</span> (창조)<br>= 쓸데없는앱연구소
+      <p class="s-label">Fork in the Road</p>
+      <h2 class="s-title mb-lg">그래서 뭘 만들 수 있는데? <span class="en">Two Paths</span></h2>
+      <div class="s-grid-2" style="flex:1; align-items:center; gap:clamp(32px,5vmin,64px);">
+        <!-- Left path (greyed out) -->
+        <div style="opacity:0.4; text-align:center;">
+          <div class="s-card" style="border-color:var(--border); padding:clamp(24px,4vmin,48px);">
+            <div style="font-size:clamp(28px,4vmin,48px); margin-bottom:12px;">&#128188;</div>
+            <div class="card-title" style="font-size:clamp(16px,2.2vmin,26px); margin-bottom:16px;">유용한 앱</div>
+            <div class="card-body" style="font-size:clamp(13px,1.6vmin,18px);">
+              유용한 앱<br>
+              <span style="font-size:clamp(16px,2vmin,24px);">&darr;</span><br>
+              스타트업<br>
+              <span style="font-size:clamp(16px,2vmin,24px);">&darr;</span><br>
+              투자유치
+            </div>
           </div>
-          <p class="s-body">Jung의 12가지 archetype 중 <strong class="highlight-yellow">Jester</strong>(유머와 현재를 즐기려는 욕구)와 <strong class="highlight-blue">Creator</strong>(새로운 것을 만들려는 욕구)의 교차점에 위치합니다.</p>
         </div>
-        <div>
-          <p class="s-body mb-sm" style="color:var(--accent-pink); font-weight:600;">BAD(2020) 유튜브 컨셉 프레임워크</p>
-          <div class="s-card pink mb-sm" style="padding:clamp(10px,1.5vmin,18px);">
-            <div class="card-label" style="color:var(--accent-yellow);">대의명분 (정당성)</div>
-            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">기술의 민주화</div>
-            <div class="card-body">"코딩 못해도 아이디어만 있으면 된다"</div>
-          </div>
-          <div class="s-card pink mb-sm" style="padding:clamp(10px,1.5vmin,18px);">
-            <div class="card-label" style="color:var(--accent-yellow);">구원자 (욕망)</div>
-            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">창작 욕구 자극</div>
-            <div class="card-body">"나도 만들어볼까?" 욕망 자극</div>
-          </div>
-          <div class="s-card pink mb-sm" style="padding:clamp(10px,1.5vmin,18px);">
-            <div class="card-label" style="color:var(--accent-yellow);">의외성 (매력)</div>
-            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">클리셰 전복</div>
-            <div class="card-body">쓸모없는 앱을 진지하게 만드는 아이러니</div>
-          </div>
-          <div class="s-card pink" style="padding:clamp(10px,1.5vmin,18px);">
-            <div class="card-label" style="color:var(--accent-yellow);">스피커 (공감)</div>
-            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">보편적 공감</div>
-            <div class="card-body">일상의 미세한 불편함에 대한 보편적 공감</div>
+        <!-- Right path (glowing) -->
+        <div style="text-align:center;">
+          <div class="s-card green" style="border-color:var(--accent-green); padding:clamp(24px,4vmin,48px); box-shadow:0 0 40px rgba(57,211,83,0.15);">
+            <div style="font-size:clamp(28px,4vmin,48px); margin-bottom:12px;">&#129395;</div>
+            <div class="card-title" style="font-size:clamp(16px,2.2vmin,26px); margin-bottom:16px; color:var(--accent-green);">쓸데없는 앱</div>
+            <div class="card-body" style="font-size:clamp(13px,1.6vmin,18px);">
+              쓸데없는 앱<br>
+              <span style="font-size:clamp(16px,2vmin,24px); color:var(--accent-yellow);">&darr;</span><br>
+              <span class="highlight-yellow">???</span><br>
+              <span style="font-size:clamp(16px,2vmin,24px); color:var(--accent-green);">&darr;</span><br>
+              <strong class="highlight" style="font-size:clamp(16px,2.2vmin,26px);">콘텐츠!</strong>
+            </div>
           </div>
         </div>
       </div>
@@ -1025,468 +968,433 @@ html, body {
       <span class="slide-num">4 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 5: FORMAT ==================== -->
-    <div class="slide auto-fill" data-slide="5">
+    <!-- ==================== SLIDE 5: "고백" ==================== -->
+    <div class="slide" data-slide="5" style="background: linear-gradient(rgba(13,17,23,0.85), rgba(13,17,23,0.85)), url('images/slide5_confession.png') center/cover;">
       <div class="deco-line"></div>
-      <p class="s-label">Section 03</p>
-      <h2 class="s-title mb-sm">포맷 상세 <span class="en">Format Details</span></h2>
-      <p class="s-subtitle mb-md">양성희(2013)의 포맷 3요소 프레임워크 기반</p>
-      <div class="s-grid-3">
-        <div class="s-card green">
-          <div class="card-label">FORMAT 01</div>
-          <div class="card-title">변하지 않는 그릇</div>
-          <div class="card-body">
-            <strong>인트로:</strong> 터미널 타이핑 <span class="code-inline">$ 오늘의 하찮은 문제:</span><br><br>
-            <strong>시그니처 대사:</strong> <span style="color:var(--accent-yellow);">"대딸깍의 시대, 제가 해결해보겠습니다"</span><br><br>
-            <strong>엔딩:</strong> 완성된 앱 QR코드 + 클로징<br><br>
-            <strong>BGM:</strong> lo-fi 코딩 비트<br>
-            <strong>자막:</strong> 코드 에디터 폰트 + 초록색 하이라이트
+      <p class="s-label">Confession</p>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <h2 style="font-weight:900; font-size:clamp(28px,5vmin,60px); line-height:1.3; margin-bottom:clamp(24px,3.5vmin,40px);">
+          저는 코딩을 <span class="highlight-pink">모릅니다.</span>
+        </h2>
+        <p class="s-body mb-md" style="font-size:clamp(13px,1.6vmin,18px);">하지만 <span class="highlight-yellow">쓸데없는 아이디어</span>는 넘칩니다.</p>
+        <div class="s-grid-3" style="margin-bottom:clamp(16px,2.5vmin,32px);">
+          <div class="s-card green" style="text-align:center; padding:clamp(14px,2vmin,24px);">
+            <div style="font-size:clamp(20px,3vmin,36px); margin-bottom:8px;">&#128205;</div>
+            <div class="card-body" style="font-size:clamp(11px,1.3vmin,15px);">친구 약속<br><strong>중간지점 자동 계산</strong> 앱</div>
+          </div>
+          <div class="s-card yellow" style="text-align:center; padding:clamp(14px,2vmin,24px);">
+            <div style="font-size:clamp(20px,3vmin,36px); margin-bottom:8px;">&#128218;</div>
+            <div class="card-body" style="font-size:clamp(11px,1.3vmin,15px);">교수님 PPT<br><strong>남은 슬라이드 예측</strong> 앱</div>
+          </div>
+          <div class="s-card pink" style="text-align:center; padding:clamp(14px,2vmin,24px);">
+            <div style="font-size:clamp(20px,3vmin,36px); margin-bottom:8px;">&#127828;</div>
+            <div class="card-body" style="font-size:clamp(11px,1.3vmin,15px);">극한의 결정장애<br><strong>점심 메뉴</strong> 앱</div>
           </div>
         </div>
-        <div class="s-card yellow">
-          <div class="card-label">FORMAT 02</div>
-          <div class="card-title">구조화된 서사 형식</div>
-          <div class="card-body">
-            매 에피소드 5단계 구조:<br><br>
-            <span class="highlight">1.</span> 문제 발견 (1~2분)<br>
-            <span class="highlight">2.</span> 기획 회의 (1분)<br>
-            <span class="highlight">3.</span> 바이브코딩 (3~5분)<br>
-            <span class="highlight">4.</span> 결과물 시연 (2분)<br>
-            <span class="highlight">5.</span> 평가 & 클로징 (1분)<br><br>
-            시청자가 문제~해결 여정에 동참
-          </div>
-        </div>
-        <div class="s-card blue">
-          <div class="card-label">FORMAT 03</div>
-          <div class="card-title">소재 소화력</div>
-          <div class="card-body">
-            "일상의 하찮은 문제" 프레임은<br>
-            <strong>소재가 무한</strong>합니다.<br><br>
-            <span style="opacity:0.7;">음식 &bull; 연애 &bull; 학교 &bull; 날씨<br>건강 &bull; 쇼핑 &bull; 교통 &bull; 직장<br>+ 무한...</span><br><br>
-            <strong>반복 가능성</strong>과 <strong>확장 가능성</strong>을 모두 충족 (양성희, 2013)
-          </div>
-        </div>
+        <p class="s-body" style="font-size:clamp(14px,1.8vmin,20px); color:var(--text-secondary);">
+          코딩은 모르지만 이런 아이디어는 끝도 없이 나옵니다.<br>
+          <span class="highlight">이걸 합치면 어떻게 되냐면요&mdash;</span>
+        </p>
       </div>
       <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">5 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 6: EPISODE STRUCTURE ==================== -->
-    <div class="slide auto-fill" data-slide="6">
+    <!-- ==================== SLIDE 6: "쓸데없는앱연구소" (Channel Reveal) ==================== -->
+    <div class="slide title-slide" data-slide="6">
       <div class="deco-line"></div>
-      <p class="s-label">Section 03</p>
-      <h2 class="s-title mb-md">에피소드 구조 <span class="en">Episode Structure</span></h2>
-      <div class="s-flow mb-lg">
-        <div class="s-flow-step">
-          <div class="step-num">STEP 01</div>
-          <div class="step-icon">&#128270;</div>
-          <div class="step-title">문제 발견</div>
-          <div class="step-desc">1~2min / 공감 유발</div>
-        </div>
-        <div class="s-flow-step">
-          <div class="step-num">STEP 02</div>
-          <div class="step-icon">&#128161;</div>
-          <div class="step-title">기획 회의</div>
-          <div class="step-desc">1min / 아이디어 스케치</div>
-        </div>
-        <div class="s-flow-step">
-          <div class="step-num">STEP 03</div>
-          <div class="step-icon">&#9000;</div>
-          <div class="step-title">바이브코딩</div>
-          <div class="step-desc">3~5min / 핵심 파트</div>
-        </div>
-        <div class="s-flow-step">
-          <div class="step-num">STEP 04</div>
-          <div class="step-icon">&#128241;</div>
-          <div class="step-title">결과물 시연</div>
-          <div class="step-desc">2min / 앱 테스트</div>
-        </div>
-        <div class="s-flow-step">
-          <div class="step-num">STEP 05</div>
-          <div class="step-icon">&#11088;</div>
-          <div class="step-title">평가 &amp; 클로징</div>
-          <div class="step-desc">1min / 쓸모 판정</div>
-        </div>
+      <div class="terminal-badge">$_ useless-app-lab</div>
+      <h1 class="big-title">쓸데없는앱연구소</h1>
+      <p class="big-title-en">Useless App Lab</p>
+      <div class="s-quote" style="max-width:700px; font-size:clamp(13px,1.8vmin,22px); padding:clamp(16px,2.5vmin,32px); margin-bottom:32px;">
+        &ldquo;코딩을 모르는 대학생이 AI에게 말로만 시켜서<br>세상에서 가장 <em style="font-style:normal; color:var(--accent-yellow);">쓸데없는</em> 앱을 만들어본다&rdquo;
       </div>
-      <div class="s-quote">
-        각 단계에서 시청자는 서로 다른 감정(affect-emotion-effect)을 경험합니다.<br>
-        <span style="font-size:0.8em; color:var(--text-secondary);">공감 &rarr; 호기심 &rarr; 몰입 &rarr; 놀라움 &rarr; 만족</span>
+      <div class="meta">
+        <div>기술은 <span class="hl">진지하게</span>, 결과물은 철저하게 <span class="hl">쓸데없게</span></div>
+        <div style="margin-top:8px;">컨셉: <span style="color:var(--accent-yellow);">&ldquo;기술의 민주화를 유머로 증명한다&rdquo;</span></div>
       </div>
-      <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">6 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 7: LOGLINE ==================== -->
-    <div class="slide auto-fill" data-slide="7">
+    <!-- ==================== SLIDE 7: "이게 왜 되냐면" ==================== -->
+    <div class="slide" data-slide="7">
       <div class="deco-line"></div>
-      <p class="s-label">Section 04</p>
-      <h2 class="s-title mb-md">로그라인 분석 <span class="en">Logline 6 Elements</span></h2>
-      <div class="s-grid-3 mb-md">
-        <div class="s-card green" style="text-align:center;">
-          <div class="card-label" style="text-align:center;">PROTAGONIST</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">주인공</div>
-          <div class="card-body">코딩을 모르는 대학생 JAY. 시청자와 같은 눈높이의 '일반인 대표'</div>
+      <p class="s-label">Strategy</p>
+      <h2 class="s-title mb-sm">이게 왜 되냐면 <span class="en">Positioning &amp; BAD Method</span></h2>
+      <div class="s-grid-2" style="gap:clamp(16px,3vmin,32px); flex:1; align-items:stretch;">
+        <!-- 2x2 Positioning Map -->
+        <div style="display:flex; flex-direction:column;">
+          <p class="s-body mb-sm" style="color:var(--accent-green); font-weight:700; font-size:clamp(11px,1.3vmin,15px);">포지셔닝 맵</p>
+          <div class="s-card green" style="flex:1; padding:clamp(16px,2.5vmin,32px); position:relative; display:flex; align-items:center; justify-content:center;">
+            <!-- Axes labels -->
+            <div style="position:absolute; top:8px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:clamp(8px,0.9vmin,11px); color:var(--accent-blue);">Education</div>
+            <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:clamp(8px,0.9vmin,11px); color:var(--accent-pink);">Entertainment</div>
+            <div style="position:absolute; left:8px; top:50%; transform:translateY(-50%) rotate(-90deg); font-family:var(--font-mono); font-size:clamp(8px,0.9vmin,11px); color:var(--text-secondary);">Hardware</div>
+            <div style="position:absolute; right:8px; top:50%; transform:translateY(-50%) rotate(90deg); font-family:var(--font-mono); font-size:clamp(8px,0.9vmin,11px); color:var(--text-secondary);">Software</div>
+            <!-- Crosshair -->
+            <div style="position:absolute; top:50%; left:16%; right:16%; height:1px; background:var(--border);"></div>
+            <div style="position:absolute; left:50%; top:16%; bottom:16%; width:1px; background:var(--border);"></div>
+            <!-- Channels plotted -->
+            <div style="position:absolute; top:28%; left:30%; text-align:center;">
+              <span class="s-tag blue" style="font-size:clamp(7px,0.8vmin,10px);">노마드코더</span>
+            </div>
+            <div style="position:absolute; top:28%; right:22%; text-align:center;">
+              <span class="s-tag blue" style="font-size:clamp(7px,0.8vmin,10px);">코딩애플</span>
+            </div>
+            <div style="position:absolute; bottom:28%; left:30%; text-align:center;">
+              <span class="s-tag yellow" style="font-size:clamp(7px,0.8vmin,10px);">긱블</span>
+            </div>
+            <div style="position:absolute; bottom:32%; left:22%; text-align:center;">
+              <span class="s-tag pink" style="font-size:clamp(7px,0.8vmin,10px);">침착맨</span>
+            </div>
+            <div style="position:absolute; bottom:38%; left:36%; text-align:center;">
+              <span class="s-tag pink" style="font-size:clamp(7px,0.8vmin,10px);">피식대학</span>
+            </div>
+            <!-- Our channel - glowing in the empty quadrant (Software x Entertainment = bottom right) -->
+            <div style="position:absolute; bottom:24%; right:22%; text-align:center;">
+              <span style="display:inline-block; font-family:var(--font-mono); font-size:clamp(8px,1vmin,12px); padding:4px 12px; border-radius:20px; background:rgba(57,211,83,0.25); color:var(--accent-green); font-weight:700; border:1px solid var(--accent-green); box-shadow:0 0 12px rgba(57,211,83,0.3);">쓸데없는앱연구소</span>
+            </div>
+            <!-- Empty quadrant highlight -->
+            <div style="position:absolute; bottom:16%; right:16%; width:34%; height:34%; border:2px dashed rgba(57,211,83,0.3); border-radius:8px;"></div>
+          </div>
         </div>
-        <div class="s-card yellow" style="text-align:center;">
-          <div class="card-label" style="color:var(--accent-yellow); text-align:center;">ANTAGONIST</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">대항자</div>
-          <div class="card-body">일상 속 하찮은 불편함들 (+ 가끔 말 안 듣는 AI)</div>
+        <!-- BAD Method cards -->
+        <div style="display:flex; flex-direction:column;">
+          <p class="s-body mb-sm" style="color:var(--accent-pink); font-weight:700; font-size:clamp(11px,1.3vmin,15px);">BAD(2020) 유튜브 컨셉 프레임워크</p>
+          <div class="s-card pink mb-sm" style="padding:clamp(8px,1.2vmin,16px);">
+            <div class="card-label" style="color:var(--accent-yellow);">대의명분</div>
+            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">기술의 민주화</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">"코딩 못해도 아이디어만 있으면 된다"</div>
+          </div>
+          <div class="s-card pink mb-sm" style="padding:clamp(8px,1.2vmin,16px);">
+            <div class="card-label" style="color:var(--accent-yellow);">구원자</div>
+            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">창작 욕구 자극</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">"나도 만들어볼 수 있겠다"</div>
+          </div>
+          <div class="s-card pink mb-sm" style="padding:clamp(8px,1.2vmin,16px);">
+            <div class="card-label" style="color:var(--accent-yellow);">의외성</div>
+            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">쓸모없는 앱 &times; 진지한 제작</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">아이러니가 만드는 웃음</div>
+          </div>
+          <div class="s-card pink" style="padding:clamp(8px,1.2vmin,16px);">
+            <div class="card-label" style="color:var(--accent-yellow);">스피커</div>
+            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">코딩 모르는 사람이 앱을 만드는 역설</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">타겟: <span class="highlight-yellow">Generation C</span> &mdash; 콘텐츠로 세상을 배우는 세대</div>
+          </div>
         </div>
-        <div class="s-card blue" style="text-align:center;">
-          <div class="card-label" style="color:var(--accent-blue); text-align:center;">SETTING</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">환경</div>
-          <div class="card-body">AI 바이브코딩 환경 (Claude Code, 데스크 셋업)</div>
-        </div>
-        <div class="s-card pink" style="text-align:center;">
-          <div class="card-label" style="color:var(--accent-pink); text-align:center;">CONFLICT</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">문제/갈등</div>
-          <div class="card-body">"이 하찮은 문제를 진짜 앱으로 해결할 수 있을까?"</div>
-        </div>
-        <div class="s-card green" style="text-align:center;">
-          <div class="card-label" style="text-align:center;">ACTION</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">행동</div>
-          <div class="card-body">AI에게 자연어로 지시하며 실시간 앱 제작</div>
-        </div>
-        <div class="s-card yellow" style="text-align:center;">
-          <div class="card-label" style="color:var(--accent-yellow); text-align:center;">GOAL</div>
-          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">목표</div>
-          <div class="card-body">쓸데없지만 실제로 작동하는 앱 완성</div>
-        </div>
-      </div>
-      <div class="s-quote">
-        코딩을 모르는 대학생이 AI에게 말로만 시켜서<br>세상에서 가장 쓸데없는 앱을 만들어본다
       </div>
       <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">7 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 8: ROADMAP ==================== -->
+    <!-- ==================== SLIDE 8: "에피소드 구조" ==================== -->
     <div class="slide" data-slide="8">
       <div class="deco-line"></div>
-      <p class="s-label">Section 05</p>
-      <h2 class="s-title mb-md">콘텐츠 로드맵 <span class="en">Content Roadmap</span></h2>
-      <div class="s-timeline mb-lg">
-        <div class="s-timeline-step">
-          <div class="tl-phase">PHASE 01 &mdash; SETUP</div>
-          <div class="tl-title">기획 정리 (1~3주차)</div>
-          <div class="tl-desc">채널 컨셉, 레퍼런스 분석, 포맷 구조, 파일럿 후보 정리 <span class="s-tag green">완료</span></div>
+      <p class="s-label">Format</p>
+      <h2 class="s-title mb-md">에피소드 구조 <span class="en">Episode Structure</span></h2>
+      <div class="s-flow mb-md">
+        <div class="s-flow-step" style="padding-top:clamp(14px,2.5vmin,28px); padding-bottom:clamp(14px,2.5vmin,28px);">
+          <div class="step-num">STEP 01</div>
+          <div class="step-icon">&#128270;</div>
+          <div class="step-title">문제 발견</div>
+          <div class="step-desc">공감 유발</div>
         </div>
-        <div class="s-timeline-step">
-          <div class="tl-phase">PHASE 02 &mdash; PILOT</div>
-          <div class="tl-title">파일럿 2편 (4~6주차)</div>
-          <div class="tl-desc">5~6분 &times; 2편<br>누적 10~12분 확보</div>
+        <div class="s-flow-step" style="padding-top:clamp(14px,2.5vmin,28px); padding-bottom:clamp(14px,2.5vmin,28px);">
+          <div class="step-num">STEP 02</div>
+          <div class="step-icon">&#128161;</div>
+          <div class="step-title">기획</div>
+          <div class="step-desc">아이디어 스케치</div>
         </div>
-        <div class="s-timeline-step">
-          <div class="tl-phase">PHASE 03 &mdash; MAIN</div>
-          <div class="tl-title">본편 확장 (7~11주차)</div>
-          <div class="tl-desc">6~7분 &times; 2편 추가<br>누적 22~26분 확보</div>
+        <div class="s-flow-step" style="padding-top:clamp(14px,2.5vmin,28px); padding-bottom:clamp(14px,2.5vmin,28px);">
+          <div class="step-num">STEP 03</div>
+          <div class="step-icon">&#9000;</div>
+          <div class="step-title">바이브코딩</div>
+          <div class="step-desc">핵심 파트</div>
         </div>
-        <div class="s-timeline-step">
-          <div class="tl-phase">PHASE 04 &mdash; FINAL</div>
-          <div class="tl-title">최종 마감 (12~15주차)</div>
-          <div class="tl-desc">결산형 7~8분 1편<br><strong style="color:var(--accent-green);">총 30분+ 확보</strong></div>
+        <div class="s-flow-step" style="padding-top:clamp(14px,2.5vmin,28px); padding-bottom:clamp(14px,2.5vmin,28px);">
+          <div class="step-num">STEP 04</div>
+          <div class="step-icon">&#128241;</div>
+          <div class="step-title">시연</div>
+          <div class="step-desc">앱 테스트</div>
+        </div>
+        <div class="s-flow-step" style="padding-top:clamp(14px,2.5vmin,28px); padding-bottom:clamp(14px,2.5vmin,28px);">
+          <div class="step-num">STEP 05</div>
+          <div class="step-icon">&#11088;</div>
+          <div class="step-title">쓸모 판정</div>
+          <div class="step-desc">별점 평가</div>
         </div>
       </div>
-      <div class="s-card green" style="text-align:center;">
-        <div class="card-title">파일럿 후보 주제</div>
-        <div class="card-body" style="display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(6px,1vmin,12px); margin-top:8px;">
-          <span class="s-tag green">01 친구 약속 중간지점 계산 앱</span>
-          <span class="s-tag yellow">02 교수님 PPT 남은 슬라이드 예측 앱</span>
-          <span class="s-tag pink">03 극한의 결정장애 점심 메뉴 앱</span>
-          <span class="s-tag blue">04 카톡 답장 안 하면 알림폭탄 앱</span>
-          <span class="s-tag green">05 수업 중 졸면 깨워주는 앱</span>
+      <p class="s-body mb-sm" style="color:var(--accent-yellow); font-weight:700; font-size:clamp(11px,1.3vmin,15px);">EP.01 &ldquo;약속 중간지점 앱&rdquo; 적용 예시</p>
+      <div class="s-grid-5" style="gap:clamp(6px,1vmin,12px);">
+        <div class="s-card green" style="padding:clamp(8px,1.2vmin,14px); text-align:center;">
+          <div class="card-body" style="font-size:clamp(9px,1vmin,12px);">친구 4명<br>서울 전역에 흩어짐<br><strong>카톡 50개</strong></div>
         </div>
+        <div class="s-card yellow" style="padding:clamp(8px,1.2vmin,14px); text-align:center;">
+          <div class="card-body" style="font-size:clamp(9px,1vmin,12px);">주소 넣으면<br>중간지점 알려주는<br><strong>앱 기획</strong></div>
+        </div>
+        <div class="s-card pink" style="padding:clamp(8px,1.2vmin,14px); text-align:center;">
+          <div class="card-body" style="font-size:clamp(9px,1vmin,12px);">AI한테 말로 설명<br>&ldquo;지도 API 써서<br><strong>좌표 평균 내줘</strong>&rdquo;</div>
+        </div>
+        <div class="s-card blue" style="padding:clamp(8px,1.2vmin,14px); text-align:center;">
+          <div class="card-body" style="font-size:clamp(9px,1vmin,12px);">완성된 앱으로<br><strong>실제 친구들과</strong><br>실험</div>
+        </div>
+        <div class="s-card green" style="padding:clamp(8px,1.2vmin,14px); text-align:center;">
+          <div class="card-body" style="font-size:clamp(9px,1vmin,12px);">중간지점이<br><strong>한강 한복판</strong>이면?<br>&#11088; 1개</div>
+        </div>
+      </div>
+      <div class="s-quote mt-sm" style="font-size:clamp(11px,1.4vmin,16px); padding:clamp(10px,1.5vmin,18px);">
+        공감 &rarr; 호기심 &rarr; 몰입 &rarr; 놀라움 &rarr; 만족
       </div>
       <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">8 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 9: SHORTS STRATEGY ==================== -->
-    <div class="slide auto-fill" data-slide="9">
+    <!-- ==================== SLIDE 9: "쇼츠가 마중물입니다" ==================== -->
+    <div class="slide" data-slide="9">
       <div class="deco-line"></div>
-      <p class="s-label">Section 05</p>
-      <h2 class="s-title mb-md">쇼츠 전략 <span class="en">Macro / Micro Content</span></h2>
-      <div class="s-flow mb-lg">
-        <div class="s-flow-step" style="padding:clamp(16px,2.5vmin,32px) clamp(10px,1.5vmin,20px);">
-          <div class="step-num">MACRO CONTENT</div>
-          <div class="step-icon" style="font-size:clamp(24px,4vmin,48px);">&#127916;</div>
-          <div class="step-title">롱폼 (5~8분)</div>
-          <div class="step-desc">핵심 제작 과정 압축</div>
-        </div>
-        <div class="s-flow-step" style="padding:clamp(16px,2.5vmin,32px) clamp(10px,1.5vmin,20px);">
-          <div class="step-num">EXTRACTION</div>
-          <div class="step-icon" style="font-size:clamp(24px,4vmin,48px);">&#9986;</div>
-          <div class="step-title">하이라이트 추출</div>
-          <div class="step-desc">1개 롱폼 &rarr; 1~2개 쇼츠</div>
-        </div>
-        <div class="s-flow-step" style="padding:clamp(16px,2.5vmin,32px) clamp(10px,1.5vmin,20px);">
-          <div class="step-num">MICRO CONTENT</div>
-          <div class="step-icon" style="font-size:clamp(24px,4vmin,48px);">&#128248;</div>
+      <p class="s-label">Growth</p>
+      <h2 class="s-title mb-md">쇼츠가 마중물입니다 <span class="en">Shorts as Funnel</span></h2>
+      <div class="s-flow mb-lg" style="margin-bottom:clamp(24px,4vmin,48px);">
+        <div class="s-flow-step" style="padding-top:clamp(18px,3vmin,36px); padding-bottom:clamp(18px,3vmin,36px);">
+          <div class="step-num">SHORTS</div>
+          <div class="step-icon">&#128248;</div>
           <div class="step-title">쇼츠 (30~60초)</div>
-          <div class="step-desc">웃긴 순간, 완성 시연</div>
+          <div class="step-desc">가장 웃긴 순간 추출</div>
+        </div>
+        <div class="s-flow-step" style="padding-top:clamp(18px,3vmin,36px); padding-bottom:clamp(18px,3vmin,36px);">
+          <div class="step-num">FUNNEL</div>
+          <div class="step-icon">&#128269;</div>
+          <div class="step-title">&ldquo;이 앱 뭐야?&rdquo;</div>
+          <div class="step-desc">호기심 유발 &rarr; 유입</div>
+        </div>
+        <div class="s-flow-step" style="padding-top:clamp(18px,3vmin,36px); padding-bottom:clamp(18px,3vmin,36px);">
+          <div class="step-num">LONG-FORM</div>
+          <div class="step-icon">&#127916;</div>
+          <div class="step-title">본편 (5~8분)</div>
+          <div class="step-desc">광고 수익 극대화</div>
         </div>
       </div>
       <div class="s-grid-2">
         <div class="s-card yellow">
-          <div class="card-label" style="color:var(--accent-yellow);">전략적 의의</div>
-          <div class="card-body">쇼츠 직접 수익보다는 <strong>구독자 유입 엔진</strong>으로 활용.<br>쇼츠 유입 &rarr; 롱폼 광고 수익 극대화 구조</div>
+          <div class="card-label" style="color:var(--accent-yellow);">구조</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">쇼츠 = 광고, 본편 = 상품</div>
+          <div class="card-body">쇼츠 직접 수익보다 <strong>구독자 유입 엔진</strong>으로 활용.<br>본편에서 광고 수익을 극대화하는 구조</div>
         </div>
         <div class="s-card green">
           <div class="card-label">크로스 플랫폼</div>
-          <div class="card-body">틱톡 / 인스타 릴스에 동시 업로드.<br>플랫폼 간 시너지를 통한 도달 범위 확장</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">틱톡 / 인스타 릴스 동시 업로드</div>
+          <div class="card-body">같은 쇼츠를 모든 플랫폼에 배포.<br>플랫폼 간 시너지로 <strong>도달 범위 확장</strong></div>
         </div>
       </div>
       <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">9 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 10: REFERENCE ==================== -->
+    <!-- ==================== SLIDE 10: "수익 구조" ==================== -->
     <div class="slide" data-slide="10">
       <div class="deco-line"></div>
-      <p class="s-label">Section 06</p>
-      <h2 class="s-title mb-md">레퍼런스 분석 <span class="en">Reference Analysis</span></h2>
-      <div class="s-grid-2">
-        <div class="s-card green">
-          <div class="card-label">REFERENCE 01</div>
-          <div class="card-title">침착맨 &mdash; "캐릭터 중심 예능"</div>
-          <div class="card-body">
-            <span style="color:var(--accent-green);">유사:</span> Jester&times;Creator, 소재 소화력, 캐릭터 중심<br>
-            <span style="color:var(--accent-yellow);">차이:</span> 본 채널은 매 EP 실제 결과물(앱) 산출<br>
-            <span style="color:var(--accent-pink);">인사이트:</span> 캐릭터 브랜딩의 중요성
+      <p class="s-label">Revenue</p>
+      <h2 class="s-title mb-md">수익 구조 <span class="en">Revenue Model</span></h2>
+      <div class="s-grid-3" style="flex:1; align-content:center;">
+        <div>
+          <p class="s-tag green mb-sm" style="display:block; text-align:center;">단기 (1~6개월)</p>
+          <div class="s-card green mb-sm" style="padding:clamp(12px,1.8vmin,22px);">
+            <div class="card-label">ADVERTISING</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">유튜브 광고 수익</div>
+            <div class="card-body">IT/테크 카테고리 CPM<br><strong style="color:var(--accent-green);">$20~$40</strong> (일반 대비 2~4배)</div>
+          </div>
+          <div class="s-card green" style="padding:clamp(12px,1.8vmin,22px);">
+            <div class="card-label">SHORTS</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">쇼츠 광고 수익</div>
+            <div class="card-body">직접 수익 + 유입 엔진</div>
           </div>
         </div>
-        <div class="s-card yellow">
-          <div class="card-label" style="color:var(--accent-yellow);">REFERENCE 02</div>
-          <div class="card-title">긱블 &mdash; "엔지니어링 예능"</div>
-          <div class="card-body">
-            <span style="color:var(--accent-green);">유사:</span> 기술을 예능으로, "만들기"가 핵심<br>
-            <span style="color:var(--accent-yellow);">차이:</span> 긱블=하드웨어/팀, 본 채널=소프트웨어/1인<br>
-            <span style="color:var(--accent-pink);">인사이트:</span> 기술 예능화의 검증 사례
+        <div>
+          <p class="s-tag yellow mb-sm" style="display:block; text-align:center;">중기 (6~12개월)</p>
+          <div class="s-card yellow mb-sm" style="padding:clamp(12px,1.8vmin,22px);">
+            <div class="card-label" style="color:var(--accent-yellow);">AFFILIATE</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">제휴 마케팅 / PPL</div>
+            <div class="card-body">AI 도구 기업 스폰서<br>&ldquo;이번 하찮은 앱은 이 도구 후원으로&rdquo;<br><strong>포맷에 자연 통합</strong></div>
+          </div>
+          <div class="s-card yellow" style="padding:clamp(12px,1.8vmin,22px);">
+            <div class="card-label" style="color:var(--accent-yellow);">LIVE</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">슈퍼챗</div>
+            <div class="card-body">라이브 바이브코딩<br>실시간 시청자 문제 해결</div>
           </div>
         </div>
-        <div class="s-card pink">
-          <div class="card-label" style="color:var(--accent-pink);">REFERENCE 03</div>
-          <div class="card-title">피식대학 &mdash; "블루오션 전략"</div>
-          <div class="card-body">
-            <span style="color:var(--accent-green);">유사:</span> 블루오션, 유니버스 구축, 파일럿 &rarr; 시리즈<br>
-            <span style="color:var(--accent-yellow);">차이:</span> 코미디 상황극 vs 실제 제작 과정<br>
-            <span style="color:var(--accent-pink);">인사이트:</span> 경쟁이 사라진 곳에 포지셔닝
+        <div>
+          <p class="s-tag pink mb-sm" style="display:block; text-align:center;">장기 (12개월~)</p>
+          <div class="s-card pink mb-sm" style="padding:clamp(12px,1.8vmin,22px);">
+            <div class="card-label" style="color:var(--accent-pink);">MEMBERSHIP</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">유료 멤버십</div>
+            <div class="card-body">소스코드 공개, 비하인드<br>멤버 전용 &ldquo;하찮은 문제 우선권&rdquo;</div>
+          </div>
+          <div class="s-card pink" style="padding:clamp(12px,1.8vmin,22px);">
+            <div class="card-label" style="color:var(--accent-pink);">COURSE</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">바이브코딩 입문 강좌</div>
+            <div class="card-body">기업 워크샵 컨설팅</div>
           </div>
         </div>
-        <div class="s-card blue">
-          <div class="card-label" style="color:var(--accent-blue);">REFERENCE 04</div>
-          <div class="card-title">노마드코더 / 코딩애플</div>
-          <div class="card-body">
-            <span style="color:var(--accent-green);">유사:</span> 코딩/개발 소재 유튜브 채널<br>
-            <span style="color:var(--accent-yellow);">차이:</span> 교육 목적 진지한 톤 vs 예능 유쾌한 톤<br>
-            <span style="color:var(--accent-pink);">인사이트:</span> "배우러" &ne; "보러" 오는 곳
-          </div>
-        </div>
+      </div>
+      <div class="s-quote mt-sm" style="font-size:clamp(11px,1.4vmin,16px); padding:clamp(10px,1.5vmin,18px);">
+        총 <span class="highlight">7가지 수익 모델</span>을 채널 성장 단계에 맞춰 순차적으로 여는 구조
       </div>
       <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">10 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 11: REVENUE ==================== -->
+    <!-- ==================== SLIDE 11: "4단계 로드맵" ==================== -->
     <div class="slide" data-slide="11">
       <div class="deco-line"></div>
-      <p class="s-label">Section 07</p>
-      <h2 class="s-title mb-sm">수익모델 <span class="en">Revenue Model</span></h2>
-      <div class="s-grid-3">
-        <div>
-          <p class="s-tag green mb-sm" style="display:block; text-align:center;">Phase 1 &mdash; 단기 (1~6개월)</p>
-          <div class="s-card green mb-sm" style="padding:clamp(10px,1.3vmin,16px);">
-            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">01 구글 애드센스</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">YPP 가입 후 광고 수익<br>IT/테크 CPM: $20~$40<br>(일반 대비 2~4배)</div>
-          </div>
-          <div class="s-card green" style="padding:clamp(10px,1.3vmin,16px);">
-            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">02 쇼츠 광고 수익</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">크리에이터 45% 지급<br>직접 수익 < 구독자 유입 엔진</div>
-          </div>
+      <p class="s-label">Roadmap</p>
+      <h2 class="s-title mb-md">4단계 로드맵 <span class="en">Production Roadmap</span></h2>
+      <div class="s-timeline mb-lg">
+        <div class="s-timeline-step">
+          <div class="tl-phase">PHASE 01 &mdash; 1~3주</div>
+          <div class="tl-title">기획 완료</div>
+          <div class="tl-desc"><span class="s-tag green">완료</span><br>이 발표가 그 결과물</div>
         </div>
-        <div>
-          <p class="s-tag yellow mb-sm" style="display:block; text-align:center;">Phase 2 &mdash; 중기 (6~12개월)</p>
-          <div class="s-card yellow mb-sm" style="padding:clamp(10px,1.3vmin,16px);">
-            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">03 제휴 마케팅</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">AI 도구 레퍼럴 링크<br>실제 사용 도구 &rarr; 광고 거부감 최소</div>
-          </div>
-          <div class="s-card yellow mb-sm" style="padding:clamp(10px,1.3vmin,16px);">
-            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">04 브랜디드/PPL</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">AI 도구 기업 스폰서<br>포맷 내 자연 통합</div>
-          </div>
-          <div class="s-card yellow" style="padding:clamp(10px,1.3vmin,16px);">
-            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">05 팬 후원</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">라이브 바이브코딩 슈퍼챗<br>실시간 시청자 문제 해결</div>
-          </div>
+        <div class="s-timeline-step">
+          <div class="tl-phase">PHASE 02 &mdash; 4~6주</div>
+          <div class="tl-title">파일럿 2편</div>
+          <div class="tl-desc">5~6분 &times; 2편<br>누적 <strong style="color:var(--accent-yellow);">10~12분</strong></div>
         </div>
-        <div>
-          <p class="s-tag pink mb-sm" style="display:block; text-align:center;">Phase 3 &mdash; 장기 (12개월~)</p>
-          <div class="s-card pink mb-sm" style="padding:clamp(10px,1.3vmin,16px);">
-            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">06 유료 멤버십</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">소스코드 공개, 비하인드<br>멤버 전용 "하찮은 문제 우선권"</div>
-          </div>
-          <div class="s-card pink" style="padding:clamp(10px,1.3vmin,16px);">
-            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">07 강좌/도서/컨설팅</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">바이브코딩 입문 강좌<br>기업 워크샵 컨설팅</div>
-          </div>
+        <div class="s-timeline-step">
+          <div class="tl-phase">PHASE 03 &mdash; 7~11주</div>
+          <div class="tl-title">본편 2편</div>
+          <div class="tl-desc">6~7분 &times; 2편<br>누적 <strong style="color:var(--accent-pink);">22~26분</strong></div>
         </div>
+        <div class="s-timeline-step">
+          <div class="tl-phase">PHASE 04 &mdash; 12~15주</div>
+          <div class="tl-title">결산 1편</div>
+          <div class="tl-desc">길이 조정으로<br><strong style="color:var(--accent-green);">30분+ 확보</strong></div>
+        </div>
+      </div>
+      <div class="s-card green" style="text-align:center; padding:clamp(16px,2.5vmin,32px);">
+        <div class="card-title" style="font-size:clamp(13px,1.6vmin,18px);">일정이 밀리더라도 결산편 길이를 조정해서 30분은 반드시 확보</div>
+        <div class="card-body" style="margin-top:8px;">파일럿 2편 + 본편 2편 + 결산 1편 = <strong class="highlight">총 5편, 30분+</strong></div>
       </div>
       <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">11 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 12: MARKETING ==================== -->
-    <div class="slide" data-slide="12">
+    <!-- ==================== SLIDE 12: "EP.01 미리보기" ==================== -->
+    <div class="slide" data-slide="12" style="justify-content:flex-start;">
       <div class="deco-line"></div>
-      <p class="s-label">Section 07</p>
-      <h2 class="s-title mb-md">마케팅 &amp; 알고리즘 전략 <span class="en">Marketing &amp; Algorithm</span></h2>
-      <div class="s-grid-2 mb-md">
-        <div>
-          <p class="s-body mb-sm" style="color:var(--accent-yellow); font-weight:700;">마케팅 전략 4가지</p>
-          <div class="s-card green mb-sm" style="padding:clamp(8px,1.2vmin,14px);">
-            <div class="card-label">STRATEGY 01</div>
-            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">쇼츠 우선 전략</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">일일 2,000억 조회 쇼츠 시장 공략. 30~60초 임팩트 클립으로 유입 극대화</div>
-          </div>
-          <div class="s-card yellow mb-sm" style="padding:clamp(8px,1.2vmin,14px);">
-            <div class="card-label" style="color:var(--accent-yellow);">STRATEGY 02</div>
-            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">커뮤니티 활용</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">시청자 "하찮은 문제 제보" &rarr; 콘텐츠화 &rarr; 참여 유도</div>
-          </div>
-          <div class="s-card pink mb-sm" style="padding:clamp(8px,1.2vmin,14px);">
-            <div class="card-label" style="color:var(--accent-pink);">STRATEGY 03</div>
-            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">크로스 플랫폼</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">틱톡/인스타 릴스 동시 업로드, 플랫폼 간 시너지</div>
-          </div>
-          <div class="s-card blue" style="padding:clamp(8px,1.2vmin,14px);">
-            <div class="card-label" style="color:var(--accent-blue);">STRATEGY 04</div>
-            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">SEO 키워드 선점</div>
-            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">"바이브코딩", "AI 앱 만들기" 등 블루오션 키워드 조기 선점</div>
-          </div>
-        </div>
-        <div>
-          <p class="s-body mb-sm" style="color:var(--accent-green); font-weight:700;">알고리즘 전략 (전상훈&middot;최서연, 2022)</p>
-          <div class="s-grid-2" style="gap:clamp(8px,1vmin,12px);">
-            <div class="s-card green" style="text-align:center; padding:clamp(12px,1.8vmin,22px);">
-              <div style="font-family:var(--font-mono); font-size:clamp(18px,3vmin,36px); font-weight:700; color:var(--accent-green);">5&rarr;8min</div>
-              <div style="font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary); margin-top:4px;">러닝타임 설계</div>
-              <div style="font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); margin-top:4px;">짧게 시작 &rarr; 검증 후 확장</div>
-            </div>
-            <div class="s-card green" style="text-align:center; padding:clamp(12px,1.8vmin,22px);">
-              <div style="font-family:var(--font-mono); font-size:clamp(18px,3vmin,36px); font-weight:700; color:var(--accent-green);">40%+</div>
-              <div style="font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary); margin-top:4px;">시청지속률 목표</div>
-              <div style="font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); margin-top:4px;">5~8분 기준 약 2~3분</div>
-            </div>
-            <div class="s-card green" style="text-align:center; padding:clamp(12px,1.8vmin,22px);">
-              <div style="font-family:var(--font-mono); font-size:clamp(18px,3vmin,36px); font-weight:700; color:var(--accent-green);">CTR</div>
-              <div style="font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary); margin-top:4px;">클릭률 최적화</div>
-              <div style="font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); margin-top:4px;">스크린샷+리액션+텍스트</div>
-            </div>
-            <div class="s-card green" style="text-align:center; padding:clamp(12px,1.8vmin,22px);">
-              <div style="font-family:var(--font-mono); font-size:clamp(18px,3vmin,36px); font-weight:700; color:var(--accent-green);">S&rarr;L</div>
-              <div style="font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary); margin-top:4px;">초기 전략</div>
-              <div style="font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); margin-top:4px;">쇼츠 유입 &rarr; 롱폼 수익</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <span class="logo-mark">$_ useless-app-lab</span>
-      <span class="slide-num">12 / 14</span>
-    </div>
-
-    <!-- ==================== SLIDE 13: EP.01 RUNDOWN ==================== -->
-    <div class="slide" data-slide="13">
-      <div class="deco-line"></div>
-      <p class="s-label">Section 08</p>
-      <h2 class="s-title mb-sm">EP.01 구성안 <span class="en">Episode 01 Rundown</span></h2>
-      <p class="s-subtitle mb-sm" style="font-size:clamp(11px,1.4vmin,16px);">
-        <strong>"친구들이랑 약속 잡을 때 정확히 중간지점 찾아주는 앱 만들어봤습니다"</strong> &mdash; 총 5분 30초
+      <p class="s-label">Preview</p>
+      <h2 class="s-title mb-sm">EP.01 미리보기 <span class="en">Episode 01 Rundown</span></h2>
+      <p class="s-subtitle" style="font-size:clamp(11px,1.4vmin,16px); margin-bottom:clamp(12px,2vmin,24px);">
+        <strong>&ldquo;친구들이랑 약속 잡을 때 정확히 중간지점 찾아주는 앱 만들어봤습니다&rdquo;</strong> &mdash; 총 <span class="highlight">5분 30초</span>
       </p>
-      <table class="s-rundown">
+      <table class="s-rundown" style="font-size:clamp(11px,1.4vmin,15px);">
         <thead>
           <tr>
             <th>구분</th>
             <th>시간</th>
             <th>내용</th>
-            <th>비디오</th>
-            <th>오디오</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>인트로</td>
             <td>0:00~0:15</td>
-            <td>터미널 타이핑 + 문제 텍스트 출력</td>
-            <td style="color:var(--text-secondary);">터미널 화면 + PIP 얼굴캠</td>
-            <td style="color:var(--text-secondary);">타이핑 효과음 + lo-fi</td>
+            <td>터미널 타이핑 + 문제 텍스트 출력 &bull; PIP 얼굴캠</td>
           </tr>
           <tr>
             <td>타이틀</td>
             <td>0:15~0:25</td>
-            <td>채널 타이틀 시퀀스</td>
-            <td style="color:var(--text-secondary);">모션그래픽 글리치</td>
-            <td style="color:var(--text-secondary);">시그니처 징글 3초</td>
+            <td>채널 타이틀 시퀀스 &bull; 모션그래픽 글리치</td>
           </tr>
           <tr>
             <td>문제 제시</td>
             <td>0:25~1:05</td>
-            <td>단톡방 폭발 상황 재현, 공감 토크</td>
-            <td style="color:var(--text-secondary);">단톡방 캡처 + 얼굴캠</td>
-            <td style="color:var(--text-secondary);">내레이션 + 공감 BGM</td>
+            <td>카톡방 폭발 상황 재현, 공감 토크</td>
           </tr>
           <tr>
             <td>기획</td>
             <td>1:05~1:35</td>
-            <td>"대딸깍의 시대" + 앱 기능 스케치</td>
-            <td style="color:var(--text-secondary);">화이트보드 + 얼굴캠</td>
-            <td style="color:var(--text-secondary);">아이디어 효과음</td>
+            <td><span class="highlight-yellow">&ldquo;대딸깍의 시대, 제가 해결해보겠습니다&rdquo;</span> + 앱 기능 스케치</td>
           </tr>
           <tr>
             <td style="color:var(--accent-yellow);">바이브코딩</td>
             <td>1:35~4:05</td>
-            <td>Claude Code에 자연어 지시, 시행착오, 수정, 완성</td>
-            <td style="color:var(--text-secondary);">스크린캐스트 + PIP</td>
-            <td style="color:var(--text-secondary);">lo-fi + 에러 효과음</td>
+            <td>Claude Code에 자연어 지시 &bull; 시행착오 &bull; 수정 &bull; 완성 <span class="s-tag green">핵심 2분30초</span></td>
           </tr>
           <tr>
             <td>결과 시연</td>
             <td>4:05~4:50</td>
-            <td>완성 앱 테스트, 친구들 실험</td>
-            <td style="color:var(--text-secondary);">앱 화면 + 리액션</td>
-            <td style="color:var(--text-secondary);">기대감 BGM + 핀 효과음</td>
+            <td>완성 앱으로 친구들과 실제 실험</td>
           </tr>
           <tr>
-            <td>평가</td>
+            <td>쓸모 판정</td>
             <td>4:50~5:15</td>
-            <td>쓸모 판정 (5점 만점), 다음 예고</td>
-            <td style="color:var(--text-secondary);">얼굴캠 + 점수 오버레이</td>
-            <td style="color:var(--text-secondary);">드럼롤 + 클로징 BGM</td>
+            <td>쓸모 판정 (5점 만점) + 다음 에피소드 예고</td>
           </tr>
           <tr>
             <td>아웃트로</td>
             <td>5:15~5:30</td>
-            <td>구독/좋아요, QR코드, 다음 힌트</td>
-            <td style="color:var(--text-secondary);">엔드스크린 + QR</td>
-            <td style="color:var(--text-secondary);">아웃트로 징글</td>
+            <td>구독/좋아요 + QR코드 + 다음 힌트</td>
           </tr>
         </tbody>
       </table>
       <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">12 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 13: "이게 진짜 되는 이유" ==================== -->
+    <div class="slide" data-slide="13">
+      <div class="deco-line"></div>
+      <p class="s-label">Convergence</p>
+      <h2 class="s-title mb-md">이게 진짜 되는 이유 <span class="en">Why This Works</span></h2>
+      <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+        <div style="position:relative; width:clamp(360px,55vmin,600px); height:clamp(280px,42vmin,460px);">
+          <!-- Circle 1: Top -->
+          <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:clamp(200px,30vmin,340px); height:clamp(200px,30vmin,340px); border-radius:50%; border:2px solid var(--accent-green); background:rgba(57,211,83,0.05); display:flex; align-items:center; justify-content:center; padding-top:clamp(8px,1vmin,16px);">
+            <span style="font-size:clamp(11px,1.4vmin,16px); font-weight:700; color:var(--accent-green); text-align:center; margin-top:-30%;">기술 민주화</span>
+          </div>
+          <!-- Circle 2: Bottom-left -->
+          <div style="position:absolute; bottom:0; left:0; width:clamp(200px,30vmin,340px); height:clamp(200px,30vmin,340px); border-radius:50%; border:2px solid var(--accent-yellow); background:rgba(240,192,0,0.05); display:flex; align-items:center; justify-content:center;">
+            <span style="font-size:clamp(11px,1.4vmin,16px); font-weight:700; color:var(--accent-yellow); text-align:center; margin-top:30%; margin-left:-10%;">예능 &times; IT<br>블루오션</span>
+          </div>
+          <!-- Circle 3: Bottom-right -->
+          <div style="position:absolute; bottom:0; right:0; width:clamp(200px,30vmin,340px); height:clamp(200px,30vmin,340px); border-radius:50%; border:2px solid var(--accent-pink); background:rgba(247,120,186,0.05); display:flex; align-items:center; justify-content:center;">
+            <span style="font-size:clamp(11px,1.4vmin,16px); font-weight:700; color:var(--accent-pink); text-align:center; margin-top:30%; margin-right:-10%;">Vibe Coding<br>트렌드</span>
+          </div>
+          <!-- Center label -->
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-40%); z-index:2; text-align:center;">
+            <div style="background:rgba(13,17,23,0.9); border:2px solid var(--accent-green); border-radius:var(--radius-sm); padding:clamp(10px,1.5vmin,20px) clamp(16px,2.5vmin,32px); box-shadow:0 0 30px rgba(57,211,83,0.2);">
+              <div style="font-family:var(--font-mono); font-size:clamp(10px,1.2vmin,14px); color:var(--accent-green); margin-bottom:4px;">CENTER</div>
+              <div style="font-size:clamp(14px,2vmin,24px); font-weight:900; color:var(--text-primary);">쓸데없는앱연구소</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="s-body" style="text-align:center; font-size:clamp(13px,1.6vmin,18px); margin-top:auto;">
+        &ldquo;코딩을 모르는 사람이 앱을 만든다&rdquo; &mdash; 아직 누군가에게는 <span class="highlight-yellow">말도 안 되는 소리</span>입니다.<br>
+        그런데 <span class="highlight">그게 되기 시작했고, 그 과정 자체가 콘텐츠가 됩니다.</span>
+      </p>
+      <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">13 / 14</span>
     </div>
 
-    <!-- ==================== SLIDE 14: END ==================== -->
-    <div class="slide end-slide" data-slide="14">
+    <!-- ==================== SLIDE 14: "쓸데없는 건 없습니다" ==================== -->
+    <div class="slide end-slide" data-slide="14" style="background: linear-gradient(rgba(13,17,23,0.85), rgba(13,17,23,0.85)), url('images/slide14_close.png') center/cover;">
       <div class="deco-line"></div>
-      <h2 class="end-title">감사합니다</h2>
-      <p class="end-sub">Q &amp; A</p>
-      <div class="end-info">
-        <div><span class="hl">쓸데없는앱연구소</span> &mdash; Useless App Lab</div>
-        <div>세종대학교 미디어커뮤니케이션학과 &bull; 영상제작워크샵</div>
-        <div style="margin-top:16px;"><span class="hl">홍재영 (JAY)</span> &bull; 2026년 3월</div>
+      <div style="max-width:700px; text-align:center;">
+        <p style="font-size:clamp(16px,2.2vmin,26px); color:var(--text-secondary); line-height:2.2; margin-bottom:clamp(16px,2.5vmin,32px);">
+          쓸데없는 호기심이 <span class="highlight">개인용 컴퓨터</span>를 만들었고<br>
+          쓸데없는 실험이 <span class="highlight-yellow">유튜브</span>를 만들었고<br>
+          쓸데없는 질문이 <span class="highlight-pink">AI</span>를 만들었습니다
+        </p>
+        <div style="margin-bottom:clamp(24px,4vmin,48px);">
+          <div style="font-family:var(--font-mono); font-size:clamp(10px,1.2vmin,14px); color:var(--accent-green); margin-bottom:8px;">$_ useless-app-lab</div>
+          <h2 class="end-title">쓸데없는앱연구소</h2>
+        </div>
       </div>
-      <div style="margin-top:40px; font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); opacity:0.5; font-family:var(--font-mono);">
-        // References: 임종수(2006, 2011), 호소다 다카히로(2023), 양성희(2013), 전상훈&middot;최서연(2022), 이주현&middot;디바제시카(2023), BAD(2020), PWC(2010)
+      <p class="end-sub">감사합니다 &bull; Q &amp; A</p>
+      <div class="end-info">
+        <div><span class="hl">홍재영 (JAY)</span> &bull; 세종대학교 미디어커뮤니케이션학과</div>
+        <div>영상제작워크샵(ft. 1인미디어종합설계) &bull; 2026년 1학기</div>
       </div>
       <span class="logo-mark">$_ useless-app-lab</span>
       <span class="slide-num">14 / 14</span>
@@ -1539,113 +1447,119 @@ html, body {
   // ===== SCRIPT DATA =====
   const scripts = {
     1: {
-      text: `<span class="cue">[인사 / 타이틀 소개]</span><br><br>
-안녕하세요, 미디어커뮤니케이션학과 홍재영입니다. 오늘 발표할 채널 기획안은 <strong>"쓸데없는앱연구소"</strong>입니다.<br><br>
-채널의 슬로건은 "세상에서 가장 하찮은 문제를, 가장 진지하게 해결합니다"인데요. 이름에서 느껴지듯, 코딩을 전혀 모르는 제가 AI에게 말로만 시켜서 쓸데없는 앱을 만드는 과정 자체를 콘텐츠로 만드는 채널입니다.<br><br>
-<span class="pause">[잠깐 멈춤]</span> 왜 이 채널이어야 하는지, 지금부터 함께 보시겠습니다.`,
+      text: `<span class="cue">[Hook 오프닝]</span><br><br>
+안녕하세요, 미디어커뮤니케이션학과 홍재영입니다. 오늘 발표를 인용 하나로 시작하겠습니다.<br><br>
+1977년, 세계 2위 컴퓨터 회사 DEC의 회장 켄 올슨이 이런 말을 했습니다. <strong>'개인이 컴퓨터를 집에 둘 이유가 없다.'</strong><br><br>
+당시에는 합리적인 판단이었죠. 컴퓨터는 건물 한 층을 차지하는 산업용 기계였으니까요. 그런데 4년 뒤, IBM이 개인용 PC를 내놓습니다. 첫 해에만 100만 대가 팔렸습니다.<br><br>
+<span class="pause">[잠깐 멈춤]</span> <strong>'말도 안 되는 소리'가 현실이 된 겁니다.</strong>`,
       time: "약 40초"
     },
     2: {
-      text: `<span class="cue">[채널 기획 개요]</span><br><br>
-먼저 채널 기획안 전체 요약입니다. 채널 분야는 IT/테크와 예능/코미디의 교차 영역이고, 문화원형은 Jester, 즉 광대와 Creator, 창조자의 결합입니다.<br><br>
-업로드 계획은 4주차부터 시작해서 파일럿 2편, 본편 2편, 결산형 1편으로 학기 총 30분 이상을 확보하는 구조입니다.<br><br>
-타겟은 특정 연령이나 성별 제한 없이 넓게 잡되, 핵심 소구층은 AI와 코딩에 호기심 있는 일반인, 그리고 2030세대의 IT 관심층입니다. PWC가 정의한 <strong>Generation C</strong> &mdash; creation, curation, connection, community를 마인드셋 타겟으로 설정했습니다.<br><br>
-핵심 로그라인은 화면 하단에 보이는 것처럼, <strong>"코딩을 모르는 대학생이 AI에게 말로만 시켜서 세상에서 가장 쓸데없는 앱을 만들어본다"</strong>입니다.`,
-      time: "약 50초"
+      text: `<span class="cue">[반복되는 패턴]</span><br><br>
+이런 일은 예전부터 계속 반복됐습니다. 사진을 보죠.<br><br>
+1839년, 사진 한 장 찍는데 한 달 월급이 들었습니다. 30분간 가만히 앉아있어야 했고요. 그런데 1900년, 코닥이 1달러짜리 카메라를 내놓습니다. 슬로건이 뭐였냐면, <strong>'You press the button, we do the rest.'</strong> 버튼만 누르세요, 나머지는 저희가.<br><br>
+음악도 마찬가지입니다. 1980년대에는 녹음실을 빌려야 음악을 만들 수 있었는데, 2004년 스티브 잡스가 개러지밴드를 무료로 풀면서 누구나 음악을 만들 수 있게 됐습니다.<br><br>
+영상은요? 방송국만의 영역이었죠. 그런데 2005년 유튜브가 나왔고, 그 결과가 뭐냐면 — <strong>지금 여러분이 영상제작워크샵이라는 수업에 앉아 있는 겁니다.</strong><br><br>
+패턴이 보이시죠? 산업재가 소비재가 되는 겁니다. 그리고 2025년, <strong>코딩에도 같은 일이 일어나고 있습니다.</strong>`,
+      time: "약 45초"
     },
     3: {
-      text: `<span class="cue">[기획의도 - 시대적 배경]</span><br><br>
-기획의도로 넘어가겠습니다. 2022년 ChatGPT 출시를 기점으로 LLM이 폭발적으로 발전했고, 이전에는 전문 개발자만 쓸 수 있었던 개발 도구들이 이제 자연어 인터페이스를 통해 누구나 쓸 수 있게 되었습니다. 쉽게 말해, 개발이 산업재에서 소비재로 전환된 겁니다.<br><br>
-2025년에 Andrej Karpathy가 명명한 <strong>'바이브코딩'</strong>이 바로 이 전환의 상징인데요, 코드를 직접 쓰지 않고 AI에게 자연어로 지시해서 소프트웨어를 만드는 방식을 말합니다.<br><br>
-그런데 문제는, 이 혁신적인 변화를 대중의 눈높이에서 재미있게 보여주는 채널이 없다는 겁니다. 개발 채널은 진지하고, 예능 채널은 코딩을 다루지 않아요. 이 빈 공간이 바로 쓸데없는앱연구소의 포지션입니다.`,
-      time: "약 50초"
+      text: `<span class="cue">[Vibe Coding 소개]</span><br><br>
+2025년 2월 2일, 테슬라 AI 총괄 출신이자 OpenAI 공동 창립자인 안드레이 카르파시가 트윗 하나를 올립니다.<br><br>
+<strong>'Vibe Coding이라는 새로운 코딩이 있다. 코드가 있다는 사실 자체를 잊어버려라.'</strong><br><br>
+바이브 코딩. 코드를 직접 쓰지 않고, AI에게 자연어로 설명해서 소프트웨어를 만드는 방식입니다. 이게 장난감 수준이 아닙니다. 그는 이렇게도 말했습니다. <strong>'가장 핫한 새 프로그래밍 언어는 영어다.'</strong><br><br>
+즉, 이제 개발 도구가 산업재에서 소비재로 넘어온 겁니다. 코딩을 모르는 사람도 말로 앱을 만들 수 있는 시대.`,
+      time: "약 45초"
     },
     4: {
-      text: `<span class="cue">[문화원형 & 컨셉 방법론]</span><br><br>
-호소다 다카히로는 컨셉을 "전체를 관통하는 새로운 관점"이라고 정의했습니다. 본 채널의 관점은 <strong>"기술의 민주화를 유머로 증명한다"</strong>는 것입니다.<br><br>
-Jung의 12가지 archetype 중에서 이 채널은 Jester와 Creator의 교차점에 위치합니다. Jester는 유머와 현재를 즐기려는 욕구, Creator는 새로운 것을 만들려는 욕구를 자극하는데, 이 둘이 결합된 게 바로 "쓸데없는 앱을 진지하게 만드는" 컨셉입니다.<br><br>
-오른쪽은 유튜브 컨셉 전문가 배드 BAD가 제시한 프레임워크를 적용한 건데요. <span class="pause">[카드를 가리키며]</span> 대의명분은 기술의 민주화, 구원자는 "나도 만들어볼까?"라는 창작 욕구 자극, 의외성은 진지한 개발이라는 클리셰를 깨는 반전, 스피커는 일상의 불편함에 대한 보편적 공감입니다.`,
-      time: "약 55초"
+      text: `<span class="cue">[갈림길]</span><br><br>
+자, 코딩 모르는 사람이 AI로 앱을 만들 수 있다. 그런데 뭘 만들죠?<br><br>
+유용한 걸 만들면? 그건 스타트업이죠. 투자 받고, 사업계획서 쓰고.<br><br>
+근데... <strong>쓸데없는 걸 만들면?</strong> 쓸데없는 걸 만드는 과정 자체가 재밌으면? <span class="pause">[잠깐 멈춤]</span> <strong>그게 콘텐츠가 되면?</strong>`,
+      time: "약 35초"
     },
     5: {
-      text: `<span class="cue">[포맷 상세]</span><br><br>
-양성희 교수님의 포맷 3요소 프레임워크를 기반으로 채널 포맷을 설계했습니다.<br><br>
-첫 번째, <strong>변하지 않는 그릇</strong>입니다. 매 에피소드 인트로는 터미널 화면에서 "오늘의 하찮은 문제"가 타이핑되는 것으로 시작하고, 시그니처 대사 <strong>"대딸깍의 시대, 제가 해결해보겠습니다"</strong>가 매회 반복됩니다. 엔딩에는 완성된 앱의 QR코드를 보여주고요.<br><br>
-두 번째, <strong>구조화된 서사 형식</strong>입니다. 문제 발견, 기획 회의, 바이브코딩, 결과물 시연, 평가 & 클로징의 5단계 구조를 따릅니다. 다음 슬라이드에서 자세히 보여드리겠습니다.<br><br>
-세 번째, <strong>소재 소화력</strong>입니다. "일상의 하찮은 문제"라는 프레임은 음식, 연애, 학교, 날씨 등 모든 카테고리에서 소재 추출이 가능해서, 양성희 교수님이 말한 포맷의 핵심 조건인 반복 가능성과 확장 가능성을 모두 충족합니다.`,
-      time: "약 55초"
+      text: `<span class="cue">[고백]</span><br><br>
+여기서 고백 하나 하겠습니다. <strong>저는 코딩을 모릅니다.</strong> 진짜로요. Python Hello World도 혼자서 못 짭니다.<br><br>
+근데 저는 쓸데없는 아이디어가 넘칩니다. 친구들이랑 약속 잡을 때 정확히 중간지점 찾아주는 앱. 교수님 PPT 남은 슬라이드 수 예측하는 앱. 점심 뭐 먹을지 극한으로 결정해주는 앱.<br><br>
+코딩은 모르지만 이런 아이디어는 끝도 없이 나옵니다. 이걸 합치면 어떻게 되냐면요—`,
+      time: "약 35초"
     },
     6: {
-      text: `<span class="cue">[에피소드 구조 5단계]</span><br><br>
-에피소드 구조를 좀 더 구체적으로 보겠습니다. 5단계 흐름도입니다.<br><br>
-<strong>1단계 문제 발견</strong>에서는 1~2분간 일상의 하찮은 불편함을 보여주며 공감을 유발합니다. "다들 이런 경험 있잖아요" 하면서요.<br><br>
-<strong>2단계 기획 회의</strong>에서는 약 1분간 어떤 앱을 만들지 아이디어를 스케치합니다.<br><br>
-<strong>3단계 바이브코딩</strong>이 핵심 파트인데, 3~5분 동안 AI에게 자연어로 지시하면서 실제 앱을 만드는 과정을 보여줍니다. 시행착오와 우연한 발견이 여기서 웃음을 만듭니다.<br><br>
-<strong>4단계 결과물 시연</strong>에서 완성된 앱을 실제로 테스트하고, <strong>5단계 평가 & 클로징</strong>에서 쓸모를 판정하면서 마무리합니다.<br><br>
-각 단계마다 시청자가 경험하는 감정이 달라지도록 설계했습니다. 공감에서 호기심, 몰입, 놀라움, 그리고 만족으로 이어지는 감정 곡선입니다.`,
-      time: "약 55초"
+      text: `<span class="cue">[채널 공개]</span><br><br>
+그래서 채널을 만들려고 합니다. <strong>쓸데없는앱연구소.</strong><br><br>
+로그라인은 이겁니다. <strong>코딩을 모르는 대학생이, AI에게 말로만 시켜서, 세상에서 가장 쓸데없는 앱을 만들어보는 채널.</strong><br><br>
+저는 이 채널에서 개발자가 아닙니다. 실험자입니다. 기술은 진지하게 쓰되, 결과물은 철저하게 쓸데없는. IT 기술 채널의 정보력에, 예능의 웃음을 결합하는 겁니다.<br><br>
+호소다 다카히로가 말한 컨셉의 정의, '전체를 관통하는 새로운 관점' — 이 채널의 관점은 <strong>'기술의 민주화를 유머로 증명한다'</strong>입니다.`,
+      time: "약 40초"
     },
     7: {
-      text: `<span class="cue">[로그라인 6요소]</span><br><br>
-로그라인을 6가지 드라마 요소로 분해해 보았습니다.<br><br>
-<strong>주인공</strong>은 코딩을 모르는 대학생 JAY, 즉 저입니다. 기술 전문가가 아닌 일반인 대표로서 시청자와 같은 눈높이에서 출발합니다.<br><br>
-<strong>대항자</strong>는 일상 속 하찮은 불편함들이고, 가끔 말 안 듣는 AI도 대항자 역할을 합니다. 매 에피소드 새로운 적이 등장하는 구조라 소재 고갈 걱정이 없습니다.<br><br>
-<strong>환경</strong>은 AI 바이브코딩 환경, <strong>갈등</strong>은 매회 반복되는 "이 하찮은 문제를 진짜 앱으로 해결할 수 있을까?"라는 질문, <strong>행동</strong>은 AI에게 자연어로 지시하며 실시간 앱 제작, <strong>목표</strong>는 쓸데없지만 실제로 작동하는 앱 완성입니다.<br><br>
-이 모든 걸 한 문장으로 압축하면, <span class="pause">[화면 하단 가리키며]</span> <strong>"코딩을 모르는 대학생이 AI에게 말로만 시켜서 세상에서 가장 쓸데없는 앱을 만들어본다"</strong>입니다.`,
+      text: `<span class="cue">[포지셔닝 & BAD 프레임워크]</span><br><br>
+재밌는 아이디어 같죠? 근데 전략적으로도 맞는 이유가 있습니다.<br><br>
+이 포지셔닝 맵을 보시면요. IT/코딩 채널은 많습니다. 코딩애플, 노마드코더 — 다 교육 중심이에요. 예능 채널도 많죠. 침착맨, 피식대학 — 근데 코딩은 안 다뤄요. 긱블이 가장 가까운데, 긱블은 하드웨어입니다. <strong>소프트웨어를 예능으로 다루는 채널?</strong> 이 빈 자리가 블루오션입니다.<br><br>
+BAD의 유튜브 컨셉 프레임워크로 보면요. 대의명분은 기술의 민주화. 구원자는 '나도 만들어볼 수 있겠다'는 창작 욕구 자극. 의외성은 쓸모없는 앱을 진지하게 만드는 아이러니. 스피커는 코딩을 모르는 사람이 앱을 만드는 역설이 만드는 매력.<br><br>
+그리고 타겟은 <strong>Generation C</strong> — 디지털 네이티브이면서 콘텐츠로 세상을 배우는 세대입니다.`,
       time: "약 55초"
     },
     8: {
-      text: `<span class="cue">[콘텐츠 로드맵]</span><br><br>
-실행 로드맵입니다. 4단계로 구성했습니다.<br><br>
-<strong>Phase 1</strong>은 1~3주차 기획 정리 단계로, 이미 완료된 상태입니다. 지금 이 발표가 그 결과물이고요.<br><br>
-<strong>Phase 2</strong>는 4~6주차 파일럿 제작입니다. 5~6분 분량 2편을 만들어서 누적 10~12분을 확보합니다. 아래 보시면 후보 주제 5가지가 있는데, "친구 약속 중간지점 계산 앱"부터 "수업 중 졸면 깨워주는 앱"까지, 모두 공감할 수 있는 하찮은 문제들입니다.<br><br>
-<strong>Phase 3</strong>은 7~11주차 본편 확장으로 6~7분 &times; 2편을 추가해 22~26분을 확보하고, <strong>Phase 4</strong>에서 결산형 1편으로 최종 30분 이상을 마무리합니다.<br><br>
-일정이 밀리더라도 결산편 길이를 조정해서 30분은 반드시 넘기도록 설계했습니다.`,
-      time: "약 50초"
+      text: `<span class="cue">[에피소드 구조]</span><br><br>
+채널 컨셉은 알겠는데, 실제 영상 하나가 어떻게 흘러가냐. 5단계입니다.<br><br>
+EP.01 '약속 중간지점 앱'으로 설명하면요.<br><br>
+<strong>1단계 문제 발견</strong> — 친구 4명, 서울 전역에 흩어져있습니다. 약속 장소 정하는데 카톡 50개.<br>
+<strong>2단계 기획</strong> — 주소 넣으면 중간지점 알려주는 앱을 만들기로 합니다.<br>
+<strong>3단계 바이브코딩</strong> — AI한테 말로 설명합니다. '지도 API 써서 좌표 평균 내줘.' 여기서 삽질이 시작됩니다. <strong>이게 콘텐츠입니다.</strong><br>
+<strong>4단계 시연</strong> — 완성된 앱을 실제로 써봅니다.<br>
+<strong>5단계 쓸모 판정</strong> — 중간지점이 한강 한복판이면? 별 1개.<br><br>
+이 구조가 매회 반복되고, 시청자는 공감에서 호기심, 몰입, 놀라움, 만족으로 이어지는 감정 곡선을 경험합니다.`,
+      time: "약 55초"
     },
     9: {
       text: `<span class="cue">[쇼츠 전략]</span><br><br>
-거시/미시 콘텐츠 구조입니다. 롱폼 5~8분짜리 본편에서 하이라이트를 추출해서 30~60초 쇼츠를 만드는 흐름인데요.<br><br>
-핵심은 쇼츠의 직접 수익보다는 <strong>구독자 유입 엔진</strong>으로 활용한다는 점입니다. 쇼츠 RPM은 롱폼 대비 매우 낮기 때문에, 쇼츠로 시청자를 끌어들이고 롱폼에서 광고 수익을 극대화하는 구조입니다.<br><br>
-그리고 동일 쇼츠를 틱톡과 인스타 릴스에도 동시 업로드해서 플랫폼 간 시너지를 만들 계획입니다.`,
+좋은 콘텐츠를 만들어도 아무도 안 보면 소용없죠. 그래서 쇼츠를 마중물로 씁니다.<br><br>
+본편에서 가장 웃긴 순간, AI가 가장 미쳐날뛰는 장면 — 30초로 잘라서 쇼츠로 뿌립니다. 쇼츠에서 '이 앱 뭐야?'가 되면 본편으로 유입되는 거죠.<br><br>
+이 구조에서 <strong>쇼츠는 광고이고, 본편은 상품입니다.</strong><br><br>
+같은 영상을 틱톡, 인스타 릴스에도 동시 업로드해서 플랫폼 간 시너지를 만듭니다.`,
       time: "약 35초"
     },
     10: {
-      text: `<span class="cue">[레퍼런스 분석]</span><br><br>
-벤치마킹 대상 채널 4개를 분석했습니다.<br><br>
-<strong>침착맨</strong>에서는 캐릭터 중심 예능의 힘을 배웁니다. Jester&times;Creator 원형이 동일하고, 소재 소화력이 뛰어나죠. 다만 침착맨은 토크 중심이라 구체적 산출물이 없는데, 저희 채널은 매 에피소드 실제 앱이 나온다는 게 차별점입니다.<br><br>
-<strong>긱블</strong>은 기술을 예능으로 풀어낸 대표 채널인데, 하드웨어 중심인 긱블과 달리 저희는 소프트웨어, AI 코딩 중심이고 1인 크리에이터 구조입니다.<br><br>
-<strong>피식대학</strong>에서는 블루오션 전략과 파일럿에서 시리즈로 확장하는 전략을 벤치마킹했고, <strong>노마드코더/코딩애플</strong> 같은 기존 개발 채널과는 "배우러 오는 곳이 아니라 보러 오는 곳"이라는 포지션으로 명확히 차별화합니다.`,
-      time: "약 55초"
+      text: `<span class="cue">[수익 구조]</span><br><br>
+당연히 나올 질문이죠. 돈은 어떻게 버냐.<br><br>
+<strong>단기</strong>적으로는 유튜브 광고 수익입니다. IT/테크 카테고리 CPM이 20~40달러로 일반 카테고리의 2~4배입니다.<br><br>
+<strong>중기</strong>적으로는 AI 도구 기업 제휴 마케팅이 자연스럽습니다. 실제로 쓰는 도구를 소개하는 거라 광고 거부감이 없고, '이번 하찮은 앱은 이 도구 후원으로 만들었습니다' — 포맷에 자연 통합됩니다. 라이브 바이브코딩에서 슈퍼챗도 기대할 수 있고요.<br><br>
+<strong>장기</strong>적으로는 유료 멤버십과 바이브코딩 입문 강좌로 확장합니다. 총 7가지 수익 모델을 채널 성장 단계에 맞춰 순차적으로 여는 구조입니다.`,
+      time: "약 40초"
     },
     11: {
-      text: `<span class="cue">[수익모델]</span><br><br>
-수익모델을 단기, 중기, 장기 3단계로 구분했습니다.<br><br>
-<strong>단기</strong>에는 가장 기본인 구글 애드센스와 쇼츠 광고 수익입니다. 특히 IT/테크 카테고리 CPM이 20~40달러로 일반 카테고리 대비 2~4배 높다는 점이 유리합니다.<br><br>
-<strong>중기</strong>에는 AI 도구 기업과의 제휴 마케팅과 브랜디드 콘텐츠, 그리고 라이브 바이브코딩을 통한 슈퍼챗 수익을 기대합니다. 실제로 사용하는 도구를 소개하는 거라 광고 거부감이 적고요.<br><br>
-<strong>장기</strong>적으로는 유료 멤버십과 바이브코딩 강좌/컨설팅으로 확장합니다. 이건 퍼스널 브랜딩이 축적된 이후의 이야기입니다.`,
-      time: "약 45초"
+      text: `<span class="cue">[로드맵]</span><br><br>
+실제 제작 로드맵입니다.<br><br>
+<strong>Phase 1</strong>, 기획 정리는 이미 완료했습니다. 지금 이 발표가 그 결과물이고요.<br><br>
+<strong>Phase 2</strong>, 4주차부터 파일럿 2편을 제작합니다. 5~6분씩, 누적 10~12분.<br><br>
+<strong>Phase 3</strong>, 반응 좋은 포맷을 중심으로 본편 2편을 6~7분으로 확장해 누적 22~26분.<br><br>
+<strong>Phase 4</strong>, 결산형 1편으로 최종 30분 이상을 확보합니다.<br><br>
+일정이 밀리더라도 결산편 길이를 조정해서 <strong>30분은 반드시 넘기도록</strong> 설계했습니다.`,
+      time: "약 40초"
     },
     12: {
-      text: `<span class="cue">[마케팅 & 알고리즘 전략]</span><br><br>
-마케팅 전략은 4가지입니다. 첫째, 일일 2,000억 조회의 쇼츠 시장을 공략하는 <strong>쇼츠 우선 전략</strong>. 둘째, 시청자에게 하찮은 문제를 제보받아 콘텐츠로 만드는 <strong>커뮤니티 활용</strong>. 셋째, 틱톡/인스타에 동시 업로드하는 <strong>크로스 플랫폼</strong>. 넷째, "바이브코딩"이나 "AI 앱 만들기" 같은 블루오션 키워드를 선점하는 <strong>SEO 전략</strong>입니다.<br><br>
-오른쪽은 전상훈, 최서연의 <유튜브 떡상의 비밀>에서 가져온 알고리즘 전략인데요. 러닝타임은 5분에서 시작해 검증된 포맷만 8분으로 늘리고, 시청지속률 40% 이상을 목표로 합니다. 그리고 쇼츠에서 유입시켜 롱폼에서 수익을 만드는 Short to Long 전략을 씁니다.`,
+      text: `<span class="cue">[EP.01 미리보기]</span><br><br>
+EP.01을 좀 더 구체적으로 보여드리겠습니다. 제목은 <strong>'친구들이랑 약속 잡을 때 정확히 중간지점 찾아주는 앱 만들어봤습니다'</strong>, 총 5분 30초입니다.<br><br>
+인트로에서 터미널 타이핑으로 문제를 제시하고, 타이틀 시퀀스 후 카톡방 폭발 상황을 재현합니다. 시그니처 대사 '대딸깍의 시대, 제가 해결해보겠습니다'와 함께 기획으로 넘어가고, 핵심인 바이브코딩 파트에서 약 2분 30초간 AI와 씨름합니다.<br><br>
+완성된 앱으로 친구들과 실험하고, 쓸모 판정으로 마무리. <strong>이 과정에서 나오는 삽질, 리액션, 결과물의 황당함 — 이게 전부 콘텐츠입니다.</strong>`,
       time: "약 45초"
     },
     13: {
-      text: `<span class="cue">[EP.01 구성안]</span><br><br>
-마지막으로, 파일럿 1회차 구성안입니다. 제목은 "친구들이랑 약속 잡을 때 정확히 중간지점 찾아주는 앱 만들어봤습니다"이고, 총 5분 30초 분량입니다.<br><br>
-인트로에서 터미널 타이핑으로 문제를 제시하고, 타이틀 시퀀스 후에 카톡방이 폭발하는 상황을 재현하면서 공감을 유발합니다. 시그니처 대사 "대딸깍의 시대"와 함께 기획으로 넘어가고요.<br><br>
-바이브코딩 파트가 1분 35초부터 4분 5초까지 약 2분 30초로 가장 긴 핵심 파트입니다. Claude Code에 자연어로 지시하면서 시행착오를 겪는 과정이 재미의 원천이 됩니다.<br><br>
-그 후 완성된 앱으로 실제 친구들과 실험하고, 쓸모 판정으로 마무리합니다.`,
-      time: "약 45초"
+      text: `<span class="cue">[이게 진짜 되는 이유]</span><br><br>
+아까 1977년 이야기로 시작했죠. 컴퓨터를 집에 두는 게 말도 안 된다고 했던 그때.<br><br>
+영상 제작을 일반인이 한다는 것도 한때는 말도 안 되는 소리였습니다. 지금, <strong>'코딩을 모르는 사람이 앱을 만든다'</strong>는 것도 누군가에게는 아직 말도 안 되는 소리입니다.<br><br>
+그런데 그게 되기 시작했고, 그 과정 자체가 콘텐츠가 됩니다.<br><br>
+기술의 민주화가 만든 틈새, 예능과 IT의 빈 교차점, Vibe Coding이라는 시대 흐름 — <strong>이 세 가지가 겹치는 자리에 쓸데없는앱연구소가 있습니다.</strong>`,
+      time: "약 40초"
     },
     14: {
       text: `<span class="cue">[마무리]</span><br><br>
-이상으로 쓸데없는앱연구소 채널 기획안 발표를 마치겠습니다.<br><br>
-정리하면, 이 채널은 바이브코딩이라는 새로운 패러다임을 예능의 언어로 풀어내는 채널이고, 한국 유튜브에서 "개발 &times; 예능"이라는 블루오션 니치를 차지하는 것이 목표입니다.<br><br>
-3월 넷째 주부터 파일럿 첫 편 제작에 들어갈 예정이니, 기대해 주시면 감사하겠습니다.<br><br>
-<span class="pause">[잠깐 멈춤]</span> 질문 있으시면 말씀해 주세요. 감사합니다.`,
+채널 이름이 쓸데없는앱연구소입니다. 근데 솔직히, <strong>쓸데없는 건 없다고 생각합니다.</strong><br><br>
+쓸데없는 호기심이 개인용 컴퓨터를 만들었고, 쓸데없는 실험이 유튜브를 만들었고, 쓸데없는 질문이 AI를 만들었습니다.<br><br>
+저는 그 전통 위에 서서, 가장 쓸데없는 앱을 만들어보겠습니다.<br><br>
+<span class="pause">[잠깐 멈춤]</span> 감사합니다.`,
       time: "약 30초"
     }
   };

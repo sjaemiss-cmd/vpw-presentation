@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>발표 대본</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<style>
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #1c2128;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --green: #39d353;
+  --yellow: #f0c000;
+  --pink: #f778ba;
+  --blue: #58a6ff;
+  --border: #30363d;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(13,17,23,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  padding: 0 16px;
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+}
+
+.header-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--green);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.slide-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slide-indicator .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  color: var(--text2);
+  font-weight: 600;
+}
+
+.nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: 0.15s;
+}
+
+.nav-btn:active {
+  background: var(--green);
+  color: var(--bg);
+  transform: scale(0.92);
+}
+
+/* ===== PROGRESS ===== */
+.progress {
+  height: 3px;
+  background: var(--border);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--yellow));
+  transition: width 0.3s ease;
+}
+
+/* ===== SYNC STATUS ===== */
+.sync-status {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0) + 56px);
+  left: 0; right: 0;
+  text-align: center;
+  padding: 8px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  z-index: 99;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.sync-status.connected {
+  background: rgba(57,211,83,0.1);
+  color: var(--green);
+  border-bottom: 1px solid rgba(57,211,83,0.2);
+}
+
+.sync-status.disconnected {
+  background: rgba(22,27,34,0.95);
+  color: var(--text2);
+  border-bottom: 1px solid var(--border);
+}
+
+.sync-status.connecting {
+  background: rgba(240,192,0,0.1);
+  color: var(--yellow);
+  border-bottom: 1px solid rgba(240,192,0,0.2);
+}
+
+.pin-input {
+  width: 72px;
+  padding: 4px 8px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 4px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.pin-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 8px rgba(57,211,83,0.3);
+}
+
+.pin-btn {
+  padding: 4px 14px;
+  background: var(--green);
+  border: none;
+  border-radius: 6px;
+  color: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sync-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.connected .sync-dot { background: var(--green); animation: pulse 2s infinite; }
+.disconnected .sync-dot { background: var(--pink); }
+
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:0.3; }
+}
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0) + 80px);
+  bottom: calc(env(safe-area-inset-bottom, 0) + 64px);
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.script-card {
+  padding: 24px 20px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.section-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 20px;
+  padding: 4px 10px;
+  background: var(--bg2);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Script text */
+.script-body {
+  font-size: 17px;
+  line-height: 2.1;
+  color: var(--text);
+  flex: 1;
+}
+
+.script-body .cue {
+  display: block;
+  color: var(--yellow);
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background: rgba(240,192,0,0.08);
+  border-left: 3px solid var(--yellow);
+  border-radius: 0 6px 6px 0;
+}
+
+.script-body .pause {
+  display: inline-block;
+  color: var(--pink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: rgba(247,120,186,0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.script-body strong {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(22,27,34,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  z-index: 100;
+}
+
+.bottom-nav-inner {
+  display: flex;
+  height: 60px;
+}
+
+.bottom-half {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: 0.15s;
+}
+
+.bottom-half:active {
+  background: rgba(57,211,83,0.1);
+}
+
+.bottom-half.prev {
+  color: var(--text2);
+  border-right: 1px solid var(--border);
+}
+
+.bottom-half.next {
+  color: var(--green);
+}
+
+.bottom-half .arrow {
+  font-size: 20px;
+}
+
+.bottom-half .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+/* ===== SWIPE HINT ===== */
+.swipe-hint {
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--text2);
+  font-size: 12px;
+  opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-inner">
+    <span class="header-title">SCRIPT</span>
+    <div class="slide-indicator">
+      <button class="nav-btn" id="btnPrev" aria-label="Previous">&larr;</button>
+      <span class="num" id="slideNum">1/14</span>
+      <button class="nav-btn" id="btnNext" aria-label="Next">&rarr;</button>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-fill" id="progressFill" style="width:7.14%;"></div>
+  </div>
+</div>
+
+<!-- Sync Status -->
+<div class="sync-status disconnected" id="syncStatus">
+  <span class="sync-dot"></span>
+  <span>PIN:</span>
+  <input type="tel" class="pin-input" id="pinInput" maxlength="4" placeholder="0000" inputmode="numeric" pattern="[0-9]*">
+  <button class="pin-btn" id="pinBtn" onclick="connectPin()">CONNECT</button>
+</div>
+
+<!-- Main Script Content -->
+<div class="main" id="mainContent">
+  <div class="script-card" id="scriptCard">
+    <div class="section-label" id="sectionLabel">SLIDE 01</div>
+    <h2 class="section-title" id="sectionTitle">타이틀</h2>
+    <span class="section-time" id="sectionTime">약 40초</span>
+    <div class="script-body" id="scriptBody"></div>
+  </div>
+</div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <div class="bottom-half prev" id="bottomPrev">
+      <span class="arrow">&larr;</span>
+      <span class="label">PREV</span>
+    </div>
+    <div class="bottom-half next" id="bottomNext">
+      <span class="label">NEXT</span>
+      <span class="arrow">&rarr;</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== DATA =====
+  const slideData = [
+    { label: 'SLIDE 01', title: '타이틀', time: '약 40초',
+      script: `<span class="cue">[인사 / 타이틀 소개]</span>안녕하세요, 미디어커뮤니케이션학과 홍재영입니다. 오늘 발표할 채널 기획안은 <strong>"쓸데없는앱연구소"</strong>입니다.\n\n채널의 슬로건은 "세상에서 가장 하찮은 문제를, 가장 진지하게 해결합니다"인데요. 이름에서 느껴지듯, 코딩을 전혀 모르는 제가 AI에게 말로만 시켜서 쓸데없는 앱을 만드는 과정 자체를 콘텐츠로 만드는 채널입니다.\n\n<span class="pause">[잠깐 멈춤]</span> 왜 이 채널이어야 하는지, 지금부터 함께 보시겠습니다.` },
+
+    { label: 'SLIDE 02', title: '채널 기획안', time: '약 50초',
+      script: `<span class="cue">[채널 기획 개요]</span>먼저 채널 기획안 전체 요약입니다. 채널 분야는 IT/테크와 예능/코미디의 교차 영역이고, 문화원형은 Jester, 즉 광대와 Creator, 창조자의 결합입니다.\n\n업로드 계획은 4주차부터 시작해서 파일럿 2편, 본편 2편, 결산형 1편으로 학기 총 30분 이상을 확보하는 구조입니다.\n\n타겟은 특정 연령이나 성별 제한 없이 넓게 잡되, 핵심 소구층은 AI와 코딩에 호기심 있는 일반인, 그리고 2030세대의 IT 관심층입니다. PWC가 정의한 <strong>Generation C</strong> — creation, curation, connection, community를 마인드셋 타겟으로 설정했습니다.\n\n핵심 로그라인은 화면 하단에 보이는 것처럼, <strong>"코딩을 모르는 대학생이 AI에게 말로만 시켜서 세상에서 가장 쓸데없는 앱을 만들어본다"</strong>입니다.` },
+
+    { label: 'SLIDE 03', title: '기획의도: 시대적 배경', time: '약 50초',
+      script: `<span class="cue">[기획의도 - 시대적 배경]</span>기획의도로 넘어가겠습니다. 2022년 ChatGPT 출시를 기점으로 LLM이 폭발적으로 발전했고, 이전에는 전문 개발자만 쓸 수 있었던 개발 도구들이 이제 자연어 인터페이스를 통해 누구나 쓸 수 있게 되었습니다. 쉽게 말해, 개발이 산업재에서 소비재로 전환된 겁니다.\n\n2025년에 Andrej Karpathy가 명명한 <strong>'바이브코딩'</strong>이 바로 이 전환의 상징인데요, 코드를 직접 쓰지 않고 AI에게 자연어로 지시해서 소프트웨어를 만드는 방식을 말합니다.\n\n그런데 문제는, 이 혁신적인 변화를 대중의 눈높이에서 재미있게 보여주는 채널이 없다는 겁니다. 개발 채널은 진지하고, 예능 채널은 코딩을 다루지 않아요. 이 빈 공간이 바로 쓸데없는앱연구소의 포지션입니다.` },
+
+    { label: 'SLIDE 04', title: '문화원형 & 컨셉 방법론', time: '약 55초',
+      script: `<span class="cue">[문화원형 & 컨셉 방법론]</span>호소다 다카히로는 컨셉을 "전체를 관통하는 새로운 관점"이라고 정의했습니다. 본 채널의 관점은 <strong>"기술의 민주화를 유머로 증명한다"</strong>는 것입니다.\n\nJung의 12가지 archetype 중에서 이 채널은 Jester와 Creator의 교차점에 위치합니다. Jester는 유머와 현재를 즐기려는 욕구, Creator는 새로운 것을 만들려는 욕구를 자극하는데, 이 둘이 결합된 게 바로 "쓸데없는 앱을 진지하게 만드는" 컨셉입니다.\n\n오른쪽은 유튜브 컨셉 전문가 배드 BAD가 제시한 프레임워크를 적용한 건데요. <span class="pause">[카드를 가리키며]</span> 대의명분은 기술의 민주화, 구원자는 "나도 만들어볼까?"라는 창작 욕구 자극, 의외성은 진지한 개발이라는 클리셰를 깨는 반전, 스피커는 일상의 불편함에 대한 보편적 공감입니다.` },
+
+    { label: 'SLIDE 05', title: '포맷 상세', time: '약 55초',
+      script: `<span class="cue">[포맷 상세]</span>양성희 교수님의 포맷 3요소 프레임워크를 기반으로 채널 포맷을 설계했습니다.\n\n첫 번째, <strong>변하지 않는 그릇</strong>입니다. 매 에피소드 인트로는 터미널 화면에서 "오늘의 하찮은 문제"가 타이핑되는 것으로 시작하고, 시그니처 대사 <strong>"대딸깍의 시대, 제가 해결해보겠습니다"</strong>가 매회 반복됩니다. 엔딩에는 완성된 앱의 QR코드를 보여주고요.\n\n두 번째, <strong>구조화된 서사 형식</strong>입니다. 문제 발견, 기획 회의, 바이브코딩, 결과물 시연, 평가 & 클로징의 5단계 구조를 따릅니다. 다음 슬라이드에서 자세히 보여드리겠습니다.\n\n세 번째, <strong>소재 소화력</strong>입니다. "일상의 하찮은 문제"라는 프레임은 음식, 연애, 학교, 날씨 등 모든 카테고리에서 소재 추출이 가능해서, 양성희 교수님이 말한 포맷의 핵심 조건인 반복 가능성과 확장 가능성을 모두 충족합니다.` },
+
+    { label: 'SLIDE 06', title: '에피소드 구조', time: '약 55초',
+      script: `<span class="cue">[에피소드 구조 5단계]</span>에피소드 구조를 좀 더 구체적으로 보겠습니다. 5단계 흐름도입니다.\n\n<strong>1단계 문제 발견</strong>에서는 1~2분간 일상의 하찮은 불편함을 보여주며 공감을 유발합니다. "다들 이런 경험 있잖아요" 하면서요.\n\n<strong>2단계 기획 회의</strong>에서는 약 1분간 어떤 앱을 만들지 아이디어를 스케치합니다.\n\n<strong>3단계 바이브코딩</strong>이 핵심 파트인데, 3~5분 동안 AI에게 자연어로 지시하면서 실제 앱을 만드는 과정을 보여줍니다. 시행착오와 우연한 발견이 여기서 웃음을 만듭니다.\n\n<strong>4단계 결과물 시연</strong>에서 완성된 앱을 실제로 테스트하고, <strong>5단계 평가 & 클로징</strong>에서 쓸모를 판정하면서 마무리합니다.\n\n각 단계마다 시청자가 경험하는 감정이 달라지도록 설계했습니다. 공감에서 호기심, 몰입, 놀라움, 그리고 만족으로 이어지는 감정 곡선입니다.` },
+
+    { label: 'SLIDE 07', title: '로그라인 분석', time: '약 55초',
+      script: `<span class="cue">[로그라인 6요소]</span>로그라인을 6가지 드라마 요소로 분해해 보았습니다.\n\n<strong>주인공</strong>은 코딩을 모르는 대학생 JAY, 즉 저입니다. 기술 전문가가 아닌 일반인 대표로서 시청자와 같은 눈높이에서 출발합니다.\n\n<strong>대항자</strong>는 일상 속 하찮은 불편함들이고, 가끔 말 안 듣는 AI도 대항자 역할을 합니다. 매 에피소드 새로운 적이 등장하는 구조라 소재 고갈 걱정이 없습니다.\n\n<strong>환경</strong>은 AI 바이브코딩 환경, <strong>갈등</strong>은 매회 반복되는 "이 하찮은 문제를 진짜 앱으로 해결할 수 있을까?"라는 질문, <strong>행동</strong>은 AI에게 자연어로 지시하며 실시간 앱 제작, <strong>목표</strong>는 쓸데없지만 실제로 작동하는 앱 완성입니다.\n\n이 모든 걸 한 문장으로 압축하면, <span class="pause">[화면 하단 가리키며]</span> <strong>"코딩을 모르는 대학생이 AI에게 말로만 시켜서 세상에서 가장 쓸데없는 앱을 만들어본다"</strong>입니다.` },
+
+    { label: 'SLIDE 08', title: '콘텐츠 로드맵', time: '약 50초',
+      script: `<span class="cue">[콘텐츠 로드맵]</span>실행 로드맵입니다. 4단계로 구성했습니다.\n\n<strong>Phase 1</strong>은 1~3주차 기획 정리 단계로, 이미 완료된 상태입니다. 지금 이 발표가 그 결과물이고요.\n\n<strong>Phase 2</strong>는 4~6주차 파일럿 제작입니다. 5~6분 분량 2편을 만들어서 누적 10~12분을 확보합니다. 아래 보시면 후보 주제 5가지가 있는데, "친구 약속 중간지점 계산 앱"부터 "수업 중 졸면 깨워주는 앱"까지, 모두 공감할 수 있는 하찮은 문제들입니다.\n\n<strong>Phase 3</strong>은 7~11주차 본편 확장으로 6~7분 x 2편을 추가해 22~26분을 확보하고, <strong>Phase 4</strong>에서 결산형 1편으로 최종 30분 이상을 마무리합니다.\n\n일정이 밀리더라도 결산편 길이를 조정해서 30분은 반드시 넘기도록 설계했습니다.` },
+
+    { label: 'SLIDE 09', title: '쇼츠 전략', time: '약 35초',
+      script: `<span class="cue">[쇼츠 전략]</span>거시/미시 콘텐츠 구조입니다. 롱폼 5~8분짜리 본편에서 하이라이트를 추출해서 30~60초 쇼츠를 만드는 흐름인데요.\n\n핵심은 쇼츠의 직접 수익보다는 <strong>구독자 유입 엔진</strong>으로 활용한다는 점입니다. 쇼츠 RPM은 롱폼 대비 매우 낮기 때문에, 쇼츠로 시청자를 끌어들이고 롱폼에서 광고 수익을 극대화하는 구조입니다.\n\n그리고 동일 쇼츠를 틱톡과 인스타 릴스에도 동시 업로드해서 플랫폼 간 시너지를 만들 계획입니다.` },
+
+    { label: 'SLIDE 10', title: '레퍼런스 분석', time: '약 55초',
+      script: `<span class="cue">[레퍼런스 분석]</span>벤치마킹 대상 채널 4개를 분석했습니다.\n\n<strong>침착맨</strong>에서는 캐릭터 중심 예능의 힘을 배웁니다. Jester x Creator 원형이 동일하고, 소재 소화력이 뛰어나죠. 다만 침착맨은 토크 중심이라 구체적 산출물이 없는데, 저희 채널은 매 에피소드 실제 앱이 나온다는 게 차별점입니다.\n\n<strong>긱블</strong>은 기술을 예능으로 풀어낸 대표 채널인데, 하드웨어 중심인 긱블과 달리 저희는 소프트웨어, AI 코딩 중심이고 1인 크리에이터 구조입니다.\n\n<strong>피식대학</strong>에서는 블루오션 전략과 파일럿에서 시리즈로 확장하는 전략을 벤치마킹했고, <strong>노마드코더/코딩애플</strong> 같은 기존 개발 채널과는 "배우러 오는 곳이 아니라 보러 오는 곳"이라는 포지션으로 명확히 차별화합니다.` },
+
+    { label: 'SLIDE 11', title: '수익모델', time: '약 45초',
+      script: `<span class="cue">[수익모델]</span>수익모델을 단기, 중기, 장기 3단계로 구분했습니다.\n\n<strong>단기</strong>에는 가장 기본인 구글 애드센스와 쇼츠 광고 수익입니다. 특히 IT/테크 카테고리 CPM이 20~40달러로 일반 카테고리 대비 2~4배 높다는 점이 유리합니다.\n\n<strong>중기</strong>에는 AI 도구 기업과의 제휴 마케팅과 브랜디드 콘텐츠, 그리고 라이브 바이브코딩을 통한 슈퍼챗 수익을 기대합니다. 실제로 사용하는 도구를 소개하는 거라 광고 거부감이 적고요.\n\n<strong>장기</strong>적으로는 유료 멤버십과 바이브코딩 강좌/컨설팅으로 확장합니다. 이건 퍼스널 브랜딩이 축적된 이후의 이야기입니다.` },
+
+    { label: 'SLIDE 12', title: '마케팅 & 알고리즘', time: '약 45초',
+      script: `<span class="cue">[마케팅 & 알고리즘 전략]</span>마케팅 전략은 4가지입니다. 첫째, 일일 2,000억 조회의 쇼츠 시장을 공략하는 <strong>쇼츠 우선 전략</strong>. 둘째, 시청자에게 하찮은 문제를 제보받아 콘텐츠로 만드는 <strong>커뮤니티 활용</strong>. 셋째, 틱톡/인스타에 동시 업로드하는 <strong>크로스 플랫폼</strong>. 넷째, "바이브코딩"이나 "AI 앱 만들기" 같은 블루오션 키워드를 선점하는 <strong>SEO 전략</strong>입니다.\n\n오른쪽은 전상훈, 최서연의 유튜브 떡상의 비밀에서 가져온 알고리즘 전략인데요. 러닝타임은 5분에서 시작해 검증된 포맷만 8분으로 늘리고, 시청지속률 40% 이상을 목표로 합니다. 그리고 쇼츠에서 유입시켜 롱폼에서 수익을 만드는 Short to Long 전략을 씁니다.` },
+
+    { label: 'SLIDE 13', title: 'EP.01 구성안', time: '약 45초',
+      script: `<span class="cue">[EP.01 구성안]</span>마지막으로, 파일럿 1회차 구성안입니다. 제목은 "친구들이랑 약속 잡을 때 정확히 중간지점 찾아주는 앱 만들어봤습니다"이고, 총 5분 30초 분량입니다.\n\n인트로에서 터미널 타이핑으로 문제를 제시하고, 타이틀 시퀀스 후에 카톡방이 폭발하는 상황을 재현하면서 공감을 유발합니다. 시그니처 대사 "대딸깍의 시대"와 함께 기획으로 넘어가고요.\n\n바이브코딩 파트가 1분 35초부터 4분 5초까지 약 2분 30초로 가장 긴 핵심 파트입니다. Claude Code에 자연어로 지시하면서 시행착오를 겪는 과정이 재미의 원천이 됩니다.\n\n그 후 완성된 앱으로 실제 친구들과 실험하고, 쓸모 판정으로 마무리합니다.` },
+
+    { label: 'SLIDE 14', title: '감사합니다 / Q&A', time: '약 30초',
+      script: `<span class="cue">[마무리]</span>이상으로 쓸데없는앱연구소 채널 기획안 발표를 마치겠습니다.\n\n정리하면, 이 채널은 바이브코딩이라는 새로운 패러다임을 예능의 언어로 풀어내는 채널이고, 한국 유튜브에서 "개발 x 예능"이라는 블루오션 니치를 차지하는 것이 목표입니다.\n\n3월 넷째 주부터 파일럿 첫 편 제작에 들어갈 예정이니, 기대해 주시면 감사하겠습니다.\n\n<span class="pause">[잠깐 멈춤]</span> 질문 있으시면 말씀해 주세요. 감사합니다.` }
+  ];
+
+  const totalSlides = slideData.length;
+
+  // ===== STATE =====
+  let currentSlide = 1;
+  let peerConn = null;
+  let ignoreNextSync = false;
+
+  // ===== DOM =====
+  const slideNum = document.getElementById('slideNum');
+  const progressFill = document.getElementById('progressFill');
+  const sectionLabel = document.getElementById('sectionLabel');
+  const sectionTitle = document.getElementById('sectionTitle');
+  const sectionTime = document.getElementById('sectionTime');
+  const scriptBody = document.getElementById('scriptBody');
+  const mainContent = document.getElementById('mainContent');
+  const syncStatus = document.getElementById('syncStatus');
+  const pinInput = document.getElementById('pinInput');
+
+  // ===== RENDER =====
+  function render() {
+    const data = slideData[currentSlide - 1];
+    slideNum.textContent = currentSlide + '/' + totalSlides;
+    progressFill.style.width = ((currentSlide / totalSlides) * 100) + '%';
+    sectionLabel.textContent = data.label;
+    sectionTitle.textContent = data.title;
+    sectionTime.textContent = data.time;
+    scriptBody.innerHTML = data.script.replace(/\n\n/g, '<br><br>');
+    mainContent.scrollTop = 0;
+  }
+
+  function goToSlide(n) {
+    if (n < 1 || n > totalSlides) return;
+    currentSlide = n;
+    render();
+    // Sync to PC
+    if (!ignoreNextSync && peerConn && peerConn.open) {
+      peerConn.send({ type: 'slide', slide: n });
+    }
+    ignoreNextSync = false;
+  }
+
+  // ===== PEERJS SYNC =====
+  window.connectPin = function() {
+    const pin = pinInput.value.trim();
+    if (pin.length !== 4) { pinInput.focus(); return; }
+
+    syncStatus.className = 'sync-status connecting';
+    syncStatus.innerHTML = '<span class="sync-dot"></span>CONNECTING...';
+
+    const peer = new Peer(undefined, { debug: 0 });
+
+    peer.on('open', function() {
+      const conn = peer.connect('pres-sync-' + pin, { reliable: true });
+
+      conn.on('open', function() {
+        peerConn = conn;
+        syncStatus.className = 'sync-status connected';
+        syncStatus.innerHTML = '<span class="sync-dot"></span>SYNCED \u2014 PIN ' + pin;
+
+        conn.on('data', function(data) {
+          if (data && data.type === 'slide' && data.slide !== currentSlide) {
+            ignoreNextSync = true;
+            goToSlide(data.slide);
+          }
+        });
+
+        conn.on('close', function() {
+          peerConn = null;
+          syncStatus.className = 'sync-status disconnected';
+          syncStatus.innerHTML = '<span class="sync-dot"></span><span>PIN:</span><input type="tel" class="pin-input" id="pinInput" maxlength="4" value="' + pin + '" inputmode="numeric" pattern="[0-9]*"><button class="pin-btn" onclick="connectPin()">RECONNECT</button>';
+        });
+      });
+
+      conn.on('error', function() {
+        syncStatus.className = 'sync-status disconnected';
+        syncStatus.innerHTML = '<span class="sync-dot"></span><span>PIN not found. Retry:</span><input type="tel" class="pin-input" id="pinInput" maxlength="4" value="' + pin + '" inputmode="numeric" pattern="[0-9]*"><button class="pin-btn" onclick="connectPin()">RETRY</button>';
+      });
+    });
+
+    peer.on('error', function(err) {
+      syncStatus.className = 'sync-status disconnected';
+      syncStatus.innerHTML = '<span class="sync-dot"></span><span>Error. Retry:</span><input type="tel" class="pin-input" id="pinInput" maxlength="4" value="' + pin + '" inputmode="numeric" pattern="[0-9]*"><button class="pin-btn" onclick="connectPin()">RETRY</button>';
+    });
+  };
+
+  // Enter key on PIN input
+  pinInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); window.connectPin(); }
+  });
+
+  // Auto-connect if PIN in URL hash
+  if (window.location.hash.length === 5) {
+    pinInput.value = window.location.hash.substring(1);
+    setTimeout(function() { window.connectPin(); }, 500);
+  }
+
+  // ===== EVENTS =====
+  document.getElementById('btnPrev').addEventListener('click', function() { goToSlide(currentSlide - 1); });
+  document.getElementById('btnNext').addEventListener('click', function() { goToSlide(currentSlide + 1); });
+  document.getElementById('bottomPrev').addEventListener('click', function() { goToSlide(currentSlide - 1); });
+  document.getElementById('bottomNext').addEventListener('click', function() { goToSlide(currentSlide + 1); });
+
+  // Swipe
+  let touchStartX = 0;
+  let touchStartY = 0;
+  mainContent.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  mainContent.addEventListener('touchend', function(e) {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx < 0) goToSlide(currentSlide + 1);
+      else goToSlide(currentSlide - 1);
+    }
+  }, { passive: true });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goToSlide(currentSlide + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goToSlide(currentSlide - 1); }
+  });
+
+  // ===== INIT =====
+  render();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>쓸데없는앱연구소 | 채널 기획안 발표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<style>
+/* ========== CSS VARIABLES ========== */
+:root {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-card: #1c2128;
+  --bg-card-hover: #22272e;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --accent-green: #39d353;
+  --accent-yellow: #f0c000;
+  --accent-pink: #f778ba;
+  --accent-blue: #58a6ff;
+  --border: #30363d;
+  --border-hover: #484f58;
+  --font-kr: 'Noto Sans KR', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========== RESET ========== */
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: var(--font-kr);
+  background: #000;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== SLIDE CONTAINER ========== */
+.presentation {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-viewport {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  max-width: calc(100vh * 16 / 9);
+  max-height: calc(100vw * 9 / 16);
+  aspect-ratio: 16 / 9;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+  padding: 60px 80px;
+}
+
+.slide.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ========== SLIDE TYPOGRAPHY ========== */
+.slide .s-label {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.2vmin, 14px);
+  color: var(--accent-green);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+  opacity: 0.8;
+}
+
+.slide .s-title {
+  font-weight: 900;
+  font-size: clamp(24px, 4.5vmin, 52px);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.slide .s-title .en {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(12px, 1.6vmin, 18px);
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 4px;
+}
+
+.slide .s-subtitle {
+  font-size: clamp(13px, 1.8vmin, 20px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 90%;
+  margin-bottom: 24px;
+}
+
+.slide .s-body {
+  font-size: clamp(12px, 1.6vmin, 18px);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.slide .s-body strong {
+  color: var(--text-primary);
+}
+
+.slide .s-body em {
+  font-style: normal;
+  color: var(--accent-yellow);
+}
+
+.slide .highlight {
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.slide .highlight-yellow {
+  color: var(--accent-yellow);
+  font-weight: 700;
+}
+
+.slide .highlight-pink {
+  color: var(--accent-pink);
+  font-weight: 700;
+}
+
+.slide .highlight-blue {
+  color: var(--accent-blue);
+  font-weight: 700;
+}
+
+/* ========== GRID LAYOUTS ========== */
+.s-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2vmin, 24px);
+}
+
+.s-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(10px, 1.5vmin, 20px);
+}
+
+.s-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: clamp(8px, 1.2vmin, 16px);
+}
+
+.s-grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(6px, 1vmin, 12px);
+}
+
+/* ========== CARD COMPONENTS ========== */
+.s-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: clamp(12px, 2vmin, 24px);
+  position: relative;
+  overflow: hidden;
+}
+
+.s-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+
+.s-card.green::before { background: var(--accent-green); }
+.s-card.yellow::before { background: var(--accent-yellow); }
+.s-card.pink::before { background: var(--accent-pink); }
+.s-card.blue::before { background: var(--accent-blue); }
+
+.s-card .card-label {
+  font-family: var(--font-mono);
+  font-size: clamp(8px, 1vmin, 11px);
+  color: var(--accent-green);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.s-card .card-title {
+  font-size: clamp(13px, 1.8vmin, 20px);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.s-card .card-body {
+  font-size: clamp(11px, 1.3vmin, 15px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ========== TABLE ========== */
+.s-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  font-size: clamp(11px, 1.4vmin, 16px);
+}
+
+.s-table td {
+  padding: clamp(6px, 1vmin, 12px) clamp(10px, 1.5vmin, 20px);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.s-table tr:last-child td { border-bottom: none; }
+
+.s-table td:first-child {
+  width: 140px;
+  font-weight: 700;
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.2vmin, 13px);
+  background: rgba(57, 211, 83, 0.03);
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* ========== QUOTE BOX ========== */
+.s-quote {
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-green);
+  border-radius: var(--radius-sm);
+  padding: clamp(12px, 2vmin, 24px);
+  text-align: center;
+  font-size: clamp(14px, 2.2vmin, 26px);
+  font-weight: 700;
+  line-height: 1.7;
+  position: relative;
+  box-shadow: 0 0 30px rgba(57, 211, 83, 0.1);
+}
+
+/* ========== FLOW STEPS ========== */
+.s-flow {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+.s-flow-step {
+  flex: 1;
+  text-align: center;
+  padding: clamp(10px, 1.5vmin, 20px) clamp(6px, 1vmin, 12px);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  position: relative;
+  margin-right: clamp(20px, 3vmin, 36px);
+}
+
+.s-flow-step:last-child { margin-right: 0; }
+
+.s-flow-step::after {
+  content: '\2192';
+  position: absolute;
+  right: calc(-1 * clamp(16px, 2.2vmin, 28px));
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-green);
+  font-size: clamp(14px, 2vmin, 24px);
+  font-weight: 700;
+}
+
+.s-flow-step:last-child::after { display: none; }
+
+.s-flow-step .step-num {
+  font-family: var(--font-mono);
+  font-size: clamp(8px, 0.9vmin, 10px);
+  color: var(--accent-green);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.s-flow-step .step-icon {
+  font-size: clamp(18px, 3vmin, 36px);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.s-flow-step .step-title {
+  font-weight: 700;
+  font-size: clamp(11px, 1.4vmin, 16px);
+  margin-bottom: 2px;
+}
+
+.s-flow-step .step-desc {
+  font-size: clamp(9px, 1vmin, 12px);
+  color: var(--text-secondary);
+}
+
+/* ========== TAG ========== */
+.s-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: clamp(8px, 0.9vmin, 11px);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.s-tag.green { background: rgba(57,211,83,0.15); color: var(--accent-green); }
+.s-tag.yellow { background: rgba(240,192,0,0.15); color: var(--accent-yellow); }
+.s-tag.pink { background: rgba(247,120,186,0.15); color: var(--accent-pink); }
+.s-tag.blue { background: rgba(88,166,255,0.15); color: var(--accent-blue); }
+
+/* ========== TIMELINE ========== */
+.s-timeline {
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+
+.s-timeline::before {
+  content: '';
+  position: absolute;
+  top: clamp(10px, 1.5vmin, 16px);
+  left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow), var(--accent-pink), var(--accent-blue));
+  border-radius: 2px;
+}
+
+.s-timeline-step {
+  flex: 1;
+  text-align: center;
+  padding-top: clamp(28px, 4vmin, 44px);
+  position: relative;
+}
+
+.s-timeline-step::before {
+  content: '';
+  position: absolute;
+  top: clamp(4px, 0.8vmin, 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(12px, 1.8vmin, 18px);
+  height: clamp(12px, 1.8vmin, 18px);
+  border-radius: 50%;
+  background: var(--accent-green);
+  border: 3px solid var(--bg-primary);
+  z-index: 1;
+}
+
+.s-timeline-step:nth-child(2)::before { background: var(--accent-yellow); }
+.s-timeline-step:nth-child(3)::before { background: var(--accent-pink); }
+.s-timeline-step:nth-child(4)::before { background: var(--accent-blue); }
+
+.s-timeline-step .tl-phase {
+  font-family: var(--font-mono);
+  font-size: clamp(8px, 0.9vmin, 10px);
+  letter-spacing: 1px;
+  color: var(--accent-green);
+  margin-bottom: 4px;
+}
+
+.s-timeline-step:nth-child(2) .tl-phase { color: var(--accent-yellow); }
+.s-timeline-step:nth-child(3) .tl-phase { color: var(--accent-pink); }
+.s-timeline-step:nth-child(4) .tl-phase { color: var(--accent-blue); }
+
+.s-timeline-step .tl-title {
+  font-size: clamp(12px, 1.5vmin, 17px);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.s-timeline-step .tl-desc {
+  font-size: clamp(10px, 1.2vmin, 14px);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ========== RUNDOWN TABLE ========== */
+.s-rundown {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  font-size: clamp(10px, 1.2vmin, 14px);
+}
+
+.s-rundown thead th {
+  padding: clamp(6px, 1vmin, 10px) clamp(8px, 1.2vmin, 14px);
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: clamp(8px, 1vmin, 11px);
+  color: var(--accent-green);
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.s-rundown tbody td {
+  padding: clamp(5px, 0.8vmin, 8px) clamp(8px, 1.2vmin, 14px);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.s-rundown tbody tr:last-child td { border-bottom: none; }
+
+.s-rundown td:first-child {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--accent-green);
+}
+
+.s-rundown td:nth-child(2) {
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ========== SLIDE DECORATIONS ========== */
+.slide .deco-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow), var(--accent-pink), transparent);
+}
+
+.slide .slide-num {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.2vmin, 13px);
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.slide .logo-mark {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 1vmin, 12px);
+  color: var(--accent-green);
+  opacity: 0.4;
+}
+
+/* ========== TITLE SLIDE SPECIAL ========== */
+.slide.title-slide {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px;
+}
+
+.slide.title-slide .terminal-badge {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1.6vmin, 18px);
+  color: var(--accent-green);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.slide.title-slide .terminal-badge::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+}
+
+.slide.title-slide .big-title {
+  font-weight: 900;
+  font-size: clamp(36px, 7vmin, 80px);
+  line-height: 1.2;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.slide.title-slide .big-title-en {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1.8vmin, 22px);
+  color: var(--accent-green);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.slide.title-slide .slogan {
+  font-size: clamp(14px, 2vmin, 22px);
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+.slide.title-slide .slogan em {
+  font-style: normal;
+  color: var(--accent-yellow);
+}
+
+.slide.title-slide .meta {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.2vmin, 14px);
+  color: var(--text-secondary);
+  line-height: 2;
+}
+
+.slide.title-slide .meta .hl {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+/* ========== END SLIDE ========== */
+.slide.end-slide {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.slide.end-slide .end-title {
+  font-size: clamp(30px, 5.5vmin, 64px);
+  font-weight: 900;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.slide.end-slide .end-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1.6vmin, 18px);
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+}
+
+.slide.end-slide .end-info {
+  font-size: clamp(11px, 1.3vmin, 15px);
+  color: var(--text-secondary);
+  line-height: 2;
+}
+
+.slide.end-slide .end-info .hl {
+  color: var(--accent-green);
+}
+
+/* ========== CONTROLS BAR ========== */
+.controls-bar {
+  height: 48px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.controls-left, .controls-center, .controls-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.controls-center {
+  gap: 16px;
+}
+
+.ctrl-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ctrl-btn:hover {
+  border-color: var(--accent-green);
+  background: var(--bg-card-hover);
+}
+
+.ctrl-btn.active {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: rgba(57, 211, 83, 0.1);
+}
+
+.slide-counter {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  min-width: 60px;
+  text-align: center;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 48px;
+  left: 0;
+  height: 2px;
+  background: var(--accent-green);
+  transition: width 0.3s ease;
+  z-index: 101;
+}
+
+/* ========== SCRIPT PANEL ========== */
+.script-panel {
+  position: fixed;
+  bottom: 48px;
+  left: 0;
+  right: 0;
+  max-height: 35vh;
+  background: rgba(13, 17, 23, 0.97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--accent-green);
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 99;
+  padding: 24px 40px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.script-panel.open {
+  transform: translateY(0);
+}
+
+.script-panel .script-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-green);
+  letter-spacing: 1px;
+}
+
+.script-panel .script-header::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  animation: pulse-script 2s infinite;
+}
+
+@keyframes pulse-script {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.script-panel .script-text {
+  font-size: 15px;
+  line-height: 2;
+  color: var(--text-primary);
+  max-width: 900px;
+}
+
+.script-panel .script-text .cue {
+  color: var(--accent-yellow);
+  font-weight: 600;
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+.script-panel .script-text .pause {
+  color: var(--accent-pink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.script-panel .script-time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 12px;
+  opacity: 0.6;
+}
+
+/* ========== SYNC BADGE ========== */
+.sync-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+.sync-badge.connected {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.sync-dot-small {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+}
+
+.sync-badge.connected .sync-dot-small {
+  background: var(--accent-green);
+  box-shadow: 0 0 6px var(--accent-green);
+  animation: sync-pulse 2s infinite;
+}
+
+@keyframes sync-pulse {
+  0%,100% { opacity:1; } 50% { opacity:0.3; }
+}
+
+/* ========== KEYBOARD HINTS ========== */
+.kbd {
+  display: inline-block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ========== BULLET LIST ========== */
+.s-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vmin, 12px);
+}
+
+.s-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: clamp(12px, 1.5vmin, 17px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.s-list li::before {
+  content: '>';
+  font-family: var(--font-mono);
+  color: var(--accent-green);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.s-list li strong { color: var(--text-primary); }
+
+/* spacing helpers */
+.mb-sm { margin-bottom: clamp(8px, 1.2vmin, 16px); }
+.mb-md { margin-bottom: clamp(16px, 2.5vmin, 32px); }
+.mb-lg { margin-bottom: clamp(24px, 3.5vmin, 48px); }
+.mt-sm { margin-top: clamp(8px, 1.2vmin, 16px); }
+.mt-md { margin-top: clamp(16px, 2.5vmin, 32px); }
+
+/* ========== INLINE CODE ========== */
+.code-inline {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--accent-green);
+  background: var(--bg-secondary);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="presentation">
+  <div class="slide-viewport">
+
+    <!-- ==================== SLIDE 1: TITLE ==================== -->
+    <div class="slide title-slide active" data-slide="1">
+      <div class="deco-line"></div>
+      <div class="terminal-badge">$_ useless-app-lab</div>
+      <h1 class="big-title">쓸데없는앱연구소</h1>
+      <p class="big-title-en">Useless App Lab</p>
+      <p class="slogan">세상에서 가장 <em>하찮은</em> 문제를, 가장 <em>진지하게</em> 해결합니다</p>
+      <div class="meta">
+        <div>세종대학교 미디어커뮤니케이션학과</div>
+        <div>영상제작워크샵(ft. 1인미디어종합설계) &mdash; 2026년 1학기</div>
+        <div style="margin-top:8px;"><span class="hl">홍재영 (JAY)</span> &bull; 2026년 3월</div>
+      </div>
+      <span class="slide-num">1 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 2: CHANNEL PLAN ==================== -->
+    <div class="slide" data-slide="2">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 01</p>
+      <h2 class="s-title mb-sm">채널 기획안 <span class="en">Channel Plan</span></h2>
+      <table class="s-table">
+        <tbody>
+          <tr><td>채널명</td><td><strong>쓸데없는앱연구소</strong> (Useless App Lab)</td></tr>
+          <tr><td>채널 분야</td><td>IT/테크 &times; 예능/코미디 (정보공유 + 오리지널의 교차 영역)</td></tr>
+          <tr><td>문화원형</td><td><strong>Jester(광대) &times; Creator(창조자)</strong></td></tr>
+          <tr><td>업로드 주기</td><td>4주차부터 제작 시작, 파일럿 2편 &rarr; 본편 2편 &rarr; 결산형 1편 (총 30분+)</td></tr>
+          <tr><td>타겟</td><td>AI/코딩 호기심 일반인 &bull; 개발 트렌드 관심 2030 &bull; <span class="highlight-yellow">Generation C</span></td></tr>
+          <tr><td>제작방법</td><td>스마트폰 + OBS 화면녹화 &bull; Premiere Pro/CapCut &bull; Claude Code(바이브코딩)</td></tr>
+          <tr><td>로그라인</td><td class="highlight">"코딩을 모르는 대학생이 AI에게 말로만 시켜서 세상에서 가장 쓸데없는 앱을 만들어본다"</td></tr>
+        </tbody>
+      </table>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">2 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 3: CONCEPT - BACKGROUND ==================== -->
+    <div class="slide" data-slide="3">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 02</p>
+      <h2 class="s-title mb-sm">기획의도: 시대적 배경 <span class="en">Context &amp; Intention</span></h2>
+      <div class="s-grid-2">
+        <div>
+          <p class="s-body mb-md">
+            2022년 ChatGPT를 기점으로 LLM이 폭발적으로 발전하면서, 개발 도구가 <strong>산업재</strong>에서 <strong>소비재</strong>로 전환되고 있습니다.
+          </p>
+          <p class="s-body mb-md">
+            Andrej Karpathy가 2025년 명명한 <strong class="highlight">'바이브코딩(Vibe Coding)'</strong>은 이 전환의 상징 &mdash; 비전문가도 자연어 지시만으로 실제 작동하는 소프트웨어를 만들 수 있는 시대.
+          </p>
+          <div class="s-quote" style="text-align:left; font-size:clamp(12px,1.6vmin,18px);">
+            &gt; "산업재였던 개발이, 소비재가 된 시대<br>&nbsp;&nbsp;&nbsp;누구나 말로 만든다"
+          </div>
+        </div>
+        <div>
+          <div class="s-card green mb-sm">
+            <div class="card-label">PROBLEM</div>
+            <div class="card-body">대부분의 개발 채널은 여전히 기술 중심적. '개발의 민주화'를 <strong>대중의 언어</strong>로 전달하는 콘텐츠는 부재</div>
+          </div>
+          <div class="s-card yellow mb-sm">
+            <div class="card-label">SOLUTION</div>
+            <div class="card-body"><strong>기술의 민주화를 유머로 증명</strong>하는 채널. 바이브코딩 &times; 예능이라는 니치 = <span class="highlight">블루오션</span></div>
+          </div>
+          <div class="s-card blue">
+            <div class="card-label">POSITION</div>
+            <div class="card-body">개발 채널 (진지) &larr; <span class="highlight">쓸데없는앱연구소</span> &rarr; 예능 채널 (코딩 無)</div>
+          </div>
+        </div>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">3 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 4: ARCHETYPE & BAD METHOD ==================== -->
+    <div class="slide" data-slide="4">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 02</p>
+      <h2 class="s-title mb-sm">문화원형 &amp; 컨셉 방법론 <span class="en">Archetype &amp; BAD Method</span></h2>
+      <div class="s-grid-2">
+        <div>
+          <p class="s-subtitle" style="max-width:100%;">호소다 다카히로(2023): 컨셉 = <strong>"전체를 관통하는 새로운 관점"</strong></p>
+          <div class="s-quote mb-md" style="font-size:clamp(13px,2vmin,22px);">
+            <span class="highlight-yellow">Jester</span> (즐거움) &times; <span class="highlight-blue">Creator</span> (창조)<br>= 쓸데없는앱연구소
+          </div>
+          <p class="s-body">Jung의 12가지 archetype 중 <strong class="highlight-yellow">Jester</strong>(유머와 현재를 즐기려는 욕구)와 <strong class="highlight-blue">Creator</strong>(새로운 것을 만들려는 욕구)의 교차점에 위치합니다.</p>
+        </div>
+        <div>
+          <p class="s-body mb-sm" style="color:var(--accent-pink); font-weight:600;">BAD(2020) 유튜브 컨셉 프레임워크</p>
+          <div class="s-card pink mb-sm" style="padding:clamp(10px,1.5vmin,18px);">
+            <div class="card-label" style="color:var(--accent-yellow);">대의명분 (정당성)</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">기술의 민주화</div>
+            <div class="card-body">"코딩 못해도 아이디어만 있으면 된다"</div>
+          </div>
+          <div class="s-card pink mb-sm" style="padding:clamp(10px,1.5vmin,18px);">
+            <div class="card-label" style="color:var(--accent-yellow);">구원자 (욕망)</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">창작 욕구 자극</div>
+            <div class="card-body">"나도 만들어볼까?" 욕망 자극</div>
+          </div>
+          <div class="s-card pink mb-sm" style="padding:clamp(10px,1.5vmin,18px);">
+            <div class="card-label" style="color:var(--accent-yellow);">의외성 (매력)</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">클리셰 전복</div>
+            <div class="card-body">쓸모없는 앱을 진지하게 만드는 아이러니</div>
+          </div>
+          <div class="s-card pink" style="padding:clamp(10px,1.5vmin,18px);">
+            <div class="card-label" style="color:var(--accent-yellow);">스피커 (공감)</div>
+            <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">보편적 공감</div>
+            <div class="card-body">일상의 미세한 불편함에 대한 보편적 공감</div>
+          </div>
+        </div>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">4 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 5: FORMAT ==================== -->
+    <div class="slide" data-slide="5">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 03</p>
+      <h2 class="s-title mb-sm">포맷 상세 <span class="en">Format Details</span></h2>
+      <p class="s-subtitle mb-md">양성희(2013)의 포맷 3요소 프레임워크 기반</p>
+      <div class="s-grid-3">
+        <div class="s-card green">
+          <div class="card-label">FORMAT 01</div>
+          <div class="card-title">변하지 않는 그릇</div>
+          <div class="card-body">
+            <strong>인트로:</strong> 터미널 타이핑 <span class="code-inline">$ 오늘의 하찮은 문제:</span><br><br>
+            <strong>시그니처 대사:</strong> <span style="color:var(--accent-yellow);">"대딸깍의 시대, 제가 해결해보겠습니다"</span><br><br>
+            <strong>엔딩:</strong> 완성된 앱 QR코드 + 클로징<br><br>
+            <strong>BGM:</strong> lo-fi 코딩 비트<br>
+            <strong>자막:</strong> 코드 에디터 폰트 + 초록색 하이라이트
+          </div>
+        </div>
+        <div class="s-card yellow">
+          <div class="card-label">FORMAT 02</div>
+          <div class="card-title">구조화된 서사 형식</div>
+          <div class="card-body">
+            매 에피소드 5단계 구조:<br><br>
+            <span class="highlight">1.</span> 문제 발견 (1~2분)<br>
+            <span class="highlight">2.</span> 기획 회의 (1분)<br>
+            <span class="highlight">3.</span> 바이브코딩 (3~5분)<br>
+            <span class="highlight">4.</span> 결과물 시연 (2분)<br>
+            <span class="highlight">5.</span> 평가 & 클로징 (1분)<br><br>
+            시청자가 문제~해결 여정에 동참
+          </div>
+        </div>
+        <div class="s-card blue">
+          <div class="card-label">FORMAT 03</div>
+          <div class="card-title">소재 소화력</div>
+          <div class="card-body">
+            "일상의 하찮은 문제" 프레임은<br>
+            <strong>소재가 무한</strong>합니다.<br><br>
+            <span style="opacity:0.7;">음식 &bull; 연애 &bull; 학교 &bull; 날씨<br>건강 &bull; 쇼핑 &bull; 교통 &bull; 직장<br>+ 무한...</span><br><br>
+            <strong>반복 가능성</strong>과 <strong>확장 가능성</strong>을 모두 충족 (양성희, 2013)
+          </div>
+        </div>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">5 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 6: EPISODE STRUCTURE ==================== -->
+    <div class="slide" data-slide="6">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 03</p>
+      <h2 class="s-title mb-md">에피소드 구조 <span class="en">Episode Structure</span></h2>
+      <div class="s-flow mb-lg">
+        <div class="s-flow-step">
+          <div class="step-num">STEP 01</div>
+          <div class="step-icon">&#128270;</div>
+          <div class="step-title">문제 발견</div>
+          <div class="step-desc">1~2min / 공감 유발</div>
+        </div>
+        <div class="s-flow-step">
+          <div class="step-num">STEP 02</div>
+          <div class="step-icon">&#128161;</div>
+          <div class="step-title">기획 회의</div>
+          <div class="step-desc">1min / 아이디어 스케치</div>
+        </div>
+        <div class="s-flow-step">
+          <div class="step-num">STEP 03</div>
+          <div class="step-icon">&#9000;</div>
+          <div class="step-title">바이브코딩</div>
+          <div class="step-desc">3~5min / 핵심 파트</div>
+        </div>
+        <div class="s-flow-step">
+          <div class="step-num">STEP 04</div>
+          <div class="step-icon">&#128241;</div>
+          <div class="step-title">결과물 시연</div>
+          <div class="step-desc">2min / 앱 테스트</div>
+        </div>
+        <div class="s-flow-step">
+          <div class="step-num">STEP 05</div>
+          <div class="step-icon">&#11088;</div>
+          <div class="step-title">평가 &amp; 클로징</div>
+          <div class="step-desc">1min / 쓸모 판정</div>
+        </div>
+      </div>
+      <div class="s-quote">
+        각 단계에서 시청자는 서로 다른 감정(affect-emotion-effect)을 경험합니다.<br>
+        <span style="font-size:0.8em; color:var(--text-secondary);">공감 &rarr; 호기심 &rarr; 몰입 &rarr; 놀라움 &rarr; 만족</span>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">6 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 7: LOGLINE ==================== -->
+    <div class="slide" data-slide="7">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 04</p>
+      <h2 class="s-title mb-md">로그라인 분석 <span class="en">Logline 6 Elements</span></h2>
+      <div class="s-grid-3 mb-md">
+        <div class="s-card green" style="text-align:center;">
+          <div class="card-label" style="text-align:center;">PROTAGONIST</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">주인공</div>
+          <div class="card-body">코딩을 모르는 대학생 JAY. 시청자와 같은 눈높이의 '일반인 대표'</div>
+        </div>
+        <div class="s-card yellow" style="text-align:center;">
+          <div class="card-label" style="color:var(--accent-yellow); text-align:center;">ANTAGONIST</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">대항자</div>
+          <div class="card-body">일상 속 하찮은 불편함들 (+ 가끔 말 안 듣는 AI)</div>
+        </div>
+        <div class="s-card blue" style="text-align:center;">
+          <div class="card-label" style="color:var(--accent-blue); text-align:center;">SETTING</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">환경</div>
+          <div class="card-body">AI 바이브코딩 환경 (Claude Code, 데스크 셋업)</div>
+        </div>
+        <div class="s-card pink" style="text-align:center;">
+          <div class="card-label" style="color:var(--accent-pink); text-align:center;">CONFLICT</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">문제/갈등</div>
+          <div class="card-body">"이 하찮은 문제를 진짜 앱으로 해결할 수 있을까?"</div>
+        </div>
+        <div class="s-card green" style="text-align:center;">
+          <div class="card-label" style="text-align:center;">ACTION</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">행동</div>
+          <div class="card-body">AI에게 자연어로 지시하며 실시간 앱 제작</div>
+        </div>
+        <div class="s-card yellow" style="text-align:center;">
+          <div class="card-label" style="color:var(--accent-yellow); text-align:center;">GOAL</div>
+          <div class="card-title" style="font-size:clamp(12px,1.5vmin,17px);">목표</div>
+          <div class="card-body">쓸데없지만 실제로 작동하는 앱 완성</div>
+        </div>
+      </div>
+      <div class="s-quote">
+        코딩을 모르는 대학생이 AI에게 말로만 시켜서<br>세상에서 가장 쓸데없는 앱을 만들어본다
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">7 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 8: ROADMAP ==================== -->
+    <div class="slide" data-slide="8">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 05</p>
+      <h2 class="s-title mb-md">콘텐츠 로드맵 <span class="en">Content Roadmap</span></h2>
+      <div class="s-timeline mb-lg">
+        <div class="s-timeline-step">
+          <div class="tl-phase">PHASE 01 &mdash; SETUP</div>
+          <div class="tl-title">기획 정리 (1~3주차)</div>
+          <div class="tl-desc">채널 컨셉, 레퍼런스 분석, 포맷 구조, 파일럿 후보 정리 <span class="s-tag green">완료</span></div>
+        </div>
+        <div class="s-timeline-step">
+          <div class="tl-phase">PHASE 02 &mdash; PILOT</div>
+          <div class="tl-title">파일럿 2편 (4~6주차)</div>
+          <div class="tl-desc">5~6분 &times; 2편<br>누적 10~12분 확보</div>
+        </div>
+        <div class="s-timeline-step">
+          <div class="tl-phase">PHASE 03 &mdash; MAIN</div>
+          <div class="tl-title">본편 확장 (7~11주차)</div>
+          <div class="tl-desc">6~7분 &times; 2편 추가<br>누적 22~26분 확보</div>
+        </div>
+        <div class="s-timeline-step">
+          <div class="tl-phase">PHASE 04 &mdash; FINAL</div>
+          <div class="tl-title">최종 마감 (12~15주차)</div>
+          <div class="tl-desc">결산형 7~8분 1편<br><strong style="color:var(--accent-green);">총 30분+ 확보</strong></div>
+        </div>
+      </div>
+      <div class="s-card green" style="text-align:center;">
+        <div class="card-title">파일럿 후보 주제</div>
+        <div class="card-body" style="display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(6px,1vmin,12px); margin-top:8px;">
+          <span class="s-tag green">01 친구 약속 중간지점 계산 앱</span>
+          <span class="s-tag yellow">02 교수님 PPT 남은 슬라이드 예측 앱</span>
+          <span class="s-tag pink">03 극한의 결정장애 점심 메뉴 앱</span>
+          <span class="s-tag blue">04 카톡 답장 안 하면 알림폭탄 앱</span>
+          <span class="s-tag green">05 수업 중 졸면 깨워주는 앱</span>
+        </div>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">8 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 9: SHORTS STRATEGY ==================== -->
+    <div class="slide" data-slide="9">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 05</p>
+      <h2 class="s-title mb-md">쇼츠 전략 <span class="en">Macro / Micro Content</span></h2>
+      <div class="s-flow mb-lg" style="max-width:80%; margin-left:auto; margin-right:auto;">
+        <div class="s-flow-step" style="padding:clamp(16px,2.5vmin,32px) clamp(10px,1.5vmin,20px);">
+          <div class="step-num">MACRO CONTENT</div>
+          <div class="step-icon" style="font-size:clamp(24px,4vmin,48px);">&#127916;</div>
+          <div class="step-title">롱폼 (5~8분)</div>
+          <div class="step-desc">핵심 제작 과정 압축</div>
+        </div>
+        <div class="s-flow-step" style="padding:clamp(16px,2.5vmin,32px) clamp(10px,1.5vmin,20px);">
+          <div class="step-num">EXTRACTION</div>
+          <div class="step-icon" style="font-size:clamp(24px,4vmin,48px);">&#9986;</div>
+          <div class="step-title">하이라이트 추출</div>
+          <div class="step-desc">1개 롱폼 &rarr; 1~2개 쇼츠</div>
+        </div>
+        <div class="s-flow-step" style="padding:clamp(16px,2.5vmin,32px) clamp(10px,1.5vmin,20px);">
+          <div class="step-num">MICRO CONTENT</div>
+          <div class="step-icon" style="font-size:clamp(24px,4vmin,48px);">&#128248;</div>
+          <div class="step-title">쇼츠 (30~60초)</div>
+          <div class="step-desc">웃긴 순간, 완성 시연</div>
+        </div>
+      </div>
+      <div class="s-grid-2">
+        <div class="s-card yellow">
+          <div class="card-label" style="color:var(--accent-yellow);">전략적 의의</div>
+          <div class="card-body">쇼츠 직접 수익보다는 <strong>구독자 유입 엔진</strong>으로 활용.<br>쇼츠 유입 &rarr; 롱폼 광고 수익 극대화 구조</div>
+        </div>
+        <div class="s-card green">
+          <div class="card-label">크로스 플랫폼</div>
+          <div class="card-body">틱톡 / 인스타 릴스에 동시 업로드.<br>플랫폼 간 시너지를 통한 도달 범위 확장</div>
+        </div>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">9 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 10: REFERENCE ==================== -->
+    <div class="slide" data-slide="10">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 06</p>
+      <h2 class="s-title mb-md">레퍼런스 분석 <span class="en">Reference Analysis</span></h2>
+      <div class="s-grid-2">
+        <div class="s-card green">
+          <div class="card-label">REFERENCE 01</div>
+          <div class="card-title">침착맨 &mdash; "캐릭터 중심 예능"</div>
+          <div class="card-body">
+            <span style="color:var(--accent-green);">유사:</span> Jester&times;Creator, 소재 소화력, 캐릭터 중심<br>
+            <span style="color:var(--accent-yellow);">차이:</span> 본 채널은 매 EP 실제 결과물(앱) 산출<br>
+            <span style="color:var(--accent-pink);">인사이트:</span> 캐릭터 브랜딩의 중요성
+          </div>
+        </div>
+        <div class="s-card yellow">
+          <div class="card-label" style="color:var(--accent-yellow);">REFERENCE 02</div>
+          <div class="card-title">긱블 &mdash; "엔지니어링 예능"</div>
+          <div class="card-body">
+            <span style="color:var(--accent-green);">유사:</span> 기술을 예능으로, "만들기"가 핵심<br>
+            <span style="color:var(--accent-yellow);">차이:</span> 긱블=하드웨어/팀, 본 채널=소프트웨어/1인<br>
+            <span style="color:var(--accent-pink);">인사이트:</span> 기술 예능화의 검증 사례
+          </div>
+        </div>
+        <div class="s-card pink">
+          <div class="card-label" style="color:var(--accent-pink);">REFERENCE 03</div>
+          <div class="card-title">피식대학 &mdash; "블루오션 전략"</div>
+          <div class="card-body">
+            <span style="color:var(--accent-green);">유사:</span> 블루오션, 유니버스 구축, 파일럿 &rarr; 시리즈<br>
+            <span style="color:var(--accent-yellow);">차이:</span> 코미디 상황극 vs 실제 제작 과정<br>
+            <span style="color:var(--accent-pink);">인사이트:</span> 경쟁이 사라진 곳에 포지셔닝
+          </div>
+        </div>
+        <div class="s-card blue">
+          <div class="card-label" style="color:var(--accent-blue);">REFERENCE 04</div>
+          <div class="card-title">노마드코더 / 코딩애플</div>
+          <div class="card-body">
+            <span style="color:var(--accent-green);">유사:</span> 코딩/개발 소재 유튜브 채널<br>
+            <span style="color:var(--accent-yellow);">차이:</span> 교육 목적 진지한 톤 vs 예능 유쾌한 톤<br>
+            <span style="color:var(--accent-pink);">인사이트:</span> "배우러" &ne; "보러" 오는 곳
+          </div>
+        </div>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">10 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 11: REVENUE ==================== -->
+    <div class="slide" data-slide="11">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 07</p>
+      <h2 class="s-title mb-sm">수익모델 <span class="en">Revenue Model</span></h2>
+      <div class="s-grid-3">
+        <div>
+          <p class="s-tag green mb-sm" style="display:block; text-align:center;">Phase 1 &mdash; 단기 (1~6개월)</p>
+          <div class="s-card green mb-sm" style="padding:clamp(10px,1.3vmin,16px);">
+            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">01 구글 애드센스</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">YPP 가입 후 광고 수익<br>IT/테크 CPM: $20~$40<br>(일반 대비 2~4배)</div>
+          </div>
+          <div class="s-card green" style="padding:clamp(10px,1.3vmin,16px);">
+            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">02 쇼츠 광고 수익</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">크리에이터 45% 지급<br>직접 수익 < 구독자 유입 엔진</div>
+          </div>
+        </div>
+        <div>
+          <p class="s-tag yellow mb-sm" style="display:block; text-align:center;">Phase 2 &mdash; 중기 (6~12개월)</p>
+          <div class="s-card yellow mb-sm" style="padding:clamp(10px,1.3vmin,16px);">
+            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">03 제휴 마케팅</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">AI 도구 레퍼럴 링크<br>실제 사용 도구 &rarr; 광고 거부감 최소</div>
+          </div>
+          <div class="s-card yellow mb-sm" style="padding:clamp(10px,1.3vmin,16px);">
+            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">04 브랜디드/PPL</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">AI 도구 기업 스폰서<br>포맷 내 자연 통합</div>
+          </div>
+          <div class="s-card yellow" style="padding:clamp(10px,1.3vmin,16px);">
+            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">05 팬 후원</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">라이브 바이브코딩 슈퍼챗<br>실시간 시청자 문제 해결</div>
+          </div>
+        </div>
+        <div>
+          <p class="s-tag pink mb-sm" style="display:block; text-align:center;">Phase 3 &mdash; 장기 (12개월~)</p>
+          <div class="s-card pink mb-sm" style="padding:clamp(10px,1.3vmin,16px);">
+            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">06 유료 멤버십</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">소스코드 공개, 비하인드<br>멤버 전용 "하찮은 문제 우선권"</div>
+          </div>
+          <div class="s-card pink" style="padding:clamp(10px,1.3vmin,16px);">
+            <div class="card-title" style="font-size:clamp(11px,1.3vmin,15px);">07 강좌/도서/컨설팅</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">바이브코딩 입문 강좌<br>기업 워크샵 컨설팅</div>
+          </div>
+        </div>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">11 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 12: MARKETING ==================== -->
+    <div class="slide" data-slide="12">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 07</p>
+      <h2 class="s-title mb-md">마케팅 &amp; 알고리즘 전략 <span class="en">Marketing &amp; Algorithm</span></h2>
+      <div class="s-grid-2 mb-md">
+        <div>
+          <p class="s-body mb-sm" style="color:var(--accent-yellow); font-weight:700;">마케팅 전략 4가지</p>
+          <div class="s-card green mb-sm" style="padding:clamp(8px,1.2vmin,14px);">
+            <div class="card-label">STRATEGY 01</div>
+            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">쇼츠 우선 전략</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">일일 2,000억 조회 쇼츠 시장 공략. 30~60초 임팩트 클립으로 유입 극대화</div>
+          </div>
+          <div class="s-card yellow mb-sm" style="padding:clamp(8px,1.2vmin,14px);">
+            <div class="card-label" style="color:var(--accent-yellow);">STRATEGY 02</div>
+            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">커뮤니티 활용</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">시청자 "하찮은 문제 제보" &rarr; 콘텐츠화 &rarr; 참여 유도</div>
+          </div>
+          <div class="s-card pink mb-sm" style="padding:clamp(8px,1.2vmin,14px);">
+            <div class="card-label" style="color:var(--accent-pink);">STRATEGY 03</div>
+            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">크로스 플랫폼</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">틱톡/인스타 릴스 동시 업로드, 플랫폼 간 시너지</div>
+          </div>
+          <div class="s-card blue" style="padding:clamp(8px,1.2vmin,14px);">
+            <div class="card-label" style="color:var(--accent-blue);">STRATEGY 04</div>
+            <div class="card-title" style="font-size:clamp(11px,1.4vmin,16px);">SEO 키워드 선점</div>
+            <div class="card-body" style="font-size:clamp(10px,1.1vmin,13px);">"바이브코딩", "AI 앱 만들기" 등 블루오션 키워드 조기 선점</div>
+          </div>
+        </div>
+        <div>
+          <p class="s-body mb-sm" style="color:var(--accent-green); font-weight:700;">알고리즘 전략 (전상훈&middot;최서연, 2022)</p>
+          <div class="s-grid-2" style="gap:clamp(8px,1vmin,12px);">
+            <div class="s-card green" style="text-align:center; padding:clamp(12px,1.8vmin,22px);">
+              <div style="font-family:var(--font-mono); font-size:clamp(18px,3vmin,36px); font-weight:700; color:var(--accent-green);">5&rarr;8min</div>
+              <div style="font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary); margin-top:4px;">러닝타임 설계</div>
+              <div style="font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); margin-top:4px;">짧게 시작 &rarr; 검증 후 확장</div>
+            </div>
+            <div class="s-card green" style="text-align:center; padding:clamp(12px,1.8vmin,22px);">
+              <div style="font-family:var(--font-mono); font-size:clamp(18px,3vmin,36px); font-weight:700; color:var(--accent-green);">40%+</div>
+              <div style="font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary); margin-top:4px;">시청지속률 목표</div>
+              <div style="font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); margin-top:4px;">5~8분 기준 약 2~3분</div>
+            </div>
+            <div class="s-card green" style="text-align:center; padding:clamp(12px,1.8vmin,22px);">
+              <div style="font-family:var(--font-mono); font-size:clamp(18px,3vmin,36px); font-weight:700; color:var(--accent-green);">CTR</div>
+              <div style="font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary); margin-top:4px;">클릭률 최적화</div>
+              <div style="font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); margin-top:4px;">스크린샷+리액션+텍스트</div>
+            </div>
+            <div class="s-card green" style="text-align:center; padding:clamp(12px,1.8vmin,22px);">
+              <div style="font-family:var(--font-mono); font-size:clamp(18px,3vmin,36px); font-weight:700; color:var(--accent-green);">S&rarr;L</div>
+              <div style="font-size:clamp(10px,1.2vmin,14px); color:var(--text-secondary); margin-top:4px;">초기 전략</div>
+              <div style="font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); margin-top:4px;">쇼츠 유입 &rarr; 롱폼 수익</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">12 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 13: EP.01 RUNDOWN ==================== -->
+    <div class="slide" data-slide="13">
+      <div class="deco-line"></div>
+      <p class="s-label">Section 08</p>
+      <h2 class="s-title mb-sm">EP.01 구성안 <span class="en">Episode 01 Rundown</span></h2>
+      <p class="s-subtitle mb-sm" style="font-size:clamp(11px,1.4vmin,16px);">
+        <strong>"친구들이랑 약속 잡을 때 정확히 중간지점 찾아주는 앱 만들어봤습니다"</strong> &mdash; 총 5분 30초
+      </p>
+      <table class="s-rundown">
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>시간</th>
+            <th>내용</th>
+            <th>비디오</th>
+            <th>오디오</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>인트로</td>
+            <td>0:00~0:15</td>
+            <td>터미널 타이핑 + 문제 텍스트 출력</td>
+            <td style="color:var(--text-secondary);">터미널 화면 + PIP 얼굴캠</td>
+            <td style="color:var(--text-secondary);">타이핑 효과음 + lo-fi</td>
+          </tr>
+          <tr>
+            <td>타이틀</td>
+            <td>0:15~0:25</td>
+            <td>채널 타이틀 시퀀스</td>
+            <td style="color:var(--text-secondary);">모션그래픽 글리치</td>
+            <td style="color:var(--text-secondary);">시그니처 징글 3초</td>
+          </tr>
+          <tr>
+            <td>문제 제시</td>
+            <td>0:25~1:05</td>
+            <td>단톡방 폭발 상황 재현, 공감 토크</td>
+            <td style="color:var(--text-secondary);">단톡방 캡처 + 얼굴캠</td>
+            <td style="color:var(--text-secondary);">내레이션 + 공감 BGM</td>
+          </tr>
+          <tr>
+            <td>기획</td>
+            <td>1:05~1:35</td>
+            <td>"대딸깍의 시대" + 앱 기능 스케치</td>
+            <td style="color:var(--text-secondary);">화이트보드 + 얼굴캠</td>
+            <td style="color:var(--text-secondary);">아이디어 효과음</td>
+          </tr>
+          <tr>
+            <td style="color:var(--accent-yellow);">바이브코딩</td>
+            <td>1:35~4:05</td>
+            <td>Claude Code에 자연어 지시, 시행착오, 수정, 완성</td>
+            <td style="color:var(--text-secondary);">스크린캐스트 + PIP</td>
+            <td style="color:var(--text-secondary);">lo-fi + 에러 효과음</td>
+          </tr>
+          <tr>
+            <td>결과 시연</td>
+            <td>4:05~4:50</td>
+            <td>완성 앱 테스트, 친구들 실험</td>
+            <td style="color:var(--text-secondary);">앱 화면 + 리액션</td>
+            <td style="color:var(--text-secondary);">기대감 BGM + 핀 효과음</td>
+          </tr>
+          <tr>
+            <td>평가</td>
+            <td>4:50~5:15</td>
+            <td>쓸모 판정 (5점 만점), 다음 예고</td>
+            <td style="color:var(--text-secondary);">얼굴캠 + 점수 오버레이</td>
+            <td style="color:var(--text-secondary);">드럼롤 + 클로징 BGM</td>
+          </tr>
+          <tr>
+            <td>아웃트로</td>
+            <td>5:15~5:30</td>
+            <td>구독/좋아요, QR코드, 다음 힌트</td>
+            <td style="color:var(--text-secondary);">엔드스크린 + QR</td>
+            <td style="color:var(--text-secondary);">아웃트로 징글</td>
+          </tr>
+        </tbody>
+      </table>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">13 / 14</span>
+    </div>
+
+    <!-- ==================== SLIDE 14: END ==================== -->
+    <div class="slide end-slide" data-slide="14">
+      <div class="deco-line"></div>
+      <h2 class="end-title">감사합니다</h2>
+      <p class="end-sub">Q &amp; A</p>
+      <div class="end-info">
+        <div><span class="hl">쓸데없는앱연구소</span> &mdash; Useless App Lab</div>
+        <div>세종대학교 미디어커뮤니케이션학과 &bull; 영상제작워크샵</div>
+        <div style="margin-top:16px;"><span class="hl">홍재영 (JAY)</span> &bull; 2026년 3월</div>
+      </div>
+      <div style="margin-top:40px; font-size:clamp(9px,1vmin,12px); color:var(--text-secondary); opacity:0.5; font-family:var(--font-mono);">
+        // References: 임종수(2006, 2011), 호소다 다카히로(2023), 양성희(2013), 전상훈&middot;최서연(2022), 이주현&middot;디바제시카(2023), BAD(2020), PWC(2010)
+      </div>
+      <span class="logo-mark">$_ useless-app-lab</span>
+      <span class="slide-num">14 / 14</span>
+    </div>
+
+  </div><!-- /slide-viewport -->
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar" style="width: 7.14%;"></div>
+
+  <!-- Script Panel (Toggle) -->
+  <div class="script-panel" id="scriptPanel">
+    <div class="script-header">PRESENTER SCRIPT</div>
+    <div class="script-text" id="scriptText"></div>
+    <div class="script-time" id="scriptTime"></div>
+  </div>
+
+  <!-- Controls Bar -->
+  <div class="controls-bar">
+    <div class="controls-left">
+      <button class="ctrl-btn" id="btnScript" title="Toggle Script (S)">
+        <span>&#128220;</span> 대본 <kbd class="kbd">S</kbd>
+      </button>
+      <span class="sync-badge" id="syncBadge" title="Phone sync status">
+        <span class="sync-dot-small" id="syncDot"></span>
+        <span id="syncLabel">PIN: <strong id="syncPin">----</strong></span>
+      </span>
+    </div>
+    <div class="controls-center">
+      <button class="ctrl-btn" id="btnPrev" title="Previous Slide">&larr;</button>
+      <span class="slide-counter" id="slideCounter">1 / 14</span>
+      <button class="ctrl-btn" id="btnNext" title="Next Slide">&rarr;</button>
+    </div>
+    <div class="controls-right">
+      <button class="ctrl-btn" id="btnPresenter" title="Presenter View (P)">
+        <span>&#128187;</span> 발표자 모드 <kbd class="kbd">P</kbd>
+      </button>
+      <button class="ctrl-btn" id="btnFullscreen" title="Fullscreen (F)">
+        <span>&#9974;</span> 전체화면 <kbd class="kbd">F</kbd>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCRIPTS DATA ==================== -->
+<script>
+(function() {
+  'use strict';
+
+  // ===== SCRIPT DATA =====
+  const scripts = {
+    1: {
+      text: `<span class="cue">[인사 / 타이틀 소개]</span><br><br>
+안녕하세요, 미디어커뮤니케이션학과 홍재영입니다. 오늘 발표할 채널 기획안은 <strong>"쓸데없는앱연구소"</strong>입니다.<br><br>
+채널의 슬로건은 "세상에서 가장 하찮은 문제를, 가장 진지하게 해결합니다"인데요. 이름에서 느껴지듯, 코딩을 전혀 모르는 제가 AI에게 말로만 시켜서 쓸데없는 앱을 만드는 과정 자체를 콘텐츠로 만드는 채널입니다.<br><br>
+<span class="pause">[잠깐 멈춤]</span> 왜 이 채널이어야 하는지, 지금부터 함께 보시겠습니다.`,
+      time: "약 40초"
+    },
+    2: {
+      text: `<span class="cue">[채널 기획 개요]</span><br><br>
+먼저 채널 기획안 전체 요약입니다. 채널 분야는 IT/테크와 예능/코미디의 교차 영역이고, 문화원형은 Jester, 즉 광대와 Creator, 창조자의 결합입니다.<br><br>
+업로드 계획은 4주차부터 시작해서 파일럿 2편, 본편 2편, 결산형 1편으로 학기 총 30분 이상을 확보하는 구조입니다.<br><br>
+타겟은 특정 연령이나 성별 제한 없이 넓게 잡되, 핵심 소구층은 AI와 코딩에 호기심 있는 일반인, 그리고 2030세대의 IT 관심층입니다. PWC가 정의한 <strong>Generation C</strong> &mdash; creation, curation, connection, community를 마인드셋 타겟으로 설정했습니다.<br><br>
+핵심 로그라인은 화면 하단에 보이는 것처럼, <strong>"코딩을 모르는 대학생이 AI에게 말로만 시켜서 세상에서 가장 쓸데없는 앱을 만들어본다"</strong>입니다.`,
+      time: "약 50초"
+    },
+    3: {
+      text: `<span class="cue">[기획의도 - 시대적 배경]</span><br><br>
+기획의도로 넘어가겠습니다. 2022년 ChatGPT 출시를 기점으로 LLM이 폭발적으로 발전했고, 이전에는 전문 개발자만 쓸 수 있었던 개발 도구들이 이제 자연어 인터페이스를 통해 누구나 쓸 수 있게 되었습니다. 쉽게 말해, 개발이 산업재에서 소비재로 전환된 겁니다.<br><br>
+2025년에 Andrej Karpathy가 명명한 <strong>'바이브코딩'</strong>이 바로 이 전환의 상징인데요, 코드를 직접 쓰지 않고 AI에게 자연어로 지시해서 소프트웨어를 만드는 방식을 말합니다.<br><br>
+그런데 문제는, 이 혁신적인 변화를 대중의 눈높이에서 재미있게 보여주는 채널이 없다는 겁니다. 개발 채널은 진지하고, 예능 채널은 코딩을 다루지 않아요. 이 빈 공간이 바로 쓸데없는앱연구소의 포지션입니다.`,
+      time: "약 50초"
+    },
+    4: {
+      text: `<span class="cue">[문화원형 & 컨셉 방법론]</span><br><br>
+호소다 다카히로는 컨셉을 "전체를 관통하는 새로운 관점"이라고 정의했습니다. 본 채널의 관점은 <strong>"기술의 민주화를 유머로 증명한다"</strong>는 것입니다.<br><br>
+Jung의 12가지 archetype 중에서 이 채널은 Jester와 Creator의 교차점에 위치합니다. Jester는 유머와 현재를 즐기려는 욕구, Creator는 새로운 것을 만들려는 욕구를 자극하는데, 이 둘이 결합된 게 바로 "쓸데없는 앱을 진지하게 만드는" 컨셉입니다.<br><br>
+오른쪽은 유튜브 컨셉 전문가 배드 BAD가 제시한 프레임워크를 적용한 건데요. <span class="pause">[카드를 가리키며]</span> 대의명분은 기술의 민주화, 구원자는 "나도 만들어볼까?"라는 창작 욕구 자극, 의외성은 진지한 개발이라는 클리셰를 깨는 반전, 스피커는 일상의 불편함에 대한 보편적 공감입니다.`,
+      time: "약 55초"
+    },
+    5: {
+      text: `<span class="cue">[포맷 상세]</span><br><br>
+양성희 교수님의 포맷 3요소 프레임워크를 기반으로 채널 포맷을 설계했습니다.<br><br>
+첫 번째, <strong>변하지 않는 그릇</strong>입니다. 매 에피소드 인트로는 터미널 화면에서 "오늘의 하찮은 문제"가 타이핑되는 것으로 시작하고, 시그니처 대사 <strong>"대딸깍의 시대, 제가 해결해보겠습니다"</strong>가 매회 반복됩니다. 엔딩에는 완성된 앱의 QR코드를 보여주고요.<br><br>
+두 번째, <strong>구조화된 서사 형식</strong>입니다. 문제 발견, 기획 회의, 바이브코딩, 결과물 시연, 평가 & 클로징의 5단계 구조를 따릅니다. 다음 슬라이드에서 자세히 보여드리겠습니다.<br><br>
+세 번째, <strong>소재 소화력</strong>입니다. "일상의 하찮은 문제"라는 프레임은 음식, 연애, 학교, 날씨 등 모든 카테고리에서 소재 추출이 가능해서, 양성희 교수님이 말한 포맷의 핵심 조건인 반복 가능성과 확장 가능성을 모두 충족합니다.`,
+      time: "약 55초"
+    },
+    6: {
+      text: `<span class="cue">[에피소드 구조 5단계]</span><br><br>
+에피소드 구조를 좀 더 구체적으로 보겠습니다. 5단계 흐름도입니다.<br><br>
+<strong>1단계 문제 발견</strong>에서는 1~2분간 일상의 하찮은 불편함을 보여주며 공감을 유발합니다. "다들 이런 경험 있잖아요" 하면서요.<br><br>
+<strong>2단계 기획 회의</strong>에서는 약 1분간 어떤 앱을 만들지 아이디어를 스케치합니다.<br><br>
+<strong>3단계 바이브코딩</strong>이 핵심 파트인데, 3~5분 동안 AI에게 자연어로 지시하면서 실제 앱을 만드는 과정을 보여줍니다. 시행착오와 우연한 발견이 여기서 웃음을 만듭니다.<br><br>
+<strong>4단계 결과물 시연</strong>에서 완성된 앱을 실제로 테스트하고, <strong>5단계 평가 & 클로징</strong>에서 쓸모를 판정하면서 마무리합니다.<br><br>
+각 단계마다 시청자가 경험하는 감정이 달라지도록 설계했습니다. 공감에서 호기심, 몰입, 놀라움, 그리고 만족으로 이어지는 감정 곡선입니다.`,
+      time: "약 55초"
+    },
+    7: {
+      text: `<span class="cue">[로그라인 6요소]</span><br><br>
+로그라인을 6가지 드라마 요소로 분해해 보았습니다.<br><br>
+<strong>주인공</strong>은 코딩을 모르는 대학생 JAY, 즉 저입니다. 기술 전문가가 아닌 일반인 대표로서 시청자와 같은 눈높이에서 출발합니다.<br><br>
+<strong>대항자</strong>는 일상 속 하찮은 불편함들이고, 가끔 말 안 듣는 AI도 대항자 역할을 합니다. 매 에피소드 새로운 적이 등장하는 구조라 소재 고갈 걱정이 없습니다.<br><br>
+<strong>환경</strong>은 AI 바이브코딩 환경, <strong>갈등</strong>은 매회 반복되는 "이 하찮은 문제를 진짜 앱으로 해결할 수 있을까?"라는 질문, <strong>행동</strong>은 AI에게 자연어로 지시하며 실시간 앱 제작, <strong>목표</strong>는 쓸데없지만 실제로 작동하는 앱 완성입니다.<br><br>
+이 모든 걸 한 문장으로 압축하면, <span class="pause">[화면 하단 가리키며]</span> <strong>"코딩을 모르는 대학생이 AI에게 말로만 시켜서 세상에서 가장 쓸데없는 앱을 만들어본다"</strong>입니다.`,
+      time: "약 55초"
+    },
+    8: {
+      text: `<span class="cue">[콘텐츠 로드맵]</span><br><br>
+실행 로드맵입니다. 4단계로 구성했습니다.<br><br>
+<strong>Phase 1</strong>은 1~3주차 기획 정리 단계로, 이미 완료된 상태입니다. 지금 이 발표가 그 결과물이고요.<br><br>
+<strong>Phase 2</strong>는 4~6주차 파일럿 제작입니다. 5~6분 분량 2편을 만들어서 누적 10~12분을 확보합니다. 아래 보시면 후보 주제 5가지가 있는데, "친구 약속 중간지점 계산 앱"부터 "수업 중 졸면 깨워주는 앱"까지, 모두 공감할 수 있는 하찮은 문제들입니다.<br><br>
+<strong>Phase 3</strong>은 7~11주차 본편 확장으로 6~7분 &times; 2편을 추가해 22~26분을 확보하고, <strong>Phase 4</strong>에서 결산형 1편으로 최종 30분 이상을 마무리합니다.<br><br>
+일정이 밀리더라도 결산편 길이를 조정해서 30분은 반드시 넘기도록 설계했습니다.`,
+      time: "약 50초"
+    },
+    9: {
+      text: `<span class="cue">[쇼츠 전략]</span><br><br>
+거시/미시 콘텐츠 구조입니다. 롱폼 5~8분짜리 본편에서 하이라이트를 추출해서 30~60초 쇼츠를 만드는 흐름인데요.<br><br>
+핵심은 쇼츠의 직접 수익보다는 <strong>구독자 유입 엔진</strong>으로 활용한다는 점입니다. 쇼츠 RPM은 롱폼 대비 매우 낮기 때문에, 쇼츠로 시청자를 끌어들이고 롱폼에서 광고 수익을 극대화하는 구조입니다.<br><br>
+그리고 동일 쇼츠를 틱톡과 인스타 릴스에도 동시 업로드해서 플랫폼 간 시너지를 만들 계획입니다.`,
+      time: "약 35초"
+    },
+    10: {
+      text: `<span class="cue">[레퍼런스 분석]</span><br><br>
+벤치마킹 대상 채널 4개를 분석했습니다.<br><br>
+<strong>침착맨</strong>에서는 캐릭터 중심 예능의 힘을 배웁니다. Jester&times;Creator 원형이 동일하고, 소재 소화력이 뛰어나죠. 다만 침착맨은 토크 중심이라 구체적 산출물이 없는데, 저희 채널은 매 에피소드 실제 앱이 나온다는 게 차별점입니다.<br><br>
+<strong>긱블</strong>은 기술을 예능으로 풀어낸 대표 채널인데, 하드웨어 중심인 긱블과 달리 저희는 소프트웨어, AI 코딩 중심이고 1인 크리에이터 구조입니다.<br><br>
+<strong>피식대학</strong>에서는 블루오션 전략과 파일럿에서 시리즈로 확장하는 전략을 벤치마킹했고, <strong>노마드코더/코딩애플</strong> 같은 기존 개발 채널과는 "배우러 오는 곳이 아니라 보러 오는 곳"이라는 포지션으로 명확히 차별화합니다.`,
+      time: "약 55초"
+    },
+    11: {
+      text: `<span class="cue">[수익모델]</span><br><br>
+수익모델을 단기, 중기, 장기 3단계로 구분했습니다.<br><br>
+<strong>단기</strong>에는 가장 기본인 구글 애드센스와 쇼츠 광고 수익입니다. 특히 IT/테크 카테고리 CPM이 20~40달러로 일반 카테고리 대비 2~4배 높다는 점이 유리합니다.<br><br>
+<strong>중기</strong>에는 AI 도구 기업과의 제휴 마케팅과 브랜디드 콘텐츠, 그리고 라이브 바이브코딩을 통한 슈퍼챗 수익을 기대합니다. 실제로 사용하는 도구를 소개하는 거라 광고 거부감이 적고요.<br><br>
+<strong>장기</strong>적으로는 유료 멤버십과 바이브코딩 강좌/컨설팅으로 확장합니다. 이건 퍼스널 브랜딩이 축적된 이후의 이야기입니다.`,
+      time: "약 45초"
+    },
+    12: {
+      text: `<span class="cue">[마케팅 & 알고리즘 전략]</span><br><br>
+마케팅 전략은 4가지입니다. 첫째, 일일 2,000억 조회의 쇼츠 시장을 공략하는 <strong>쇼츠 우선 전략</strong>. 둘째, 시청자에게 하찮은 문제를 제보받아 콘텐츠로 만드는 <strong>커뮤니티 활용</strong>. 셋째, 틱톡/인스타에 동시 업로드하는 <strong>크로스 플랫폼</strong>. 넷째, "바이브코딩"이나 "AI 앱 만들기" 같은 블루오션 키워드를 선점하는 <strong>SEO 전략</strong>입니다.<br><br>
+오른쪽은 전상훈, 최서연의 <유튜브 떡상의 비밀>에서 가져온 알고리즘 전략인데요. 러닝타임은 5분에서 시작해 검증된 포맷만 8분으로 늘리고, 시청지속률 40% 이상을 목표로 합니다. 그리고 쇼츠에서 유입시켜 롱폼에서 수익을 만드는 Short to Long 전략을 씁니다.`,
+      time: "약 45초"
+    },
+    13: {
+      text: `<span class="cue">[EP.01 구성안]</span><br><br>
+마지막으로, 파일럿 1회차 구성안입니다. 제목은 "친구들이랑 약속 잡을 때 정확히 중간지점 찾아주는 앱 만들어봤습니다"이고, 총 5분 30초 분량입니다.<br><br>
+인트로에서 터미널 타이핑으로 문제를 제시하고, 타이틀 시퀀스 후에 카톡방이 폭발하는 상황을 재현하면서 공감을 유발합니다. 시그니처 대사 "대딸깍의 시대"와 함께 기획으로 넘어가고요.<br><br>
+바이브코딩 파트가 1분 35초부터 4분 5초까지 약 2분 30초로 가장 긴 핵심 파트입니다. Claude Code에 자연어로 지시하면서 시행착오를 겪는 과정이 재미의 원천이 됩니다.<br><br>
+그 후 완성된 앱으로 실제 친구들과 실험하고, 쓸모 판정으로 마무리합니다.`,
+      time: "약 45초"
+    },
+    14: {
+      text: `<span class="cue">[마무리]</span><br><br>
+이상으로 쓸데없는앱연구소 채널 기획안 발표를 마치겠습니다.<br><br>
+정리하면, 이 채널은 바이브코딩이라는 새로운 패러다임을 예능의 언어로 풀어내는 채널이고, 한국 유튜브에서 "개발 &times; 예능"이라는 블루오션 니치를 차지하는 것이 목표입니다.<br><br>
+3월 넷째 주부터 파일럿 첫 편 제작에 들어갈 예정이니, 기대해 주시면 감사하겠습니다.<br><br>
+<span class="pause">[잠깐 멈춤]</span> 질문 있으시면 말씀해 주세요. 감사합니다.`,
+      time: "약 30초"
+    }
+  };
+
+  // ===== STATE =====
+  let currentSlide = 1;
+  const totalSlides = 14;
+  let scriptOpen = false;
+
+  // ===== DOM REFS =====
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slideCounter');
+  const progressBar = document.getElementById('progressBar');
+  const scriptPanel = document.getElementById('scriptPanel');
+  const scriptText = document.getElementById('scriptText');
+  const scriptTime = document.getElementById('scriptTime');
+  const btnScript = document.getElementById('btnScript');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  const btnFullscreen = document.getElementById('btnFullscreen');
+  const btnPresenter = document.getElementById('btnPresenter');
+
+  // ===== PRESENTER WINDOW =====
+  let presenterWin = null;
+
+  function openPresenterView() {
+    if (presenterWin && !presenterWin.closed) {
+      presenterWin.focus();
+      return;
+    }
+
+    // Close script panel on main window when presenter mode opens
+    if (scriptOpen) toggleScript();
+
+    presenterWin = window.open('', 'presenterView', 'width=720,height=700,left=0,top=0,resizable=yes,scrollbars=yes');
+    if (!presenterWin) { alert('팝업이 차단되었습니다. 팝업 허용 후 다시 시도해 주세요.'); return; }
+
+    presenterWin.document.write(getPresenterHTML());
+    presenterWin.document.close();
+    btnPresenter.classList.add('active');
+
+    // Sync: presenter controls -> main window
+    presenterWin.addEventListener('message', function(e) {
+      if (e.data.type === 'nav') goToSlide(e.data.slide);
+    });
+
+    presenterWin.addEventListener('beforeunload', function() {
+      btnPresenter.classList.remove('active');
+      presenterWin = null;
+    });
+
+    updatePresenterView();
+
+    // Auto-fullscreen main window for projector
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
+  }
+
+  function updatePresenterView() {
+    if (!presenterWin || presenterWin.closed) return;
+    try {
+      const doc = presenterWin.document;
+      const data = scripts[currentSlide] || { text: '', time: '' };
+      const nextData = scripts[currentSlide + 1] || null;
+
+      doc.getElementById('pv-slide-num').textContent = currentSlide + ' / ' + totalSlides;
+      doc.getElementById('pv-progress').style.width = ((currentSlide / totalSlides) * 100) + '%';
+      doc.getElementById('pv-script').innerHTML = data.text;
+      doc.getElementById('pv-time').textContent = data.time;
+
+      if (nextData) {
+        doc.getElementById('pv-next-label').textContent = '다음 슬라이드 (' + (currentSlide + 1) + '/' + totalSlides + ')';
+        doc.getElementById('pv-next-preview').innerHTML = '<span style="color:#8b949e;font-size:13px;">' +
+          nextData.text.replace(/<br><br>/g, ' ').replace(/<[^>]+>/g, '').substring(0, 120) + '...</span>';
+      } else {
+        doc.getElementById('pv-next-label').textContent = '마지막 슬라이드';
+        doc.getElementById('pv-next-preview').innerHTML = '';
+      }
+    } catch(e) {}
+  }
+
+  function getPresenterHTML() {
+    return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>발표자 보기 - 쓸데없는앱연구소</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans KR',sans-serif;background:#0d1117;color:#e6edf3;overflow-y:auto;padding:0;}
+.pv-header{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.pv-header h1{font-family:'JetBrains Mono',monospace;font-size:13px;color:#39d353;font-weight:600;letter-spacing:1px;}
+.pv-controls{display:flex;align-items:center;gap:10px;}
+.pv-btn{background:#1c2128;border:1px solid #30363d;color:#e6edf3;padding:6px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;transition:0.2s;}
+.pv-btn:hover{border-color:#39d353;background:#22272e;}
+.pv-slide-num{font-family:'JetBrains Mono',monospace;font-size:14px;color:#8b949e;min-width:60px;text-align:center;}
+.pv-progress-bar{height:3px;background:#30363d;margin:0;}
+.pv-progress-fill{height:100%;background:linear-gradient(90deg,#39d353,#f0c000);transition:width 0.3s;}
+.pv-body{padding:24px;}
+.pv-section{margin-bottom:24px;}
+.pv-section-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:#39d353;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.pv-section-label::before{content:'';width:8px;height:8px;border-radius:50%;background:#39d353;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.pv-script-box{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:24px;font-size:16px;line-height:2;max-height:55vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#30363d transparent;}
+.pv-script-box strong{color:#e6edf3;}
+.pv-script-box .cue{color:#f0c000;font-weight:600;font-size:14px;font-family:'JetBrains Mono',monospace;}
+.pv-script-box .pause{color:#f778ba;font-family:'JetBrains Mono',monospace;font-size:12px;opacity:0.7;}
+.pv-time{font-family:'JetBrains Mono',monospace;font-size:12px;color:#8b949e;margin-top:12px;text-align:right;}
+.pv-next{background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:16px;}
+.pv-next-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:#f0c000;letter-spacing:1px;margin-bottom:8px;}
+.pv-timer-bar{display:flex;align-items:center;gap:12px;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px 16px;}
+.pv-timer-display{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#39d353;min-width:100px;}
+.pv-timer-btn{background:#1c2128;border:1px solid #30363d;color:#8b949e;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;font-family:'JetBrains Mono',monospace;}
+.pv-timer-btn:hover{color:#39d353;border-color:#39d353;}
+.pv-hint{font-size:11px;color:#484f58;text-align:center;margin-top:16px;font-family:'JetBrains Mono',monospace;}
+</style>
+</head>
+<body>
+<div class="pv-header">
+  <h1>PRESENTER VIEW</h1>
+  <div class="pv-controls">
+    <button class="pv-btn" onclick="navPrev()">&larr; Prev</button>
+    <span class="pv-slide-num" id="pv-slide-num">1 / 14</span>
+    <button class="pv-btn" onclick="navNext()">Next &rarr;</button>
+  </div>
+</div>
+<div class="pv-progress-bar"><div class="pv-progress-fill" id="pv-progress" style="width:7.14%;"></div></div>
+<div class="pv-body">
+  <div class="pv-section">
+    <div class="pv-timer-bar">
+      <div class="pv-timer-display" id="pv-timer">00:00</div>
+      <button class="pv-timer-btn" id="pv-timer-toggle" onclick="toggleTimer()">START</button>
+      <button class="pv-timer-btn" onclick="resetTimer()">RESET</button>
+      <span style="font-size:11px;color:#484f58;margin-left:auto;font-family:'JetBrains Mono',monospace;">목표: 10:00</span>
+    </div>
+  </div>
+  <div class="pv-section">
+    <div class="pv-section-label">현재 슬라이드 대본</div>
+    <div class="pv-script-box" id="pv-script"></div>
+    <div class="pv-time" id="pv-time"></div>
+  </div>
+  <div class="pv-section">
+    <div class="pv-next">
+      <div class="pv-next-label" id="pv-next-label">다음 슬라이드</div>
+      <div id="pv-next-preview"></div>
+    </div>
+  </div>
+  <div class="pv-hint">이 창은 노트북에서만 보입니다. 빔프로젝터에는 슬라이드만 표시됩니다.<br>← → 화살표 키로 슬라이드를 조작할 수 있습니다.</div>
+</div>
+<script>
+let timerSeconds = 0;
+let timerRunning = false;
+let timerInterval = null;
+
+function navPrev() { window.opener.postMessage({type:'nav',slide: getCurrentSlide() - 1},'*'); }
+function navNext() { window.opener.postMessage({type:'nav',slide: getCurrentSlide() + 1},'*'); }
+function getCurrentSlide() {
+  const txt = document.getElementById('pv-slide-num').textContent;
+  return parseInt(txt.split('/')[0].trim()) || 1;
+}
+
+function toggleTimer() {
+  timerRunning = !timerRunning;
+  document.getElementById('pv-timer-toggle').textContent = timerRunning ? 'PAUSE' : 'START';
+  if (timerRunning) {
+    timerInterval = setInterval(function() {
+      timerSeconds++;
+      const m = String(Math.floor(timerSeconds/60)).padStart(2,'0');
+      const s = String(timerSeconds%60).padStart(2,'0');
+      document.getElementById('pv-timer').textContent = m+':'+s;
+      if (timerSeconds >= 600) document.getElementById('pv-timer').style.color = '#f778ba';
+    }, 1000);
+  } else {
+    clearInterval(timerInterval);
+  }
+}
+
+function resetTimer() {
+  timerRunning = false;
+  clearInterval(timerInterval);
+  timerSeconds = 0;
+  document.getElementById('pv-timer').textContent = '00:00';
+  document.getElementById('pv-timer').style.color = '#39d353';
+  document.getElementById('pv-timer-toggle').textContent = 'START';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); navNext(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); navPrev(); }
+});
+</script>
+</body>
+</html>`;
+  }
+
+  // ===== FUNCTIONS =====
+  function goToSlide(n) {
+    if (n < 1 || n > totalSlides) return;
+    slides.forEach(s => s.classList.remove('active'));
+    document.querySelector(`[data-slide="${n}"]`).classList.add('active');
+    currentSlide = n;
+    counter.textContent = `${n} / ${totalSlides}`;
+    progressBar.style.width = `${(n / totalSlides) * 100}%`;
+    updateScript();
+    updatePresenterView();
+  }
+
+  function nextSlide() { goToSlide(currentSlide + 1); }
+  function prevSlide() { goToSlide(currentSlide - 1); }
+
+  function toggleScript() {
+    scriptOpen = !scriptOpen;
+    scriptPanel.classList.toggle('open', scriptOpen);
+    btnScript.classList.toggle('active', scriptOpen);
+    if (scriptOpen) updateScript();
+  }
+
+  function updateScript() {
+    const data = scripts[currentSlide];
+    if (data) {
+      scriptText.innerHTML = data.text;
+      scriptTime.textContent = `이 슬라이드 예상 시간: ${data.time}`;
+    }
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  // Listen for messages from presenter window
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'nav') {
+      goToSlide(e.data.slide);
+    }
+  });
+
+  // ===== EVENT LISTENERS =====
+  btnNext.addEventListener('click', nextSlide);
+  btnPrev.addEventListener('click', prevSlide);
+  btnScript.addEventListener('click', toggleScript);
+  btnFullscreen.addEventListener('click', toggleFullscreen);
+  btnPresenter.addEventListener('click', openPresenterView);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      prevSlide();
+    } else if (e.key === 's' || e.key === 'S' || e.key === 'ㄴ') {
+      e.preventDefault();
+      toggleScript();
+    } else if (e.key === 'f' || e.key === 'F' || e.key === 'ㄹ') {
+      e.preventDefault();
+      toggleFullscreen();
+    } else if (e.key === 'p' || e.key === 'P' || e.key === 'ㅔ') {
+      e.preventDefault();
+      openPresenterView();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      goToSlide(1);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      goToSlide(totalSlides);
+    } else if (e.key === 'Escape' && scriptOpen) {
+      toggleScript();
+    }
+  });
+
+  // Click on slide area to advance (optional)
+  document.querySelector('.slide-viewport').addEventListener('click', function(e) {
+    if (e.target.closest('.controls-bar') || e.target.closest('.script-panel')) return;
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    if (x > rect.width * 0.3) {
+      nextSlide();
+    } else {
+      prevSlide();
+    }
+  });
+
+  // Touch swipe support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    const diff = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff < 0) nextSlide();
+      else prevSlide();
+    }
+  }, { passive: true });
+
+  // ===== PEERJS SYNC =====
+  let peerConn = null;  // active DataConnection
+  let peer = null;
+  let ignoreNextSync = false;
+  const syncBadge = document.getElementById('syncBadge');
+  const syncPin = document.getElementById('syncPin');
+  const syncLabel = document.getElementById('syncLabel');
+  const syncDot = document.getElementById('syncDot');
+
+  // Generate a random 4-digit PIN and create Peer as host
+  const PIN = String(Math.floor(1000 + Math.random() * 9000));
+  const peerId = 'pres-sync-' + PIN;
+
+  function initPeer() {
+    peer = new Peer(peerId, { debug: 0 });
+
+    peer.on('open', function() {
+      syncPin.textContent = PIN;
+    });
+
+    peer.on('connection', function(conn) {
+      peerConn = conn;
+      conn.on('open', function() {
+        syncBadge.classList.add('connected');
+        syncLabel.innerHTML = 'SYNCED <strong>' + PIN + '</strong>';
+        // Send current slide to newly connected phone
+        conn.send({ type: 'slide', slide: currentSlide });
+      });
+      conn.on('data', function(data) {
+        if (data && data.type === 'slide' && data.slide !== currentSlide) {
+          ignoreNextSync = true;
+          goToSlide(data.slide);
+        }
+      });
+      conn.on('close', function() {
+        peerConn = null;
+        syncBadge.classList.remove('connected');
+        syncLabel.innerHTML = 'PIN: <strong>' + PIN + '</strong>';
+      });
+    });
+
+    peer.on('error', function(err) {
+      // If ID taken, regenerate
+      if (err.type === 'unavailable-id') {
+        const newPin = String(Math.floor(1000 + Math.random() * 9000));
+        syncPin.textContent = newPin;
+        peer.destroy();
+        peer = new Peer('pres-sync-' + newPin, { debug: 0 });
+      }
+    });
+
+    peer.on('disconnected', function() {
+      syncBadge.classList.remove('connected');
+      // Try to reconnect
+      setTimeout(function() { try { peer.reconnect(); } catch(e) {} }, 3000);
+    });
+  }
+
+  function syncSlide(n) {
+    if (ignoreNextSync) { ignoreNextSync = false; return; }
+    if (peerConn && peerConn.open) {
+      peerConn.send({ type: 'slide', slide: n });
+    }
+  }
+
+  // Hook sync into goToSlide
+  const _origGoToSlide = goToSlide;
+  goToSlide = function(n) {
+    _origGoToSlide(n);
+    syncSlide(currentSlide);
+  };
+
+  // Init
+  updateScript();
+  initPeer();
+
+})();
+</script>
+</body>
+</html>

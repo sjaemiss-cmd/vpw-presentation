@@ -72,13 +72,96 @@ html, body {
   background: var(--bg-primary);
   position: relative;
   overflow: hidden;
-  padding: 60px 80px;
+  padding: clamp(28px, 4vmin, 48px) clamp(48px, 6vmin, 80px);
 }
 
 .slide.active {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Auto-fill slides: spread content vertically */
+.slide.auto-fill.active {
+  justify-content: flex-start;
+  padding-top: clamp(20px, 3vmin, 36px);
+  padding-bottom: clamp(20px, 3vmin, 36px);
+}
+
+.slide.auto-fill .s-grid-2,
+.slide.auto-fill .s-grid-3,
+.slide.auto-fill .s-grid-4 {
+  flex: 1;
+  align-content: stretch;
+}
+
+.slide.auto-fill .s-grid-2 {
+  align-items: stretch;
+}
+
+.slide.auto-fill .s-grid-2 > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide.auto-fill .s-grid-3 {
+  align-items: stretch;
+}
+
+.slide.auto-fill .s-grid-3 > .s-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide.auto-fill .s-grid-3 > .s-card > .card-body {
+  flex: 1;
+}
+
+.slide.auto-fill .s-flow {
+  flex: 0 0 auto;
+}
+
+.slide.auto-fill .s-quote {
+  flex-shrink: 0;
+}
+
+/* Slides 3 & 4: left column spreads content evenly */
+.slide.auto-fill .s-grid-2 > div:first-child {
+  justify-content: space-between;
+}
+
+/* Make the last s-card or s-quote in left column grow if needed */
+.slide.auto-fill .s-grid-2 > div .s-quote {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Right column cards in 2-col: spread evenly */
+.slide.auto-fill .s-grid-2 > div:last-child {
+  justify-content: space-between;
+}
+
+/* Slide 6 & 7: make content expand */
+.slide.auto-fill .s-flow + .s-quote,
+.slide.auto-fill .s-grid-3 + .s-quote {
+  margin-top: auto;
+}
+
+/* Slide 9: bottom grid grows */
+.slide.auto-fill .s-flow + .s-grid-2 {
+  flex: 1;
+  align-items: stretch;
+}
+
+.slide.auto-fill .s-flow + .s-grid-2 > .s-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide.auto-fill .s-flow + .s-grid-2 > .s-card > .card-body {
+  flex: 1;
 }
 
 /* ========== SLIDE TYPOGRAPHY ========== */
@@ -866,7 +949,7 @@ html, body {
     </div>
 
     <!-- ==================== SLIDE 3: CONCEPT - BACKGROUND ==================== -->
-    <div class="slide" data-slide="3">
+    <div class="slide auto-fill" data-slide="3">
       <div class="deco-line"></div>
       <p class="s-label">Section 02</p>
       <h2 class="s-title mb-sm">기획의도: 시대적 배경 <span class="en">Context &amp; Intention</span></h2>
@@ -902,7 +985,7 @@ html, body {
     </div>
 
     <!-- ==================== SLIDE 4: ARCHETYPE & BAD METHOD ==================== -->
-    <div class="slide" data-slide="4">
+    <div class="slide auto-fill" data-slide="4">
       <div class="deco-line"></div>
       <p class="s-label">Section 02</p>
       <h2 class="s-title mb-sm">문화원형 &amp; 컨셉 방법론 <span class="en">Archetype &amp; BAD Method</span></h2>
@@ -943,7 +1026,7 @@ html, body {
     </div>
 
     <!-- ==================== SLIDE 5: FORMAT ==================== -->
-    <div class="slide" data-slide="5">
+    <div class="slide auto-fill" data-slide="5">
       <div class="deco-line"></div>
       <p class="s-label">Section 03</p>
       <h2 class="s-title mb-sm">포맷 상세 <span class="en">Format Details</span></h2>
@@ -989,7 +1072,7 @@ html, body {
     </div>
 
     <!-- ==================== SLIDE 6: EPISODE STRUCTURE ==================== -->
-    <div class="slide" data-slide="6">
+    <div class="slide auto-fill" data-slide="6">
       <div class="deco-line"></div>
       <p class="s-label">Section 03</p>
       <h2 class="s-title mb-md">에피소드 구조 <span class="en">Episode Structure</span></h2>
@@ -1034,7 +1117,7 @@ html, body {
     </div>
 
     <!-- ==================== SLIDE 7: LOGLINE ==================== -->
-    <div class="slide" data-slide="7">
+    <div class="slide auto-fill" data-slide="7">
       <div class="deco-line"></div>
       <p class="s-label">Section 04</p>
       <h2 class="s-title mb-md">로그라인 분석 <span class="en">Logline 6 Elements</span></h2>
@@ -1119,11 +1202,11 @@ html, body {
     </div>
 
     <!-- ==================== SLIDE 9: SHORTS STRATEGY ==================== -->
-    <div class="slide" data-slide="9">
+    <div class="slide auto-fill" data-slide="9">
       <div class="deco-line"></div>
       <p class="s-label">Section 05</p>
       <h2 class="s-title mb-md">쇼츠 전략 <span class="en">Macro / Micro Content</span></h2>
-      <div class="s-flow mb-lg" style="max-width:80%; margin-left:auto; margin-right:auto;">
+      <div class="s-flow mb-lg">
         <div class="s-flow-step" style="padding:clamp(16px,2.5vmin,32px) clamp(10px,1.5vmin,20px);">
           <div class="step-num">MACRO CONTENT</div>
           <div class="step-icon" style="font-size:clamp(24px,4vmin,48px);">&#127916;</div>
